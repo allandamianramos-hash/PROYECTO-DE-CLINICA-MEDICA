@@ -22,67 +22,191 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Button1 = New Button()
         Label1 = New Label()
-        btn2 = New Button()
-        txb1 = New TextBox()
+        btnModuloPacientes = New Button()
+        btnModuloMedicos = New Button()
+        btnModuloEspecialidades = New Button()
+        btnModuloCitas = New Button()
+        btnModuloConsultas = New Button()
+        btnModuloRecetas = New Button()
+        btnModuloReportes = New Button()
+        btnSalir = New Button()
+        lblFechaActual = New Label()
+        lblNumPacientes = New Label()
+        lblNumMedicos = New Label()
+        lblNumCitas = New Label()
+        lblNumConsultas = New Label()
         SuspendLayout()
-        ' 
-        ' Button1
-        ' 
-        Button1.Location = New Point(278, 146)
-        Button1.Margin = New Padding(3, 2, 3, 2)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(82, 22)
-        Button1.TabIndex = 0
-        Button1.Text = "Salir"
-        Button1.UseVisualStyleBackColor = True
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(274, 26)
+        Label1.Location = New Point(324, 21)
         Label1.Name = "Label1"
-        Label1.Size = New Size(80, 20)
+        Label1.Size = New Size(67, 26)
         Label1.TabIndex = 1
-        Label1.Text = "EJEMPLO"
+        Label1.Text = "MENU"
         ' 
-        ' btn2
+        ' btnModuloPacientes
         ' 
-        btn2.Location = New Point(518, 63)
-        btn2.Name = "btn2"
-        btn2.Size = New Size(75, 23)
-        btn2.TabIndex = 2
-        btn2.Text = "clean"
-        btn2.UseVisualStyleBackColor = True
+        btnModuloPacientes.Location = New Point(21, 83)
+        btnModuloPacientes.Name = "btnModuloPacientes"
+        btnModuloPacientes.Size = New Size(169, 29)
+        btnModuloPacientes.TabIndex = 2
+        btnModuloPacientes.Text = "Gestion de Pacientes"
+        btnModuloPacientes.UseVisualStyleBackColor = True
         ' 
-        ' txb1
+        ' btnModuloMedicos
         ' 
-        txb1.Location = New Point(504, 110)
-        txb1.Name = "txb1"
-        txb1.Size = New Size(100, 23)
-        txb1.TabIndex = 3
+        btnModuloMedicos.Location = New Point(256, 83)
+        btnModuloMedicos.Name = "btnModuloMedicos"
+        btnModuloMedicos.Size = New Size(187, 29)
+        btnModuloMedicos.TabIndex = 3
+        btnModuloMedicos.Text = "Mantenimiento Medicos"
+        btnModuloMedicos.UseVisualStyleBackColor = True
+        ' 
+        ' btnModuloEspecialidades
+        ' 
+        btnModuloEspecialidades.Location = New Point(517, 83)
+        btnModuloEspecialidades.Name = "btnModuloEspecialidades"
+        btnModuloEspecialidades.Size = New Size(179, 29)
+        btnModuloEspecialidades.TabIndex = 4
+        btnModuloEspecialidades.Text = "Especialidades Medicas"
+        btnModuloEspecialidades.UseVisualStyleBackColor = True
+        ' 
+        ' btnModuloCitas
+        ' 
+        btnModuloCitas.Location = New Point(39, 164)
+        btnModuloCitas.Name = "btnModuloCitas"
+        btnModuloCitas.Size = New Size(128, 29)
+        btnModuloCitas.TabIndex = 5
+        btnModuloCitas.Text = "Agenda de Citas"
+        btnModuloCitas.UseVisualStyleBackColor = True
+        ' 
+        ' btnModuloConsultas
+        ' 
+        btnModuloConsultas.Location = New Point(276, 164)
+        btnModuloConsultas.Name = "btnModuloConsultas"
+        btnModuloConsultas.Size = New Size(141, 29)
+        btnModuloConsultas.TabIndex = 6
+        btnModuloConsultas.Text = "Consultas Clinicas"
+        btnModuloConsultas.UseVisualStyleBackColor = True
+        ' 
+        ' btnModuloRecetas
+        ' 
+        btnModuloRecetas.Location = New Point(506, 154)
+        btnModuloRecetas.Name = "btnModuloRecetas"
+        btnModuloRecetas.Size = New Size(143, 29)
+        btnModuloRecetas.TabIndex = 7
+        btnModuloRecetas.Text = "Control de Recetas"
+        btnModuloRecetas.UseVisualStyleBackColor = True
+        ' 
+        ' btnModuloReportes
+        ' 
+        btnModuloReportes.Location = New Point(266, 231)
+        btnModuloReportes.Name = "btnModuloReportes"
+        btnModuloReportes.Size = New Size(167, 29)
+        btnModuloReportes.TabIndex = 8
+        btnModuloReportes.Text = "Reportes y Estadisticas"
+        btnModuloReportes.UseVisualStyleBackColor = True
+        ' 
+        ' btnSalir
+        ' 
+        btnSalir.Location = New Point(479, 410)
+        btnSalir.Name = "btnSalir"
+        btnSalir.Size = New Size(94, 29)
+        btnSalir.TabIndex = 9
+        btnSalir.Text = "Salir"
+        btnSalir.UseVisualStyleBackColor = True
+        ' 
+        ' lblFechaActual
+        ' 
+        lblFechaActual.AutoSize = True
+        lblFechaActual.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        lblFechaActual.Location = New Point(71, 290)
+        lblFechaActual.Name = "lblFechaActual"
+        lblFechaActual.Size = New Size(24, 26)
+        lblFechaActual.TabIndex = 10
+        lblFechaActual.Text = "1"
+        ' 
+        ' lblNumPacientes
+        ' 
+        lblNumPacientes.AutoSize = True
+        lblNumPacientes.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumPacientes.Location = New Point(71, 343)
+        lblNumPacientes.Name = "lblNumPacientes"
+        lblNumPacientes.Size = New Size(24, 25)
+        lblNumPacientes.TabIndex = 11
+        lblNumPacientes.Text = "2"
+        ' 
+        ' lblNumMedicos
+        ' 
+        lblNumMedicos.AutoSize = True
+        lblNumMedicos.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumMedicos.Location = New Point(71, 401)
+        lblNumMedicos.Name = "lblNumMedicos"
+        lblNumMedicos.Size = New Size(24, 25)
+        lblNumMedicos.TabIndex = 12
+        lblNumMedicos.Text = "3"
+        ' 
+        ' lblNumCitas
+        ' 
+        lblNumCitas.AutoSize = True
+        lblNumCitas.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumCitas.Location = New Point(506, 280)
+        lblNumCitas.Name = "lblNumCitas"
+        lblNumCitas.Size = New Size(24, 25)
+        lblNumCitas.TabIndex = 13
+        lblNumCitas.Text = "4"
+        ' 
+        ' lblNumConsultas
+        ' 
+        lblNumConsultas.AutoSize = True
+        lblNumConsultas.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumConsultas.Location = New Point(506, 343)
+        lblNumConsultas.Name = "lblNumConsultas"
+        lblNumConsultas.Size = New Size(24, 25)
+        lblNumConsultas.TabIndex = 14
+        lblNumConsultas.Text = "5"
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(700, 338)
-        Controls.Add(txb1)
-        Controls.Add(btn2)
+        ClientSize = New Size(800, 451)
+        Controls.Add(lblNumConsultas)
+        Controls.Add(lblNumCitas)
+        Controls.Add(lblNumMedicos)
+        Controls.Add(lblNumPacientes)
+        Controls.Add(lblFechaActual)
+        Controls.Add(btnSalir)
+        Controls.Add(btnModuloReportes)
+        Controls.Add(btnModuloRecetas)
+        Controls.Add(btnModuloConsultas)
+        Controls.Add(btnModuloCitas)
+        Controls.Add(btnModuloEspecialidades)
+        Controls.Add(btnModuloMedicos)
+        Controls.Add(btnModuloPacientes)
         Controls.Add(Label1)
-        Controls.Add(Button1)
-        Margin = New Padding(3, 2, 3, 2)
         Name = "Form1"
         Text = "Ejemplo"
         ResumeLayout(False)
         PerformLayout()
     End Sub
-
-    Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents btn2 As Button
-    Friend WithEvents txb1 As TextBox
+    Friend WithEvents btnModuloPacientes As Button
+    Friend WithEvents btnModuloMedicos As Button
+    Friend WithEvents btnModuloEspecialidades As Button
+    Friend WithEvents btnModuloCitas As Button
+    Friend WithEvents btnModuloConsultas As Button
+    Friend WithEvents btnModuloRecetas As Button
+    Friend WithEvents btnModuloReportes As Button
+    Friend WithEvents btnSalir As Button
+    Friend WithEvents lblFechaActual As Label
+    Friend WithEvents lblNumPacientes As Label
+    Friend WithEvents lblNumMedicos As Label
+    Friend WithEvents lblNumCitas As Label
+    Friend WithEvents lblNumConsultas As Label
 
 End Class
