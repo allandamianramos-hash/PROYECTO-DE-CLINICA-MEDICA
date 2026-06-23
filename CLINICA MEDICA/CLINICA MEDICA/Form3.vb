@@ -294,17 +294,14 @@
 
         End Sub
 
-        Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
+    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
 
-            ' Si tienes menú principal, cambia FrmMenuPrincipal por el nombre real.
-            ' FrmMenuPrincipal.Show()
-            ' Me.Hide()
+        Form1.Show()
+        Me.Hide()
 
-            Me.Close()
+    End Sub
 
-        End Sub
-
-        Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
             Dim respuesta As DialogResult
 

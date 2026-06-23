@@ -54,7 +54,7 @@ Partial Class Form3
         ' 
         ' txtIdMedico
         ' 
-        txtIdMedico.Location = New Point(78, 76)
+        txtIdMedico.Location = New Point(45, 87)
         txtIdMedico.Name = "txtIdMedico"
         txtIdMedico.ReadOnly = True
         txtIdMedico.Size = New Size(248, 23)
@@ -62,42 +62,42 @@ Partial Class Form3
         ' 
         ' txtNombre
         ' 
-        txtNombre.Location = New Point(78, 137)
+        txtNombre.Location = New Point(45, 148)
         txtNombre.Name = "txtNombre"
         txtNombre.Size = New Size(248, 23)
         txtNombre.TabIndex = 1
         ' 
         ' txtApellido
         ' 
-        txtApellido.Location = New Point(78, 201)
+        txtApellido.Location = New Point(45, 212)
         txtApellido.Name = "txtApellido"
         txtApellido.Size = New Size(248, 23)
         txtApellido.TabIndex = 2
         ' 
         ' txtTelefono
         ' 
-        txtTelefono.Location = New Point(461, 137)
+        txtTelefono.Location = New Point(45, 330)
         txtTelefono.Name = "txtTelefono"
         txtTelefono.Size = New Size(248, 23)
         txtTelefono.TabIndex = 3
         ' 
         ' txtCorreo
         ' 
-        txtCorreo.Location = New Point(461, 201)
+        txtCorreo.Location = New Point(45, 394)
         txtCorreo.Name = "txtCorreo"
         txtCorreo.Size = New Size(248, 23)
         txtCorreo.TabIndex = 4
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(461, 76)
+        txtBuscar.Location = New Point(45, 269)
         txtBuscar.Name = "txtBuscar"
         txtBuscar.Size = New Size(248, 23)
         txtBuscar.TabIndex = 5
         ' 
         ' btnNuevo
         ' 
-        btnNuevo.Location = New Point(280, 257)
+        btnNuevo.Location = New Point(364, 451)
         btnNuevo.Name = "btnNuevo"
         btnNuevo.Size = New Size(75, 23)
         btnNuevo.TabIndex = 6
@@ -106,7 +106,7 @@ Partial Class Form3
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(356, 306)
+        btnGuardar.Location = New Point(440, 500)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(75, 23)
         btnGuardar.TabIndex = 7
@@ -115,7 +115,7 @@ Partial Class Form3
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(418, 258)
+        btnEditar.Location = New Point(502, 452)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(80, 22)
         btnEditar.TabIndex = 8
@@ -124,7 +124,7 @@ Partial Class Form3
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(396, 398)
+        btnEliminar.Location = New Point(480, 592)
         btnEliminar.Name = "btnEliminar"
         btnEliminar.Size = New Size(75, 23)
         btnEliminar.TabIndex = 9
@@ -133,7 +133,7 @@ Partial Class Form3
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(315, 398)
+        btnLimpiar.Location = New Point(399, 592)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(75, 23)
         btnLimpiar.TabIndex = 10
@@ -142,7 +142,7 @@ Partial Class Form3
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(234, 349)
+        btnPrimero.Location = New Point(318, 543)
         btnPrimero.Name = "btnPrimero"
         btnPrimero.Size = New Size(75, 23)
         btnPrimero.TabIndex = 11
@@ -151,7 +151,7 @@ Partial Class Form3
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(315, 349)
+        btnAnterior.Location = New Point(399, 543)
         btnAnterior.Name = "btnAnterior"
         btnAnterior.Size = New Size(75, 23)
         btnAnterior.TabIndex = 12
@@ -160,7 +160,7 @@ Partial Class Form3
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(396, 349)
+        btnSiguiente.Location = New Point(480, 543)
         btnSiguiente.Name = "btnSiguiente"
         btnSiguiente.Size = New Size(75, 23)
         btnSiguiente.TabIndex = 13
@@ -169,7 +169,7 @@ Partial Class Form3
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(477, 348)
+        btnUltimo.Location = New Point(561, 542)
         btnUltimo.Name = "btnUltimo"
         btnUltimo.Size = New Size(75, 23)
         btnUltimo.TabIndex = 14
@@ -178,7 +178,7 @@ Partial Class Form3
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 388)
+        btnRegresar.Location = New Point(12, 584)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(108, 50)
         btnRegresar.TabIndex = 15
@@ -187,7 +187,7 @@ Partial Class Form3
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(680, 388)
+        btnSalir.Location = New Point(891, 584)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(108, 50)
         btnSalir.TabIndex = 16
@@ -197,7 +197,7 @@ Partial Class Form3
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(78, 58)
+        Label1.Location = New Point(45, 69)
         Label1.Name = "Label1"
         Label1.Size = New Size(133, 15)
         Label1.TabIndex = 17
@@ -206,7 +206,7 @@ Partial Class Form3
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(78, 119)
+        Label2.Location = New Point(45, 130)
         Label2.Name = "Label2"
         Label2.Size = New Size(51, 15)
         Label2.TabIndex = 18
@@ -215,7 +215,7 @@ Partial Class Form3
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(78, 183)
+        Label3.Location = New Point(45, 194)
         Label3.Name = "Label3"
         Label3.Size = New Size(51, 15)
         Label3.TabIndex = 19
@@ -224,7 +224,7 @@ Partial Class Form3
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(461, 58)
+        Label4.Location = New Point(45, 251)
         Label4.Name = "Label4"
         Label4.Size = New Size(53, 15)
         Label4.TabIndex = 20
@@ -233,7 +233,7 @@ Partial Class Form3
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(461, 119)
+        Label5.Location = New Point(45, 312)
         Label5.Name = "Label5"
         Label5.Size = New Size(43, 15)
         Label5.TabIndex = 21
@@ -242,7 +242,7 @@ Partial Class Form3
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(461, 183)
+        Label6.Location = New Point(45, 376)
         Label6.Name = "Label6"
         Label6.Size = New Size(42, 15)
         Label6.TabIndex = 22
@@ -251,18 +251,18 @@ Partial Class Form3
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Sitka Banner", 15.7499981F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label7.Location = New Point(291, 9)
+        Label7.Font = New Font("Showcard Gothic", 15.75F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
+        Label7.Location = New Point(364, 9)
         Label7.Name = "Label7"
-        Label7.Size = New Size(207, 30)
+        Label7.Size = New Size(261, 27)
         Label7.TabIndex = 23
-        Label7.Text = "Formulario de Medico."
+        Label7.Text = "Formulario de Medico"
         ' 
         ' cmbEspecialidad
         ' 
         cmbEspecialidad.DropDownStyle = ComboBoxStyle.DropDownList
         cmbEspecialidad.FormattingEnabled = True
-        cmbEspecialidad.Location = New Point(625, 259)
+        cmbEspecialidad.Location = New Point(318, 87)
         cmbEspecialidad.Name = "cmbEspecialidad"
         cmbEspecialidad.Size = New Size(121, 23)
         cmbEspecialidad.TabIndex = 24
@@ -271,18 +271,18 @@ Partial Class Form3
         ' 
         dgvMedicos.AllowUserToAddRows = False
         dgvMedicos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvMedicos.Location = New Point(25, 248)
+        dgvMedicos.Location = New Point(480, 87)
         dgvMedicos.MultiSelect = False
         dgvMedicos.Name = "dgvMedicos"
         dgvMedicos.ReadOnly = True
         dgvMedicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvMedicos.Size = New Size(176, 107)
+        dgvMedicos.Size = New Size(519, 330)
         dgvMedicos.TabIndex = 25
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(628, 238)
+        Label8.Location = New Point(318, 69)
         Label8.Name = "Label8"
         Label8.Size = New Size(72, 15)
         Label8.TabIndex = 26
@@ -292,7 +292,7 @@ Partial Class Form3
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1011, 646)
         Controls.Add(Label8)
         Controls.Add(dgvMedicos)
         Controls.Add(cmbEspecialidad)

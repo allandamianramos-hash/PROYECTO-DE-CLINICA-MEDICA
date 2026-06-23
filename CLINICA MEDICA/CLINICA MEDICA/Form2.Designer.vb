@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPacientes
+Partial Class frm2
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -290,7 +290,7 @@ Partial Class frmPacientes
         lblSexo.AutoSize = True
         lblSexo.Location = New Point(52, 175)
         lblSexo.Name = "lblSexo"
-        lblSexo.Size = New Size(35, 15)
+        lblSexo.Size = New Size(34, 15)
         lblSexo.TabIndex = 28
         lblSexo.Text = "Sexo:"
         ' 
@@ -308,7 +308,7 @@ Partial Class frmPacientes
         lblTelefono.AutoSize = True
         lblTelefono.Location = New Point(42, 233)
         lblTelefono.Name = "lblTelefono"
-        lblTelefono.Size = New Size(55, 15)
+        lblTelefono.Size = New Size(56, 15)
         lblTelefono.TabIndex = 30
         lblTelefono.Text = "Teléfono:"
         ' 
@@ -330,7 +330,7 @@ Partial Class frmPacientes
         lblBuscar.TabIndex = 32
         lblBuscar.Text = "Búsqueda:"
         ' 
-        ' frmPacientes
+        ' frm2
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
@@ -366,7 +366,7 @@ Partial Class frmPacientes
         Controls.Add(txtNombre)
         Controls.Add(txtIdPaciente)
         Controls.Add(Label1)
-        Name = "frmPacientes"
+        Name = "frm2"
         Text = "Form2"
         CType(dgvPacientes, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)

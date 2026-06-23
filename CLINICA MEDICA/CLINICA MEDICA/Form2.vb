@@ -1,5 +1,6 @@
 ﻿'Clase del formulario de pacientes
-Public Class frmPacientes
+Public Class frm2
+
 
     'Variable que permitirá controlar la posición actual
     'cuando se implemente la navegación de registros.
