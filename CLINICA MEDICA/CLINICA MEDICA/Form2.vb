@@ -201,17 +201,55 @@ Public Class frm2
         'en PostgreSQL.
 
     End Sub
-    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+    Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
 
-        'Cerrar completamente la aplicación.
-        Application.Exit()
+        'Mover al primer registro.
+        indiceActual = 0
+
+        MessageBox.Show("Primer registro.")
+
+    End Sub
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+
+        'Retroceder una posición.
+        If indiceActual > 0 Then
+
+            indiceActual -= 1
+
+        End If
+
+        MessageBox.Show("Registro anterior.")
+
+    End Sub
+    Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
+
+        'Avanzar una posición.
+        indiceActual += 1
+
+        MessageBox.Show("Siguiente registro.")
+
+    End Sub
+    Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
+
+        'Cuando exista conexión a la base de datos,
+        'aquí se posicionará el último registro.
+
+        MessageBox.Show("Último registro.")
 
     End Sub
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
 
+        'Muestra el formulario del menú principal.
+        Form1.Show()
         'Cerrar únicamente este formulario
         'y regresar al formulario anterior.
         Me.Close()
+
+    End Sub
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
+
+        'Cerrar completamente la aplicación.
+        Application.Exit()
 
     End Sub
     Private Sub txtNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNombre.KeyPress
