@@ -95,7 +95,7 @@ Partial Class Form1
         ' 
         ' btnModuloRecetas
         ' 
-        btnModuloRecetas.Location = New Point(506, 154)
+        btnModuloRecetas.Location = New Point(517, 164)
         btnModuloRecetas.Name = "btnModuloRecetas"
         btnModuloRecetas.Size = New Size(143, 29)
         btnModuloRecetas.TabIndex = 7
@@ -113,7 +113,7 @@ Partial Class Form1
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(479, 410)
+        btnSalir.Location = New Point(323, 410)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(94, 29)
         btnSalir.TabIndex = 9
@@ -123,50 +123,50 @@ Partial Class Form1
         ' lblFechaActual
         ' 
         lblFechaActual.AutoSize = True
-        lblFechaActual.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold Or FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        lblFechaActual.Location = New Point(71, 290)
+        lblFechaActual.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblFechaActual.Location = New Point(21, 313)
         lblFechaActual.Name = "lblFechaActual"
-        lblFechaActual.Size = New Size(24, 26)
+        lblFechaActual.Size = New Size(20, 23)
         lblFechaActual.TabIndex = 10
         lblFechaActual.Text = "1"
         ' 
         ' lblNumPacientes
         ' 
         lblNumPacientes.AutoSize = True
-        lblNumPacientes.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumPacientes.Location = New Point(71, 343)
+        lblNumPacientes.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumPacientes.Location = New Point(21, 410)
         lblNumPacientes.Name = "lblNumPacientes"
-        lblNumPacientes.Size = New Size(24, 25)
+        lblNumPacientes.Size = New Size(20, 23)
         lblNumPacientes.TabIndex = 11
         lblNumPacientes.Text = "2"
         ' 
         ' lblNumMedicos
         ' 
         lblNumMedicos.AutoSize = True
-        lblNumMedicos.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumMedicos.Location = New Point(71, 401)
+        lblNumMedicos.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumMedicos.Location = New Point(367, 342)
         lblNumMedicos.Name = "lblNumMedicos"
-        lblNumMedicos.Size = New Size(24, 25)
+        lblNumMedicos.Size = New Size(20, 23)
         lblNumMedicos.TabIndex = 12
         lblNumMedicos.Text = "3"
         ' 
         ' lblNumCitas
         ' 
         lblNumCitas.AutoSize = True
-        lblNumCitas.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumCitas.Location = New Point(506, 280)
+        lblNumCitas.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumCitas.Location = New Point(672, 314)
         lblNumCitas.Name = "lblNumCitas"
-        lblNumCitas.Size = New Size(24, 25)
+        lblNumCitas.Size = New Size(20, 23)
         lblNumCitas.TabIndex = 13
         lblNumCitas.Text = "4"
         ' 
         ' lblNumConsultas
         ' 
         lblNumConsultas.AutoSize = True
-        lblNumConsultas.Font = New Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumConsultas.Location = New Point(506, 343)
+        lblNumConsultas.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblNumConsultas.Location = New Point(672, 410)
         lblNumConsultas.Name = "lblNumConsultas"
-        lblNumConsultas.Size = New Size(24, 25)
+        lblNumConsultas.Size = New Size(20, 23)
         lblNumConsultas.TabIndex = 14
         lblNumConsultas.Text = "5"
         ' 
