@@ -44,6 +44,15 @@ Partial Class frmPacientes
         btnUltimo = New Button()
         btnRegresar = New Button()
         btnSalir = New Button()
+        lblIdPaciente = New Label()
+        lblNombre = New Label()
+        lblApellido = New Label()
+        lblFechaNac = New Label()
+        lblSexo = New Label()
+        lblDireccion = New Label()
+        lblTelefono = New Label()
+        lblCorreo = New Label()
+        lblBuscar = New Label()
         CType(dgvPacientes, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -59,7 +68,7 @@ Partial Class frmPacientes
         ' 
         ' txtIdPaciente
         ' 
-        txtIdPaciente.Location = New Point(115, 56)
+        txtIdPaciente.Location = New Point(133, 56)
         txtIdPaciente.Name = "txtIdPaciente"
         txtIdPaciente.ReadOnly = True
         txtIdPaciente.Size = New Size(100, 23)
@@ -68,7 +77,7 @@ Partial Class frmPacientes
         ' 
         ' txtNombre
         ' 
-        txtNombre.Location = New Point(115, 85)
+        txtNombre.Location = New Point(133, 85)
         txtNombre.Name = "txtNombre"
         txtNombre.Size = New Size(100, 23)
         txtNombre.TabIndex = 4
@@ -76,7 +85,7 @@ Partial Class frmPacientes
         ' 
         ' txtApellido
         ' 
-        txtApellido.Location = New Point(115, 114)
+        txtApellido.Location = New Point(133, 114)
         txtApellido.Name = "txtApellido"
         txtApellido.Size = New Size(100, 23)
         txtApellido.TabIndex = 5
@@ -84,7 +93,7 @@ Partial Class frmPacientes
         ' 
         ' txtDireccion
         ' 
-        txtDireccion.Location = New Point(115, 201)
+        txtDireccion.Location = New Point(133, 201)
         txtDireccion.Multiline = True
         txtDireccion.Name = "txtDireccion"
         txtDireccion.Size = New Size(100, 23)
@@ -93,7 +102,7 @@ Partial Class frmPacientes
         ' 
         ' txtTelefono
         ' 
-        txtTelefono.Location = New Point(115, 230)
+        txtTelefono.Location = New Point(133, 230)
         txtTelefono.Name = "txtTelefono"
         txtTelefono.Size = New Size(100, 23)
         txtTelefono.TabIndex = 7
@@ -101,7 +110,7 @@ Partial Class frmPacientes
         ' 
         ' txtCorreo
         ' 
-        txtCorreo.Location = New Point(115, 259)
+        txtCorreo.Location = New Point(133, 259)
         txtCorreo.Name = "txtCorreo"
         txtCorreo.Size = New Size(100, 23)
         txtCorreo.TabIndex = 8
@@ -109,7 +118,7 @@ Partial Class frmPacientes
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(115, 288)
+        txtBuscar.Location = New Point(133, 288)
         txtBuscar.Name = "txtBuscar"
         txtBuscar.Size = New Size(100, 23)
         txtBuscar.TabIndex = 9
@@ -118,7 +127,7 @@ Partial Class frmPacientes
         ' dtpFechaNac
         ' 
         dtpFechaNac.Format = DateTimePickerFormat.Short
-        dtpFechaNac.Location = New Point(115, 143)
+        dtpFechaNac.Location = New Point(133, 143)
         dtpFechaNac.Name = "dtpFechaNac"
         dtpFechaNac.Size = New Size(100, 23)
         dtpFechaNac.TabIndex = 10
@@ -127,7 +136,7 @@ Partial Class frmPacientes
         ' 
         cmbSexo.FormattingEnabled = True
         cmbSexo.Items.AddRange(New Object() {"M", "F"})
-        cmbSexo.Location = New Point(115, 172)
+        cmbSexo.Location = New Point(133, 172)
         cmbSexo.Name = "cmbSexo"
         cmbSexo.Size = New Size(100, 23)
         cmbSexo.TabIndex = 11
@@ -136,9 +145,9 @@ Partial Class frmPacientes
         ' 
         dgvPacientes.AllowUserToAddRows = False
         dgvPacientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvPacientes.Location = New Point(221, 56)
+        dgvPacientes.Location = New Point(239, 56)
         dgvPacientes.Name = "dgvPacientes"
-        dgvPacientes.Size = New Size(667, 255)
+        dgvPacientes.Size = New Size(649, 255)
         dgvPacientes.TabIndex = 12
         ' 
         ' btnNuevo
@@ -240,11 +249,101 @@ Partial Class frmPacientes
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
         ' 
+        ' lblIdPaciente
+        ' 
+        lblIdPaciente.AutoSize = True
+        lblIdPaciente.Location = New Point(21, 59)
+        lblIdPaciente.Name = "lblIdPaciente"
+        lblIdPaciente.Size = New Size(88, 15)
+        lblIdPaciente.TabIndex = 24
+        lblIdPaciente.Text = "ID del paciente:"
+        ' 
+        ' lblNombre
+        ' 
+        lblNombre.AutoSize = True
+        lblNombre.Location = New Point(42, 88)
+        lblNombre.Name = "lblNombre"
+        lblNombre.Size = New Size(54, 15)
+        lblNombre.TabIndex = 25
+        lblNombre.Text = "Nombre:"
+        ' 
+        ' lblApellido
+        ' 
+        lblApellido.AutoSize = True
+        lblApellido.Location = New Point(42, 117)
+        lblApellido.Name = "lblApellido"
+        lblApellido.Size = New Size(54, 15)
+        lblApellido.TabIndex = 26
+        lblApellido.Text = "Apellido:"
+        ' 
+        ' lblFechaNac
+        ' 
+        lblFechaNac.AutoSize = True
+        lblFechaNac.Location = New Point(7, 149)
+        lblFechaNac.Name = "lblFechaNac"
+        lblFechaNac.Size = New Size(120, 15)
+        lblFechaNac.TabIndex = 27
+        lblFechaNac.Text = "Fecha de nacimiento:"
+        ' 
+        ' lblSexo
+        ' 
+        lblSexo.AutoSize = True
+        lblSexo.Location = New Point(52, 175)
+        lblSexo.Name = "lblSexo"
+        lblSexo.Size = New Size(35, 15)
+        lblSexo.TabIndex = 28
+        lblSexo.Text = "Sexo:"
+        ' 
+        ' lblDireccion
+        ' 
+        lblDireccion.AutoSize = True
+        lblDireccion.Location = New Point(39, 204)
+        lblDireccion.Name = "lblDireccion"
+        lblDireccion.Size = New Size(60, 15)
+        lblDireccion.TabIndex = 29
+        lblDireccion.Text = "Dirección:"
+        ' 
+        ' lblTelefono
+        ' 
+        lblTelefono.AutoSize = True
+        lblTelefono.Location = New Point(42, 233)
+        lblTelefono.Name = "lblTelefono"
+        lblTelefono.Size = New Size(55, 15)
+        lblTelefono.TabIndex = 30
+        lblTelefono.Text = "Teléfono:"
+        ' 
+        ' lblCorreo
+        ' 
+        lblCorreo.AutoSize = True
+        lblCorreo.Location = New Point(12, 262)
+        lblCorreo.Name = "lblCorreo"
+        lblCorreo.Size = New Size(108, 15)
+        lblCorreo.TabIndex = 31
+        lblCorreo.Text = "Correo electrónico:"
+        ' 
+        ' lblBuscar
+        ' 
+        lblBuscar.AutoSize = True
+        lblBuscar.Location = New Point(42, 291)
+        lblBuscar.Name = "lblBuscar"
+        lblBuscar.Size = New Size(62, 15)
+        lblBuscar.TabIndex = 32
+        lblBuscar.Text = "Búsqueda:"
+        ' 
         ' frmPacientes
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(900, 511)
+        Controls.Add(lblBuscar)
+        Controls.Add(lblCorreo)
+        Controls.Add(lblTelefono)
+        Controls.Add(lblDireccion)
+        Controls.Add(lblSexo)
+        Controls.Add(lblFechaNac)
+        Controls.Add(lblApellido)
+        Controls.Add(lblNombre)
+        Controls.Add(lblIdPaciente)
         Controls.Add(btnSalir)
         Controls.Add(btnRegresar)
         Controls.Add(btnUltimo)
@@ -296,4 +395,13 @@ Partial Class frmPacientes
     Friend WithEvents btnUltimo As Button
     Friend WithEvents btnRegresar As Button
     Friend WithEvents btnSalir As Button
+    Friend WithEvents lblIdPaciente As Label
+    Friend WithEvents lblNombre As Label
+    Friend WithEvents lblApellido As Label
+    Friend WithEvents lblFechaNac As Label
+    Friend WithEvents lblSexo As Label
+    Friend WithEvents lblDireccion As Label
+    Friend WithEvents lblTelefono As Label
+    Friend WithEvents lblCorreo As Label
+    Friend WithEvents lblBuscar As Label
 End Class
