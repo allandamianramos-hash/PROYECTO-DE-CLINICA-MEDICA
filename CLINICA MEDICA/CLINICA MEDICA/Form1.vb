@@ -29,7 +29,7 @@ Public Class Form1
         MessageBox.Show("Abriendo el Formulario de Médicos...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
-    Private Sub btnModuloEspecialidades_Click(sender Object, e As EventArgs) Handles btnModuloEspecialidades.Click
+    Private Sub btnModuloEspecialidades_Click(sender As Object, e As EventArgs) Handles btnModuloEspecialidades.Click
         ' frmEspecialidades.ShowDialog()
         MessageBox.Show("Abriendo el Formulario de Especialidades...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
