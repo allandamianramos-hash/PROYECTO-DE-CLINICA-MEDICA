@@ -5,23 +5,33 @@ Public Class frm2
     'Variable que permitirá controlar la posición actual
     'cuando se implemente la navegación de registros.
     Private indiceActual As Integer = 0
+
+    ' Método para refrescar el DataGridView
+    ' --- Evento Load: Aquí se inicializa todo al abrir ---
+    ' --- Evento Load ---
     Private Sub frmPacientes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        'Limpiar posibles elementos existentes.
+        ' Configuración visual
         cmbSexo.Items.Clear()
-
-        'Agregar las opciones permitidas según la tabla.
         cmbSexo.Items.Add("M")
         cmbSexo.Items.Add("F")
-
-        'El ID se genera automáticamente en PostgreSQL,
-        'por lo tanto no debe ser editable.
         txtIdPaciente.ReadOnly = True
-
-        'Evita que el usuario agregue filas manualmente.
         dgvPacientes.AllowUserToAddRows = False
 
+        ' Llamada única a CargarTabla
+        CargarTabla()
     End Sub
+
+    ' --- Método CargarTabla (ÚNICO Y DEFINITIVO) ---
+    Private Sub CargarTabla()
+        Try
+            Dim dao As New PacienteDAO()
+            dgvPacientes.DataSource = dao.Mostrar()
+        Catch ex As Exception
+            MessageBox.Show("Error al cargar los registros: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    ' --- Método independiente para la carga de datos ---
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
 
         'Limpia todos los controles del formulario.
@@ -49,6 +59,7 @@ Public Class frm2
         dtpFechaNac.Value = Date.Today
 
     End Sub
+
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
         'Llama al método encargado de limpiar controles.
@@ -143,63 +154,73 @@ Public Class frm2
 
     End Sub
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-
-        'Verificar que exista un registro seleccionado.
+        ' 1. Verificar que exista un registro seleccionado.
         If txtIdPaciente.Text = "" Then
-
-            MessageBox.Show("Seleccione un registro.")
-
+            MessageBox.Show("Seleccione un registro de la tabla para editar.")
             Exit Sub
-
         End If
 
-        'Validar los datos.
+        ' 2. Validar los datos (usando tu método existente).
         If Not ValidarCampos() Then Exit Sub
 
-        'Mensaje temporal.
-        MessageBox.Show("Paciente actualizado correctamente.")
+        ' 3. Intentar la actualización en la base de datos.
+        Try
+            ' Empaquetamos los datos del formulario en el objeto Paciente
+            Dim p As New Paciente()
+            p.IdPaciente = Convert.ToInt32(txtIdPaciente.Text)
+            p.Nombre = txtNombre.Text
+            p.Apellido = txtApellido.Text
+            p.FechaNacimiento = dtpFechaNac.Value
 
-        'Aquí posteriormente se llamará:
-        '
-        'CALL actualizar_paciente(...)
+            ' Asegúrate de que el formato coincida (si usas solo una letra 'M' o 'F')
+            If cmbSexo.Text.Length > 0 Then
+                p.Sexo = Convert.ToChar(cmbSexo.Text.Substring(0, 1))
+            End If
 
+            p.Telefono = txtTelefono.Text
+            p.Correo = txtCorreo.Text
+            p.Direccion = txtDireccion.Text
+
+            ' Llamamos al DAO para actualizar
+            Dim dao As New PacienteDAO()
+            dao.Actualizar(p)
+
+            ' Éxito
+            MessageBox.Show("Paciente actualizado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refrescamos la tabla y limpiamos los campos para dejarlo listo para otra acción
+            CargarTabla()
+            LimpiarCampos()
+
+        Catch ex As Exception
+            MessageBox.Show("Error al actualizar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
-        'Verificar selección.
-        If txtIdPaciente.Text = "" Then
-
-            MessageBox.Show("Seleccione un paciente.")
-
-            Exit Sub
-
+        If String.IsNullOrEmpty(txtIdPaciente.Text) Then
+            MessageBox.Show("Selecciona un paciente de la tabla primero.")
+            Return
         End If
 
-        'Solicitar confirmación al usuario.
-        If MessageBox.Show(
-        "¿Desea eliminar este paciente?",
-        "Confirmar",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question) = DialogResult.Yes Then
-
-            MessageBox.Show("Paciente eliminado.")
-
-            'Posteriormente:
-            '
-            'CALL eliminar_paciente(...)
-
+        If MessageBox.Show("¿Seguro que quieres borrar a este paciente?", "Confirmar", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+            Dim dao As New PacienteDAO()
+            dao.Eliminar(Convert.ToInt32(txtIdPaciente.Text))
+            CargarTabla()
+            LimpiarCampos()
         End If
-
     End Sub
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
-
-        'Cada vez que el usuario escriba,
-        'este evento se ejecutará.
-
-        'Posteriormente permitirá buscar
-        'pacientes por nombre o apellido
-        'en PostgreSQL.
-
+        ' Si el buscador está vacío, mostramos todo. Si tiene texto, filtramos.
+        If String.IsNullOrWhiteSpace(txtBuscar.Text) Then
+            CargarTabla()
+        Else
+            Try
+                Dim dao As New PacienteDAO()
+                dgvPacientes.DataSource = dao.Buscar(txtBuscar.Text)
+            Catch ex As Exception
+                ' Silencioso o manejo de error simple
+            End Try
+        End If
     End Sub
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
 
@@ -290,5 +311,25 @@ Public Class frm2
 
         End If
 
+    End Sub
+
+    Private Sub dgvPacientes_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPacientes.CellContentClick
+
+    End Sub
+
+    Private Sub dgvPacientes_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPacientes.CellClick
+        If e.RowIndex >= 0 Then
+            Dim fila As DataGridViewRow = dgvPacientes.Rows(e.RowIndex)
+
+            ' Pasamos los datos del Grid a los campos 
+            txtIdPaciente.Text = fila.Cells("id_paciente").Value.ToString()
+            txtNombre.Text = fila.Cells("nombre").Value.ToString()
+            txtApellido.Text = fila.Cells("apellido").Value.ToString()
+            txtTelefono.Text = fila.Cells("telefono").Value.ToString()
+            txtCorreo.Text = fila.Cells("correo_electronico").Value.ToString()
+            txtDireccion.Text = fila.Cells("direccion").Value.ToString()
+            cmbSexo.Text = fila.Cells("sexo").Value.ToString()
+            dtpFechaNac.Value = DateTime.Parse(fila.Cells("fecha_nacimiento").Value.ToString())
+        End If
     End Sub
 End Class

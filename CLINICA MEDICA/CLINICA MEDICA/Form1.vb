@@ -83,4 +83,23 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnProbarConexion_Click(sender As Object, e As EventArgs) Handles btnProbarConexion.Click
+        ' Cambiamos el cursor a modo "cargando" mientras hace la petición por internet
+        Cursor = Cursors.WaitCursor
+
+        Try
+            ' Llamamos directamente a la clase Conexion sin el prefijo de la carpeta
+            If Conexion.ProbarEnlace() Then
+                MessageBox.Show("¡Conexión Exitosa! Tu proyecto se ha enlazado correctamente con PostgreSQL en Neon.",
+                            "Prueba de Enlace", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            ' Si hay un error, te mostrará exactamente cuál es el problema
+            MessageBox.Show("Fallo en la conexión: " & ex.Message,
+                        "Error de Conectividad", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Regresamos el cursor a la normalidad pase lo que pase
+            Cursor = Cursors.Default
+        End Try
+    End Sub
 End Class

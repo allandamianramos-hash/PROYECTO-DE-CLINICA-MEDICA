@@ -36,94 +36,87 @@ Partial Class Form1
         lblNumMedicos = New Label()
         lblNumCitas = New Label()
         lblNumConsultas = New Label()
+        btnProbarConexion = New Button()
         SuspendLayout()
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(284, 16)
+        Label1.Location = New Point(325, 21)
         Label1.Name = "Label1"
-        Label1.Size = New Size(55, 20)
+        Label1.Size = New Size(67, 26)
         Label1.TabIndex = 1
         Label1.Text = "MENU"
         ' 
         ' btnModuloPacientes
         ' 
-        btnModuloPacientes.Location = New Point(44, 62)
-        btnModuloPacientes.Margin = New Padding(3, 2, 3, 2)
+        btnModuloPacientes.Location = New Point(50, 83)
         btnModuloPacientes.Name = "btnModuloPacientes"
-        btnModuloPacientes.Size = New Size(148, 22)
+        btnModuloPacientes.Size = New Size(169, 29)
         btnModuloPacientes.TabIndex = 2
         btnModuloPacientes.Text = "Gestion de Pacientes"
         btnModuloPacientes.UseVisualStyleBackColor = True
         ' 
         ' btnModuloMedicos
         ' 
-        btnModuloMedicos.Location = New Point(259, 62)
-        btnModuloMedicos.Margin = New Padding(3, 2, 3, 2)
+        btnModuloMedicos.Location = New Point(296, 83)
         btnModuloMedicos.Name = "btnModuloMedicos"
-        btnModuloMedicos.Size = New Size(164, 22)
+        btnModuloMedicos.Size = New Size(187, 29)
         btnModuloMedicos.TabIndex = 3
         btnModuloMedicos.Text = "Mantenimiento Medicos"
         btnModuloMedicos.UseVisualStyleBackColor = True
         ' 
         ' btnModuloEspecialidades
         ' 
-        btnModuloEspecialidades.Location = New Point(489, 62)
-        btnModuloEspecialidades.Margin = New Padding(3, 2, 3, 2)
+        btnModuloEspecialidades.Location = New Point(559, 83)
         btnModuloEspecialidades.Name = "btnModuloEspecialidades"
-        btnModuloEspecialidades.Size = New Size(157, 22)
+        btnModuloEspecialidades.Size = New Size(179, 29)
         btnModuloEspecialidades.TabIndex = 4
         btnModuloEspecialidades.Text = "Especialidades Medicas"
         btnModuloEspecialidades.UseVisualStyleBackColor = True
         ' 
         ' btnModuloCitas
         ' 
-        btnModuloCitas.Location = New Point(44, 123)
-        btnModuloCitas.Margin = New Padding(3, 2, 3, 2)
+        btnModuloCitas.Location = New Point(50, 164)
         btnModuloCitas.Name = "btnModuloCitas"
-        btnModuloCitas.Size = New Size(148, 22)
+        btnModuloCitas.Size = New Size(169, 29)
         btnModuloCitas.TabIndex = 5
         btnModuloCitas.Text = "Agenda de Citas"
         btnModuloCitas.UseVisualStyleBackColor = True
         ' 
         ' btnModuloConsultas
         ' 
-        btnModuloConsultas.Location = New Point(259, 123)
-        btnModuloConsultas.Margin = New Padding(3, 2, 3, 2)
+        btnModuloConsultas.Location = New Point(296, 164)
         btnModuloConsultas.Name = "btnModuloConsultas"
-        btnModuloConsultas.Size = New Size(164, 22)
+        btnModuloConsultas.Size = New Size(187, 29)
         btnModuloConsultas.TabIndex = 6
         btnModuloConsultas.Text = "Consultas Clinicas"
         btnModuloConsultas.UseVisualStyleBackColor = True
         ' 
         ' btnModuloRecetas
         ' 
-        btnModuloRecetas.Location = New Point(489, 123)
-        btnModuloRecetas.Margin = New Padding(3, 2, 3, 2)
+        btnModuloRecetas.Location = New Point(559, 164)
         btnModuloRecetas.Name = "btnModuloRecetas"
-        btnModuloRecetas.Size = New Size(157, 22)
+        btnModuloRecetas.Size = New Size(179, 29)
         btnModuloRecetas.TabIndex = 7
         btnModuloRecetas.Text = "Control de Recetas"
         btnModuloRecetas.UseVisualStyleBackColor = True
         ' 
         ' btnModuloReportes
         ' 
-        btnModuloReportes.Location = New Point(259, 177)
-        btnModuloReportes.Margin = New Padding(3, 2, 3, 2)
+        btnModuloReportes.Location = New Point(296, 236)
         btnModuloReportes.Name = "btnModuloReportes"
-        btnModuloReportes.Size = New Size(164, 22)
+        btnModuloReportes.Size = New Size(187, 29)
         btnModuloReportes.TabIndex = 8
         btnModuloReportes.Text = "Reportes y Estadisticas"
         btnModuloReportes.UseVisualStyleBackColor = True
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(283, 308)
-        btnSalir.Margin = New Padding(3, 2, 3, 2)
+        btnSalir.Location = New Point(323, 411)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(82, 22)
+        btnSalir.Size = New Size(94, 29)
         btnSalir.TabIndex = 9
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -132,9 +125,9 @@ Partial Class Form1
         ' 
         lblFechaActual.AutoSize = True
         lblFechaActual.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblFechaActual.Location = New Point(18, 235)
+        lblFechaActual.Location = New Point(21, 313)
         lblFechaActual.Name = "lblFechaActual"
-        lblFechaActual.Size = New Size(17, 19)
+        lblFechaActual.Size = New Size(20, 23)
         lblFechaActual.TabIndex = 10
         lblFechaActual.Text = "1"
         ' 
@@ -142,9 +135,9 @@ Partial Class Form1
         ' 
         lblNumPacientes.AutoSize = True
         lblNumPacientes.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumPacientes.Location = New Point(18, 308)
+        lblNumPacientes.Location = New Point(21, 411)
         lblNumPacientes.Name = "lblNumPacientes"
-        lblNumPacientes.Size = New Size(17, 19)
+        lblNumPacientes.Size = New Size(20, 23)
         lblNumPacientes.TabIndex = 11
         lblNumPacientes.Text = "2"
         ' 
@@ -152,9 +145,9 @@ Partial Class Form1
         ' 
         lblNumMedicos.AutoSize = True
         lblNumMedicos.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumMedicos.Location = New Point(321, 256)
+        lblNumMedicos.Location = New Point(367, 341)
         lblNumMedicos.Name = "lblNumMedicos"
-        lblNumMedicos.Size = New Size(17, 19)
+        lblNumMedicos.Size = New Size(20, 23)
         lblNumMedicos.TabIndex = 12
         lblNumMedicos.Text = "3"
         ' 
@@ -162,9 +155,9 @@ Partial Class Form1
         ' 
         lblNumCitas.AutoSize = True
         lblNumCitas.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumCitas.Location = New Point(588, 236)
+        lblNumCitas.Location = New Point(672, 315)
         lblNumCitas.Name = "lblNumCitas"
-        lblNumCitas.Size = New Size(17, 19)
+        lblNumCitas.Size = New Size(20, 23)
         lblNumCitas.TabIndex = 13
         lblNumCitas.Text = "4"
         ' 
@@ -172,17 +165,27 @@ Partial Class Form1
         ' 
         lblNumConsultas.AutoSize = True
         lblNumConsultas.Font = New Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblNumConsultas.Location = New Point(588, 308)
+        lblNumConsultas.Location = New Point(672, 411)
         lblNumConsultas.Name = "lblNumConsultas"
-        lblNumConsultas.Size = New Size(17, 19)
+        lblNumConsultas.Size = New Size(20, 23)
         lblNumConsultas.TabIndex = 14
         lblNumConsultas.Text = "5"
         ' 
+        ' btnProbarConexion
+        ' 
+        btnProbarConexion.Location = New Point(70, 236)
+        btnProbarConexion.Name = "btnProbarConexion"
+        btnProbarConexion.Size = New Size(138, 29)
+        btnProbarConexion.TabIndex = 15
+        btnProbarConexion.Text = "Boton de Prueba"
+        btnProbarConexion.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(700, 338)
+        ClientSize = New Size(800, 451)
+        Controls.Add(btnProbarConexion)
         Controls.Add(lblNumConsultas)
         Controls.Add(lblNumCitas)
         Controls.Add(lblNumMedicos)
@@ -197,7 +200,6 @@ Partial Class Form1
         Controls.Add(btnModuloMedicos)
         Controls.Add(btnModuloPacientes)
         Controls.Add(Label1)
-        Margin = New Padding(3, 2, 3, 2)
         Name = "Form1"
         Text = "Ejemplo"
         ResumeLayout(False)
@@ -217,5 +219,6 @@ Partial Class Form1
     Friend WithEvents lblNumMedicos As Label
     Friend WithEvents lblNumCitas As Label
     Friend WithEvents lblNumConsultas As Label
+    Friend WithEvents btnProbarConexion As Button
 
 End Class
