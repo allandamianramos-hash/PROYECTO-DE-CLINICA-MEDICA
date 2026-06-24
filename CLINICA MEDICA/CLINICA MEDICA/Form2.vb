@@ -139,19 +139,42 @@ Public Class frm2
 
     End Function
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        ' 1. Validar los datos (asegúrate de que ValidarCampos tenga sus propios MessageBox si algo falta)
+        If Not ValidarCampos() Then
+            Return ' Sale del botón si la validación falla
+        End If
 
-        'Ejecutar validaciones.
-        If Not ValidarCampos() Then Exit Sub
+        Try
+            ' 2. Empaquetar los datos
+            Dim p As New Paciente()
+            ' OJO: En un INSERT normal el ID es autoincrementable, así que no se envía el ID.
+            p.Nombre = txtNombre.Text
+            p.Apellido = txtApellido.Text
+            p.FechaNacimiento = dtpFechaNac.Value
 
-        'Mensaje temporal.
-        MessageBox.Show("Paciente guardado correctamente.")
+            If cmbSexo.Text.Length > 0 Then
+                p.Sexo = Convert.ToChar(cmbSexo.Text.Substring(0, 1))
+            End If
 
-        'Aquí posteriormente se llamará al procedimiento:
-        '
-        'CALL registrar_paciente(...)
-        '
-        'utilizando Npgsql.
+            p.Telefono = txtTelefono.Text
+            p.Correo = txtCorreo.Text
+            p.Direccion = txtDireccion.Text
 
+            ' 3. Guardar en la base de datos
+            Dim dao As New PacienteDAO()
+            dao.Insertar(p) ' Asegúrate de que este método se llama Insertar (o como lo hayas nombrado)
+
+            ' 4. Confirmación visual
+            MessageBox.Show("Paciente guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' 5. Refrescar la tabla y limpiar para el siguiente
+            CargarTabla()
+            LimpiarCampos()
+
+        Catch ex As Exception
+            ' SI HAY UN ERROR, ESTO LO SACARÁ A LA LUZ
+            MessageBox.Show("Fallo al guardar en la base de datos: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
         ' 1. Verificar que exista un registro seleccionado.

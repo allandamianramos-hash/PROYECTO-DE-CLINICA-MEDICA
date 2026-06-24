@@ -7,8 +7,9 @@ Public Class PacienteDAO
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
-                ' Comando SQL seguro con parámetros para evitar inyecciones SQL
-                Dim query As String = "INSERT INTO pacientes (nombre, apellido, fecha_nacimiento, sexo, telefono, correo, direccion) VALUES (@nom, @ape, @fec, @sex, @tel, @mail, @dir)"
+
+                ' CORREGIDO: Cambiamos los "..." por tus verdaderos parámetros en orden
+                Dim query As String = "INSERT INTO pacientes (nombre, apellido, fecha_nacimiento, sexo, direccion, telefono, correo_electronico) VALUES (@nom, @ape, @fec, @sex, @dir, @tel, @mail)"
 
                 Using cmd As New NpgsqlCommand(query, conn)
                     ' Mapeamos las propiedades del objeto a los parámetros de PostgreSQL
@@ -69,7 +70,7 @@ Public Class PacienteDAO
     Public Sub Actualizar(paciente As Paciente)
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             conn.Open()
-            Dim query As String = "UPDATE pacientes SET nombre=@nom, apellido=@ape, fecha_nacimiento=@fec, sexo=@sex, telefono=@tel, correo=@mail, direccion=@dir WHERE id_paciente=@id"
+            Dim query As String = "UPDATE pacientes SET nombre=@nom, apellido=@ape, fecha_nacimiento=@fec, sexo=@sex, telefono=@tel, correo_electronico=@mail, direccion=@dir WHERE id_paciente=@id"
             Using cmd As New NpgsqlCommand(query, conn)
                 cmd.Parameters.AddWithValue("@nom", paciente.Nombre)
                 cmd.Parameters.AddWithValue("@ape", paciente.Apellido)
