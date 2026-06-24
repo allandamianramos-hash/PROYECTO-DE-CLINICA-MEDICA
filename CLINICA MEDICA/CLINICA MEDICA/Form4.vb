@@ -1,227 +1,226 @@
-﻿'Formulario de especialidades.
-Public Class Form4
-    'Controlará la posición actual para la navegación
-    'de registros cuando se implemente la base de datos.
+﻿Public Class Form4
+    ' Variable global para guardar los datos y usar el buscador
+    Private tablaEspecialidades As New DataTable
     Private indiceActual As Integer = 0
+
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        'El identificador es generado automáticamente
-        'por PostgreSQL mediante SERIAL.
         txtIdEspecialidad.ReadOnly = True
-
-        'Evita que el usuario agregue filas manualmente.
         dgvEspecialidades.AllowUserToAddRows = False
+        dgvEspecialidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvEspecialidades.MultiSelect = False
+        dgvEspecialidades.ReadOnly = True
 
+        ' Cargamos los datos desde Neon
+        CargarTabla()
     End Sub
-    Private Sub LimpiarCampos()
 
-        'Limpia los controles de captura.
+    ' --- MÉTODO NUEVO PARA CARGAR DESDE LA BASE DE DATOS ---
+    ' --- MÉTODO NUEVO PARA CARGAR DESDE LA BASE DE DATOS ---
+    Private Sub CargarTabla()
+        Try
+            Dim dao As New EspecialidadDAO()
+            tablaEspecialidades = dao.Mostrar()
+            dgvEspecialidades.DataSource = tablaEspecialidades
+
+            ' 1. Columna ID: Que sea lo más pequeña posible
+            If dgvEspecialidades.Columns.Contains("id_especialidad") Then
+                dgvEspecialidades.Columns("id_especialidad").HeaderText = "ID"
+                dgvEspecialidades.Columns("id_especialidad").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            End If
+
+            ' 2. Columna Nombre: Que se ajuste al tamaño del texto del nombre
+            If dgvEspecialidades.Columns.Contains("nombre_especialidad") Then
+                dgvEspecialidades.Columns("nombre_especialidad").HeaderText = "Especialidad"
+                dgvEspecialidades.Columns("nombre_especialidad").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            End If
+
+            ' 3. Columna Descripción: LA MAGIA AQUÍ. Que robe todo el espacio a la derecha (Fill)
+            If dgvEspecialidades.Columns.Contains("descripcion") Then
+                dgvEspecialidades.Columns("descripcion").HeaderText = "Descripción"
+                dgvEspecialidades.Columns("descripcion").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                dgvEspecialidades.Columns("descripcion").DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            End If
+
+            ' Si la ventana se hace pequeñita y el "Fill" ya no da más, entonces sí bajará de línea
+            dgvEspecialidades.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub LimpiarCampos()
         txtIdEspecialidad.Clear()
         txtNombre.Clear()
         txtDescripcion.Clear()
         txtBuscar.Clear()
-
-        'Posiciona el cursor en el nombre.
         txtNombre.Focus()
-
     End Sub
+
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-        'Preparar formulario para ingresar un nuevo registro.
         LimpiarCampos()
-
     End Sub
+
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
-
-        'Restablecer todos los controles.
         LimpiarCampos()
-
     End Sub
+
     Private Function ValidarCampos() As Boolean
-
-        'Validar nombre de especialidad.
         If txtNombre.Text.Trim = "" Then
-
-            MessageBox.Show(
-            "Debe ingresar el nombre de la especialidad.",
-            "Validación",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
+            MessageBox.Show("Debe ingresar el nombre de la especialidad.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             txtNombre.Focus()
-
             Return False
-
         End If
 
-        'Validar descripción.
         If txtDescripcion.Text.Trim = "" Then
-
-            MessageBox.Show(
-            "Debe ingresar la descripción.",
-            "Validación",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
+            MessageBox.Show("Debe ingresar la descripción.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             txtDescripcion.Focus()
-
             Return False
-
         End If
 
-        'Todas las validaciones fueron superadas.
         Return True
-
     End Function
+
+    ' --- BOTÓN GUARDAR (Conectado al DAO) ---
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-
-        'Verificar campos obligatorios.
         If Not ValidarCampos() Then Exit Sub
 
-        MessageBox.Show(
-        "Especialidad guardada correctamente.",
-        "Información",
-        MessageBoxButtons.OK,
-        MessageBoxIcon.Information)
+        Try
+            Dim esp As New Especialidad()
+            esp.Nombre = txtNombre.Text.Trim()
+            esp.Descripcion = txtDescripcion.Text.Trim()
 
-        'Posteriormente aquí se ejecutará:
-        '
-        'CALL registrar_especialidad(
-        '    txtNombre.Text,
-        '    txtDescripcion.Text
-        ')
+            Dim dao As New EspecialidadDAO()
+            dao.Insertar(esp)
 
+            MessageBox.Show("Especialidad guardada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            CargarTabla()
+            LimpiarCampos()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
+
+    ' --- BOTÓN EDITAR (Conectado al DAO) ---
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-
-        'Comprobar que exista un registro seleccionado.
         If txtIdEspecialidad.Text = "" Then
-
-            MessageBox.Show(
-            "Seleccione una especialidad.",
-            "Aviso",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
+            MessageBox.Show("Seleccione una especialidad de la tabla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
-
         End If
 
         If Not ValidarCampos() Then Exit Sub
 
-        MessageBox.Show(
-        "Especialidad modificada correctamente.",
-        "Información",
-        MessageBoxButtons.OK,
-        MessageBoxIcon.Information)
+        Try
+            Dim esp As New Especialidad()
+            esp.IdEspecialidad = Convert.ToInt32(txtIdEspecialidad.Text)
+            esp.Nombre = txtNombre.Text.Trim()
+            esp.Descripcion = txtDescripcion.Text.Trim()
 
-        'Posteriormente:
-        '
-        'CALL actualizar_especialidad(...)
+            Dim dao As New EspecialidadDAO()
+            dao.Editar(esp)
 
+            MessageBox.Show("Especialidad modificada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            CargarTabla()
+            LimpiarCampos()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
+
+    ' --- BOTÓN ELIMINAR (Conectado al DAO) ---
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
-        'Verificar selección previa.
         If txtIdEspecialidad.Text = "" Then
-
-            MessageBox.Show(
-            "Seleccione una especialidad.",
-            "Aviso",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
+            MessageBox.Show("Seleccione una especialidad de la tabla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
-
         End If
 
-        'Solicitar confirmación.
-        If MessageBox.Show(
-        "¿Desea eliminar esta especialidad?",
-        "Confirmación",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question) = DialogResult.Yes Then
+        If MessageBox.Show("¿Desea eliminar esta especialidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Try
+                Dim idEliminar As Integer = Convert.ToInt32(txtIdEspecialidad.Text)
+                Dim dao As New EspecialidadDAO()
+                dao.Eliminar(idEliminar)
 
-            MessageBox.Show(
-            "Especialidad eliminada.",
-            "Información",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information)
-
-            'Posteriormente:
-            '
-            'CALL eliminar_especialidad(...)
-
+                MessageBox.Show("Especialidad eliminada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                CargarTabla()
+                LimpiarCampos()
+            Catch ex As Exception
+                MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End If
-
     End Sub
+
+    ' --- EVENTO CELLCLICK (Para pasar datos de la tabla a los TextBox) ---
+    Private Sub dgvEspecialidades_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEspecialidades.CellClick
+        If e.RowIndex >= 0 Then
+            indiceActual = e.RowIndex
+            MostrarRegistro()
+        End If
+    End Sub
+
+    ' --- BUSCADOR EN TIEMPO REAL ---
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
-
-        'Este evento se ejecutará automáticamente
-        'cada vez que el usuario escriba.
-
-        'Posteriormente se utilizará para
-        'filtrar especialidades por nombre.
-
+        Dim vista As New DataView(tablaEspecialidades)
+        ' Filtramos usando el nombre exacto de tu columna en la base de datos
+        vista.RowFilter = String.Format("nombre_especialidad LIKE '%{0}%' OR descripcion LIKE '%{0}%'", txtBuscar.Text.Trim())
+        dgvEspecialidades.DataSource = vista
     End Sub
+
     Private Sub txtNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNombre.KeyPress
-
-        'Permitir letras, espacios y teclas de control.
-        If Not Char.IsLetter(e.KeyChar) And
-       Not Char.IsControl(e.KeyChar) And
-       e.KeyChar <> " "c Then
-
+        If Not Char.IsLetter(e.KeyChar) And Not Char.IsControl(e.KeyChar) And e.KeyChar <> " "c Then
             e.Handled = True
-
         End If
-
     End Sub
+
+    ' --- NAVEGACIÓN DE REGISTROS ---
+    Private Sub MostrarRegistro()
+        If dgvEspecialidades.Rows.Count = 0 Then Exit Sub
+        dgvEspecialidades.ClearSelection()
+        dgvEspecialidades.Rows(indiceActual).Selected = True
+
+        Dim fila As DataGridViewRow = dgvEspecialidades.Rows(indiceActual)
+        txtIdEspecialidad.Text = fila.Cells("id_especialidad").Value.ToString()
+        txtNombre.Text = fila.Cells("nombre_especialidad").Value.ToString() ' Ojo aquí
+        txtDescripcion.Text = fila.Cells("descripcion").Value.ToString()
+    End Sub
+
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
-
-        'Mover al primer registro.
-        indiceActual = 0
-
-        MessageBox.Show("Primer registro.")
-
-    End Sub
-    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
-
-        'Retroceder una posición.
-        If indiceActual > 0 Then
-
-            indiceActual -= 1
-
+        If dgvEspecialidades.Rows.Count > 0 Then
+            indiceActual = 0
+            MostrarRegistro()
         End If
-
-        MessageBox.Show("Registro anterior.")
-
     End Sub
+
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+        If indiceActual > 0 Then
+            indiceActual -= 1
+            MostrarRegistro()
+        End If
+    End Sub
+
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
-
-        'Avanzar una posición.
-        indiceActual += 1
-
-        MessageBox.Show("Siguiente registro.")
-
+        If indiceActual < dgvEspecialidades.Rows.Count - 1 Then
+            indiceActual += 1
+            MostrarRegistro()
+        End If
     End Sub
+
     Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
-
-        'Cuando exista conexión a la base de datos,
-        'aquí se posicionará el último registro.
-
-        MessageBox.Show("Último registro.")
-
+        If dgvEspecialidades.Rows.Count > 0 Then
+            indiceActual = dgvEspecialidades.Rows.Count - 1
+            MostrarRegistro()
+        End If
     End Sub
-    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
 
+    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
         Form1.Show()
         Me.Hide()
-
     End Sub
-    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
-        'Cerrar completamente la aplicación.
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
         Application.Exit()
+    End Sub
+
+    Private Sub dgvEspecialidades_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEspecialidades.CellContentClick
 
     End Sub
 End Class

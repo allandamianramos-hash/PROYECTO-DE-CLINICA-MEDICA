@@ -62,4 +62,27 @@ Public Class MedicoDAO
             End Try
         End Using
     End Sub
+
+    Public Sub Editar(medico As Medico)
+        ' Consulta SQL con UPDATE para modificar los datos según el id_medico
+        Dim query As String = "UPDATE medicos SET id_especialidad = @esp, nombre = @nom, apellido = @ape, telefono = @tel, correo_electronico = @mail WHERE id_medico = @id"
+
+        Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
+            Try
+                conn.Open()
+                Using cmd As New NpgsqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@id", medico.IdMedico)
+                    cmd.Parameters.AddWithValue("@esp", medico.EspecialidadId)
+                    cmd.Parameters.AddWithValue("@nom", medico.Nombre)
+                    cmd.Parameters.AddWithValue("@ape", medico.Apellido)
+                    cmd.Parameters.AddWithValue("@tel", medico.Telefono)
+                    cmd.Parameters.AddWithValue("@mail", medico.Correo)
+
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As Exception
+                Throw New Exception("Error al actualizar médico en la base de datos: " & ex.Message)
+            End Try
+        End Using
+    End Sub
 End Class

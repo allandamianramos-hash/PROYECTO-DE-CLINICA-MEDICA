@@ -181,28 +181,39 @@
 
         End Sub
 
-        Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
+    Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
 
-            If dgvMedicos.CurrentRow Is Nothing Then
-                MessageBox.Show("Seleccione un médico para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        If dgvMedicos.CurrentRow Is Nothing Then
+            MessageBox.Show("Seleccione un médico para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
-            If ValidarCampos() = False Then Exit Sub
+        If ValidarCampos() = False Then Exit Sub
 
-            posicion = dgvMedicos.CurrentRow.Index
+        Try
+            ' 1. Empaquetamos los datos modificados incluyendo el ID existente
+            Dim m As New Medico()
+            m.IdMedico = Convert.ToInt32(txtIdMedico.Text)
+            m.Nombre = txtNombre.Text.Trim()
+            m.Apellido = txtApellido.Text.Trim()
+            m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1
+            m.Telefono = txtTelefono.Text.Trim()
+            m.Correo = txtCorreo.Text.Trim()
 
-            dgvMedicos.Rows(posicion).Cells("id_especialidad").Value = cmbEspecialidad.SelectedIndex + 1
-            dgvMedicos.Rows(posicion).Cells("nombre").Value = txtNombre.Text.Trim()
-            dgvMedicos.Rows(posicion).Cells("apellido").Value = txtApellido.Text.Trim()
-            dgvMedicos.Rows(posicion).Cells("telefono").Value = txtTelefono.Text.Trim()
-            dgvMedicos.Rows(posicion).Cells("correo_electronico").Value = txtCorreo.Text.Trim()
+            ' 2. Enviamos la actualización a PostgreSQL
+            Dim dao As New MedicoDAO()
+            dao.Editar(m)
 
-            MessageBox.Show("Médico editado correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Médico editado correctamente en la base de datos.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            ' 3. Refrescamos la tabla desde Neon y limpiamos
+            CargarTabla()
             LimpiarCampos()
 
-        End Sub
+        Catch ex As Exception
+            MessageBox.Show("Error al editar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         If dgvMedicos.CurrentRow Is Nothing Then
