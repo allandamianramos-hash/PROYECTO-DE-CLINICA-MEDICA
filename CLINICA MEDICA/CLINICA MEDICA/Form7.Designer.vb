@@ -39,13 +39,14 @@ Partial Class Form7
         btnNuevo = New Button()
         cmbIdConsulta = New ComboBox()
         dgvRecetas = New DataGridView()
-        btnBuscar = New Button()
         cmbMedicamento = New ComboBox()
         Label2 = New Label()
         Label3 = New Label()
         Label4 = New Label()
         Label5 = New Label()
         Label6 = New Label()
+        Label7 = New Label()
+        txtBuscar = New TextBox()
         CType(dgvRecetas, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -61,7 +62,7 @@ Partial Class Form7
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 388)
+        btnRegresar.Location = New Point(12, 427)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(108, 50)
         btnRegresar.TabIndex = 16
@@ -77,21 +78,21 @@ Partial Class Form7
         ' 
         ' txtDosis
         ' 
-        txtDosis.Location = New Point(26, 163)
+        txtDosis.Location = New Point(26, 111)
         txtDosis.Name = "txtDosis"
         txtDosis.Size = New Size(100, 23)
         txtDosis.TabIndex = 19
         ' 
         ' txtIndicaciones
         ' 
-        txtIndicaciones.Location = New Point(26, 220)
+        txtIndicaciones.Location = New Point(26, 168)
         txtIndicaciones.Name = "txtIndicaciones"
         txtIndicaciones.Size = New Size(100, 23)
         txtIndicaciones.TabIndex = 20
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(676, 388)
+        btnSalir.Location = New Point(1126, 427)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(108, 50)
         btnSalir.TabIndex = 33
@@ -100,7 +101,7 @@ Partial Class Form7
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(490, 356)
+        btnUltimo.Location = New Point(406, 381)
         btnUltimo.Name = "btnUltimo"
         btnUltimo.Size = New Size(75, 23)
         btnUltimo.TabIndex = 32
@@ -109,7 +110,7 @@ Partial Class Form7
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(409, 357)
+        btnSiguiente.Location = New Point(325, 382)
         btnSiguiente.Name = "btnSiguiente"
         btnSiguiente.Size = New Size(75, 23)
         btnSiguiente.TabIndex = 31
@@ -118,7 +119,7 @@ Partial Class Form7
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(328, 357)
+        btnAnterior.Location = New Point(244, 382)
         btnAnterior.Name = "btnAnterior"
         btnAnterior.Size = New Size(75, 23)
         btnAnterior.TabIndex = 30
@@ -127,7 +128,7 @@ Partial Class Form7
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(247, 357)
+        btnPrimero.Location = New Point(163, 382)
         btnPrimero.Name = "btnPrimero"
         btnPrimero.Size = New Size(75, 23)
         btnPrimero.TabIndex = 29
@@ -136,7 +137,7 @@ Partial Class Form7
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(328, 406)
+        btnLimpiar.Location = New Point(244, 431)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(75, 23)
         btnLimpiar.TabIndex = 28
@@ -145,7 +146,7 @@ Partial Class Form7
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(409, 406)
+        btnEliminar.Location = New Point(325, 431)
         btnEliminar.Name = "btnEliminar"
         btnEliminar.Size = New Size(75, 23)
         btnEliminar.TabIndex = 27
@@ -154,7 +155,7 @@ Partial Class Form7
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(431, 266)
+        btnEditar.Location = New Point(347, 291)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(80, 22)
         btnEditar.TabIndex = 26
@@ -163,7 +164,7 @@ Partial Class Form7
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(431, 315)
+        btnGuardar.Location = New Point(274, 339)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(80, 23)
         btnGuardar.TabIndex = 25
@@ -172,7 +173,7 @@ Partial Class Form7
         ' 
         ' btnNuevo
         ' 
-        btnNuevo.Location = New Point(293, 265)
+        btnNuevo.Location = New Point(209, 290)
         btnNuevo.Name = "btnNuevo"
         btnNuevo.Size = New Size(75, 23)
         btnNuevo.TabIndex = 24
@@ -190,24 +191,15 @@ Partial Class Form7
         ' dgvRecetas
         ' 
         dgvRecetas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvRecetas.Location = New Point(369, 56)
+        dgvRecetas.Location = New Point(511, 56)
         dgvRecetas.Name = "dgvRecetas"
-        dgvRecetas.Size = New Size(415, 187)
+        dgvRecetas.Size = New Size(723, 237)
         dgvRecetas.TabIndex = 35
-        ' 
-        ' btnBuscar
-        ' 
-        btnBuscar.Location = New Point(293, 315)
-        btnBuscar.Name = "btnBuscar"
-        btnBuscar.Size = New Size(75, 23)
-        btnBuscar.TabIndex = 36
-        btnBuscar.Text = "Buscar"
-        btnBuscar.UseVisualStyleBackColor = True
         ' 
         ' cmbMedicamento
         ' 
         cmbMedicamento.FormattingEnabled = True
-        cmbMedicamento.Location = New Point(26, 113)
+        cmbMedicamento.Location = New Point(352, 56)
         cmbMedicamento.Name = "cmbMedicamento"
         cmbMedicamento.Size = New Size(121, 23)
         cmbMedicamento.TabIndex = 37
@@ -215,7 +207,7 @@ Partial Class Form7
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(26, 95)
+        Label2.Location = New Point(352, 38)
         Label2.Name = "Label2"
         Label2.Size = New Size(86, 15)
         Label2.TabIndex = 38
@@ -233,7 +225,7 @@ Partial Class Form7
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(26, 145)
+        Label4.Location = New Point(26, 93)
         Label4.Name = "Label4"
         Label4.Size = New Size(35, 15)
         Label4.TabIndex = 40
@@ -242,7 +234,7 @@ Partial Class Form7
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(26, 202)
+        Label5.Location = New Point(26, 150)
         Label5.Name = "Label5"
         Label5.Size = New Size(73, 15)
         Label5.TabIndex = 41
@@ -257,18 +249,35 @@ Partial Class Form7
         Label6.TabIndex = 42
         Label6.Text = "Consulta"
         ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Location = New Point(26, 213)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(42, 15)
+        Label7.TabIndex = 43
+        Label7.Text = "Buscar"
+        ' 
+        ' txtBuscar
+        ' 
+        txtBuscar.Location = New Point(26, 232)
+        txtBuscar.Name = "txtBuscar"
+        txtBuscar.Size = New Size(100, 23)
+        txtBuscar.TabIndex = 44
+        ' 
         ' Form7
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(796, 450)
+        ClientSize = New Size(1246, 489)
+        Controls.Add(txtBuscar)
+        Controls.Add(Label7)
         Controls.Add(Label6)
         Controls.Add(Label5)
         Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(cmbMedicamento)
-        Controls.Add(btnBuscar)
         Controls.Add(dgvRecetas)
         Controls.Add(cmbIdConsulta)
         Controls.Add(btnSalir)
@@ -310,11 +319,12 @@ Partial Class Form7
     Friend WithEvents btnNuevo As Button
     Friend WithEvents cmbIdConsulta As ComboBox
     Friend WithEvents dgvRecetas As DataGridView
-    Friend WithEvents btnBuscar As Button
     Friend WithEvents cmbMedicamento As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents txtBuscar As TextBox
 End Class

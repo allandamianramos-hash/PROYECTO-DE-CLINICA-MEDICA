@@ -187,7 +187,7 @@ Partial Class Form3
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(891, 584)
+        btnSalir.Location = New Point(1108, 584)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(108, 50)
         btnSalir.TabIndex = 16
@@ -276,7 +276,7 @@ Partial Class Form3
         dgvMedicos.Name = "dgvMedicos"
         dgvMedicos.ReadOnly = True
         dgvMedicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvMedicos.Size = New Size(519, 330)
+        dgvMedicos.Size = New Size(736, 320)
         dgvMedicos.TabIndex = 25
         ' 
         ' Label8
@@ -292,7 +292,7 @@ Partial Class Form3
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1011, 646)
+        ClientSize = New Size(1228, 646)
         Controls.Add(Label8)
         Controls.Add(dgvMedicos)
         Controls.Add(cmbEspecialidad)

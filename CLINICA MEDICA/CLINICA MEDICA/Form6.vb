@@ -189,30 +189,30 @@
 
         End Sub
 
-        Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+    Private Sub btnBuscar_Click(sender As Object, e As EventArgs)
 
-            Dim buscar As String
+        Dim buscar As String
 
-            buscar = InputBox("Ingrese diagnóstico u observación que desea buscar:", "Buscar consulta")
+        buscar = InputBox("Ingrese diagnóstico u observación que desea buscar:", "Buscar consulta")
 
-            If buscar.Trim() = "" Then
-                dgvConsultas.DataSource = tablaConsultas
-                Exit Sub
-            End If
+        If buscar.Trim = "" Then
+            dgvConsultas.DataSource = tablaConsultas
+            Exit Sub
+        End If
 
-            Dim vista As New DataView(tablaConsultas)
-            Dim textoBuscar As String = LimpiarTextoFiltro(buscar.Trim())
+        Dim vista As New DataView(tablaConsultas)
+        Dim textoBuscar = LimpiarTextoFiltro(buscar.Trim)
 
-            vista.RowFilter = String.Format(
-            "diagnostico LIKE '%{0}%' OR observaciones LIKE '%{0}%'",
-            textoBuscar
-        )
+        vista.RowFilter = String.Format(
+        "diagnostico LIKE '%{0}%' OR observaciones LIKE '%{0}%'",
+        textoBuscar
+    )
 
-            dgvConsultas.DataSource = vista
+        dgvConsultas.DataSource = vista
 
-        End Sub
+    End Sub
 
-        Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
             LimpiarCampos()
 

@@ -303,11 +303,11 @@
 
     End Sub
 
-    Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
+    Private Sub btnBuscar_Click(sender As Object, e As EventArgs)
 
-        Dim buscar As String = InputBox("Ingrese medicamento, dosis o indicación:", "Buscar receta")
+        Dim buscar = InputBox("Ingrese medicamento, dosis o indicación:", "Buscar receta")
 
-        If buscar.Trim() = "" Then
+        If buscar.Trim = "" Then
             dgvRecetas.DataSource = tablaRecetas
             Exit Sub
         End If
@@ -316,7 +316,7 @@
 
         vista.RowFilter = String.Format(
             "medicamento LIKE '%{0}%' OR dosis LIKE '%{0}%' OR frecuencia_indicacion LIKE '%{0}%'",
-            buscar.Trim()
+            buscar.Trim
         )
 
         dgvRecetas.DataSource = vista

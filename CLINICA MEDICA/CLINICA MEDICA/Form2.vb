@@ -5,6 +5,7 @@ Public Class frm2
     'Variable que permitirá controlar la posición actual
     'cuando se implemente la navegación de registros.
     Private indiceActual As Integer = 0
+    Dim posicion As Integer = 0
 
     ' Método para refrescar el DataGridView
     ' --- Evento Load: Aquí se inicializa todo al abrir ---
@@ -247,47 +248,77 @@ Public Class frm2
     End Sub
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
 
-        'Mover al primer registro.
-        indiceActual = 0
-
-        MessageBox.Show("Primer registro.")
+        If dgvPacientes.Rows.Count > 0 Then
+            posicion = 0
+            MostrarRegistro()
+        End If
 
     End Sub
+
     Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
 
-        'Retroceder una posición.
-        If indiceActual > 0 Then
+        If dgvPacientes.Rows.Count > 0 Then
 
-            indiceActual -= 1
+            If posicion > 0 Then
+                posicion -= 1
+                MostrarRegistro()
+            Else
+                MessageBox.Show("Ya está en el primer registro.")
+            End If
 
         End If
 
-        MessageBox.Show("Registro anterior.")
-
     End Sub
+
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
 
-        'Avanzar una posición.
-        indiceActual += 1
+        If dgvPacientes.Rows.Count > 0 Then
 
-        MessageBox.Show("Siguiente registro.")
+            If posicion < dgvPacientes.Rows.Count - 1 Then
+                posicion += 1
+                MostrarRegistro()
+            Else
+                MessageBox.Show("Ya está en el último registro.")
+            End If
+
+        End If
 
     End Sub
+
     Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
 
-        'Cuando exista conexión a la base de datos,
-        'aquí se posicionará el último registro.
-
-        MessageBox.Show("Último registro.")
+        If dgvPacientes.Rows.Count > 0 Then
+            posicion = dgvPacientes.Rows.Count - 1
+            MostrarRegistro()
+        End If
 
     End Sub
-    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
 
-        'Muestra el formulario del menú principal.
-        Form1.Show()
-        'Cerrar únicamente este formulario
-        'y regresar al formulario anterior.
-        Me.Close()
+    Private Sub MostrarRegistro()
+
+        If dgvPacientes.Rows.Count = 0 Then Exit Sub
+
+        dgvPacientes.ClearSelection()
+        dgvPacientes.Rows(posicion).Selected = True
+        dgvPacientes.CurrentCell = dgvPacientes.Rows(posicion).Cells(0)
+
+        txtIdPaciente.Text = dgvPacientes.Rows(posicion).Cells("id_paciente").Value.ToString()
+        txtNombre.Text = dgvPacientes.Rows(posicion).Cells("nombre").Value.ToString()
+        txtApellido.Text = dgvPacientes.Rows(posicion).Cells("apellido").Value.ToString()
+
+        Dim fechaValor = dgvPacientes.Rows(posicion).Cells("fecha_nacimiento").Value
+
+        If TypeOf fechaValor Is DateOnly Then
+            Dim fechaOnly As DateOnly = DirectCast(fechaValor, DateOnly)
+            dtpFechaNac.Value = fechaOnly.ToDateTime(TimeOnly.MinValue)
+        Else
+            dtpFechaNac.Value = Convert.ToDateTime(fechaValor)
+        End If
+
+        cmbSexo.Text = dgvPacientes.Rows(posicion).Cells("sexo").Value.ToString()
+        txtDireccion.Text = dgvPacientes.Rows(posicion).Cells("direccion").Value.ToString()
+        txtTelefono.Text = dgvPacientes.Rows(posicion).Cells("telefono").Value.ToString()
+        txtCorreo.Text = dgvPacientes.Rows(posicion).Cells("correo_electronico").Value.ToString()
 
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
@@ -354,5 +385,10 @@ Public Class frm2
             cmbSexo.Text = fila.Cells("sexo").Value.ToString()
             dtpFechaNac.Value = DateTime.Parse(fila.Cells("fecha_nacimiento").Value.ToString())
         End If
+    End Sub
+
+    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
+        Form1.Show()
+        Me.Hide()
     End Sub
 End Class
