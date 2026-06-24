@@ -4,60 +4,59 @@
     Dim tablaMedicos As New DataTable
         Dim posicion As Integer = 0
 
-        Private Sub FrmMedicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FrmMedicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' ID no editable
+        txtIdMedico.ReadOnly = True
 
-            ' ID no editable
-            txtIdMedico.ReadOnly = True
+        ' ComboBox especialidades según tu tabla
+        cmbEspecialidad.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbEspecialidad.Items.Clear()
+        cmbEspecialidad.Items.Add("Cardiología")
+        cmbEspecialidad.Items.Add("Pediatría")
+        cmbEspecialidad.Items.Add("Dermatología")
+        cmbEspecialidad.Items.Add("Ginecología")
+        cmbEspecialidad.Items.Add("Neurología")
+        cmbEspecialidad.Items.Add("Odontología")
+        cmbEspecialidad.Items.Add("Oftalmología")
+        cmbEspecialidad.Items.Add("Ortopedia")
+        cmbEspecialidad.Items.Add("Psicología")
+        cmbEspecialidad.Items.Add("Medicina General")
+        cmbEspecialidad.SelectedIndex = -1
 
-            ' ComboBox especialidades según tu tabla
-            cmbEspecialidad.DropDownStyle = ComboBoxStyle.DropDownList
-            cmbEspecialidad.Items.Clear()
+        ' Configuración del DataGridView
+        dgvMedicos.AllowUserToAddRows = False
+        dgvMedicos.ReadOnly = True
+        dgvMedicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvMedicos.MultiSelect = False
+        dgvMedicos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-            cmbEspecialidad.Items.Add("Cardiología")
-            cmbEspecialidad.Items.Add("Pediatría")
-            cmbEspecialidad.Items.Add("Dermatología")
-            cmbEspecialidad.Items.Add("Ginecología")
-            cmbEspecialidad.Items.Add("Neurología")
-            cmbEspecialidad.Items.Add("Odontología")
-            cmbEspecialidad.Items.Add("Oftalmología")
-            cmbEspecialidad.Items.Add("Ortopedia")
-            cmbEspecialidad.Items.Add("Psicología")
-            cmbEspecialidad.Items.Add("Medicina General")
+        ' --- NUEVO: LLAMAR A LA BASE DE DATOS EN LUGAR DE CREAR COLUMNAS A MANO ---
+        CargarTabla()
 
-            cmbEspecialidad.SelectedIndex = -1
+        ' Cambiar títulos del DataGridView (Asegúrate de que coincidan con los nombres de tu BD)
+        If dgvMedicos.Columns.Contains("id_medico") Then dgvMedicos.Columns("id_medico").HeaderText = "ID Médico"
+        If dgvMedicos.Columns.Contains("id_especialidad") Then dgvMedicos.Columns("id_especialidad").HeaderText = "ID Especialidad"
+        If dgvMedicos.Columns.Contains("nombre") Then dgvMedicos.Columns("nombre").HeaderText = "Nombre"
+        If dgvMedicos.Columns.Contains("apellido") Then dgvMedicos.Columns("apellido").HeaderText = "Apellido"
+        If dgvMedicos.Columns.Contains("telefono") Then dgvMedicos.Columns("telefono").HeaderText = "Teléfono"
+        If dgvMedicos.Columns.Contains("correo_electronico") Then dgvMedicos.Columns("correo_electronico").HeaderText = "Correo Electrónico"
+        If dgvMedicos.Columns.Contains("codigo_colegiacion") Then dgvMedicos.Columns("codigo_colegiacion").HeaderText = "Código Colegiación"
 
-            ' Configuración del DataGridView
-            dgvMedicos.AllowUserToAddRows = False
-            dgvMedicos.ReadOnly = True
-            dgvMedicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvMedicos.MultiSelect = False
-            dgvMedicos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        GenerarId()
+    End Sub
 
-            ' Crear columnas de la tabla
-            tablaMedicos.Columns.Add("id_medico")
-            tablaMedicos.Columns.Add("id_especialidad")
-            tablaMedicos.Columns.Add("nombre")
-            tablaMedicos.Columns.Add("apellido")
-            tablaMedicos.Columns.Add("telefono")
-            tablaMedicos.Columns.Add("correo_electronico")
-            tablaMedicos.Columns.Add("codigo_colegiacion")
 
+    Private Sub CargarTabla()
+        Try
+            Dim dao As New MedicoDAO()
+            ' Guardamos los registros en tu variable global para que el buscador y los botones sigan funcionando
+            tablaMedicos = dao.Mostrar()
             dgvMedicos.DataSource = tablaMedicos
-
-            ' Cambiar títulos del DataGridView
-            dgvMedicos.Columns("id_medico").HeaderText = "ID Médico"
-            dgvMedicos.Columns("id_especialidad").HeaderText = "ID Especialidad"
-            dgvMedicos.Columns("nombre").HeaderText = "Nombre"
-            dgvMedicos.Columns("apellido").HeaderText = "Apellido"
-            dgvMedicos.Columns("telefono").HeaderText = "Teléfono"
-            dgvMedicos.Columns("correo_electronico").HeaderText = "Correo Electrónico"
-            dgvMedicos.Columns("codigo_colegiacion").HeaderText = "Código Colegiación"
-
-            GenerarId()
-
-        End Sub
-
-        Private Sub GenerarId()
+        Catch ex As Exception
+            MessageBox.Show("Error al cargar los datos desde la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+    Private Sub GenerarId()
 
             Dim nuevoId As Integer = tablaMedicos.Rows.Count + 1
             txtIdMedico.Text = nuevoId.ToString()
@@ -134,27 +133,35 @@
 
         End Sub
 
-        Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        If ValidarCampos() = False Then Exit Sub
 
-            If ValidarCampos() = False Then Exit Sub
+        Try
+            ' 1. Empaquetamos los datos en el objeto Medico
+            Dim m As New Medico()
+            m.Nombre = txtNombre.Text.Trim()
+            m.Apellido = txtApellido.Text.Trim()
+            m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1 ' ID numérico de la especialidad
+            m.Telefono = txtTelefono.Text.Trim()
+            m.Correo = txtCorreo.Text.Trim()
+            m.CodigoColegiacion = GenerarCodigo()
 
-            tablaMedicos.Rows.Add(
-            txtIdMedico.Text,
-            cmbEspecialidad.SelectedIndex + 1,
-            txtNombre.Text.Trim(),
-            txtApellido.Text.Trim(),
-            txtTelefono.Text.Trim(),
-            txtCorreo.Text.Trim(),
-            GenerarCodigo()
-        )
+            ' 2. Lo mandamos a guardar en Postgres
+            Dim dao As New MedicoDAO()
+            dao.Insertar(m)
 
-            MessageBox.Show("Médico guardado correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Médico guardado correctamente en la base de datos.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+            ' 3. Refrescamos la tabla directamente desde Neon
+            CargarTabla()
             LimpiarCampos()
 
-        End Sub
+        Catch ex As Exception
+            MessageBox.Show("Error al guardar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
-        Private Sub dgvMedicos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMedicos.CellClick
+    Private Sub dgvMedicos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMedicos.CellClick
 
             If e.RowIndex >= 0 Then
 
@@ -197,30 +204,36 @@
 
         End Sub
 
-        Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
+        If dgvMedicos.CurrentRow Is Nothing Then
+            MessageBox.Show("Seleccione un médico para eliminar.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
 
-            If dgvMedicos.CurrentRow Is Nothing Then
-                MessageBox.Show("Seleccione un médico para eliminar.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
+        Dim respuesta As DialogResult = MessageBox.Show("¿Desea eliminar este médico de la base de datos?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            Dim respuesta As DialogResult
+        If respuesta = DialogResult.Yes Then
+            Try
+                ' Obtenemos el ID de la fila seleccionada
+                Dim idEliminar As Integer = Convert.ToInt32(dgvMedicos.CurrentRow.Cells("id_medico").Value)
 
-            respuesta = MessageBox.Show("¿Desea eliminar este médico?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If respuesta = DialogResult.Yes Then
-
-                dgvMedicos.Rows.RemoveAt(dgvMedicos.CurrentRow.Index)
+                ' Lo borramos mediante el DAO
+                Dim dao As New MedicoDAO()
+                dao.Eliminar(idEliminar)
 
                 MessageBox.Show("Médico eliminado correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+                ' Refrescamos la interfaz
+                CargarTabla()
                 LimpiarCampos()
 
-            End If
+            Catch ex As Exception
+                MessageBox.Show("Error al eliminar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
+    End Sub
 
-        End Sub
-
-        Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
             LimpiarCampos()
 
@@ -295,23 +308,16 @@
         End Sub
 
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
-
         Form1.Show()
         Me.Hide()
-
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-
-            Dim respuesta As DialogResult
-
-            respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If respuesta = DialogResult.Yes Then
-                Application.Exit()
-            End If
-
-        End Sub
-
+        Dim respuesta As DialogResult
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If respuesta = DialogResult.Yes Then
+            Application.Exit()
+        End If
+    End Sub
 
 End Class
