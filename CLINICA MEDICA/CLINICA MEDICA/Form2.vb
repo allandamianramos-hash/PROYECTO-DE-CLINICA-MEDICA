@@ -140,41 +140,34 @@ Public Class frm2
 
     End Function
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        ' 1. Validar los datos (asegúrate de que ValidarCampos tenga sus propios MessageBox si algo falta)
-        If Not ValidarCampos() Then
-            Return ' Sale del botón si la validación falla
+        MessageBox.Show("El sistema está leyendo esto en el cuadro de nombre: '" & txtNombre.Text & "'", "Espiando el TextBox")
+
+        ' PASO 2: Si el cuadro de texto de la pantalla realmente está vacío, detenemos todo aquí
+        If String.IsNullOrWhiteSpace(txtNombre.Text) Then
+            MessageBox.Show("¡Alto! No puedes guardar si el cuadro de texto está vacío en la pantalla.", "Validación")
+            Exit Sub
         End If
 
         Try
-            ' 2. Empaquetar los datos
-            Dim p As New Paciente()
-            ' OJO: En un INSERT normal el ID es autoincrementable, así que no se envía el ID.
-            p.Nombre = txtNombre.Text
-            p.Apellido = txtApellido.Text
-            p.FechaNacimiento = dtpFechaNac.Value
+            Dim nuevoPaciente As New Paciente()
 
-            If cmbSexo.Text.Length > 0 Then
-                p.Sexo = Convert.ToChar(cmbSexo.Text.Substring(0, 1))
-            End If
+            ' 🔬 PASO 3: Mapeo explícito
+            nuevoPaciente.Nombre = txtNombre.Text.Trim()
+            nuevoPaciente.Apellido = txtApellido.Text.Trim()
+            nuevoPaciente.Sexo = cmbSexo.Text.Trim()
+            nuevoPaciente.Telefono = txtTelefono.Text.Trim()
+            nuevoPaciente.Correo = txtCorreo.Text.Trim()
+            nuevoPaciente.Direccion = txtDireccion.Text.Trim()
+            nuevoPaciente.FechaNacimiento = dtpFechaNac.Value
 
-            p.Telefono = txtTelefono.Text
-            p.Correo = txtCorreo.Text
-            p.Direccion = txtDireccion.Text
-
-            ' 3. Guardar en la base de datos
             Dim dao As New PacienteDAO()
-            dao.Insertar(p) ' Asegúrate de que este método se llama Insertar (o como lo hayas nombrado)
+            dao.Insertar(nuevoPaciente)
 
-            ' 4. Confirmación visual
-            MessageBox.Show("Paciente guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' 5. Refrescar la tabla y limpiar para el siguiente
-            CargarTabla()
-            LimpiarCampos()
+            MessageBox.Show("¡Paciente guardado exitosamente en Neon!", "Éxito")
+            CargarTabla() ' Refresca tu DataGridView
 
         Catch ex As Exception
-            ' SI HAY UN ERROR, ESTO LO SACARÁ A LA LUZ
-            MessageBox.Show("Fallo al guardar en la base de datos: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error al intentar procesar: " & ex.Message)
         End Try
     End Sub
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click

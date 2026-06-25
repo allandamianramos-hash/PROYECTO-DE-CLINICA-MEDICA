@@ -19,7 +19,7 @@ Public Class Form5
         cmbEstado.Items.Add("Completada")
         cmbEstado.Items.Add("Cancelada")
 
-        CargarTabla()
+        CargarTablaCitas()
     End Sub
 
     Private Sub CargarComboPacientes()
@@ -58,7 +58,7 @@ Public Class Form5
 
         'Mover cursor al primer campo.
         cmbPaciente.Focus()
-
+        CargarTablaCitas()
     End Sub
     Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
 
@@ -73,127 +73,41 @@ Public Class Form5
 
     End Sub
     Private Function ValidarCampos() As Boolean
-
-        If String.IsNullOrWhiteSpace(cmbPaciente.Text) Then
-            MessageBox.Show("Por favor, escriba el nombre del paciente.")
+        ' 1. Validar Paciente: DEBE ser seleccionado de la lista (SelectedIndex no puede ser -1)
+        If cmbPaciente.SelectedIndex = -1 Then
+            MessageBox.Show("Por favor, seleccione un paciente de la lista." & vbCrLf & "Si el paciente es nuevo, regístrelo primero en la ventana de Pacientes.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
+        ' 2. Validar Médico
         If cmbMedico.SelectedIndex = -1 Then
-            MessageBox.Show("Debe seleccionar un médico.")
+            MessageBox.Show("Debe seleccionar un médico de la lista.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
-        ' Agrega aquí tus otras validaciones...
-        Return True
-
-        'Validar médico.
-        If cmbMedico.SelectedIndex = -1 Then
-
-            MessageBox.Show(
-            "Debe seleccionar un médico.",
-            "Validación",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
-            cmbMedico.Focus()
-
-            Return False
-
-        End If
-
-        'Validar estado.
-        If cmbEstado.SelectedIndex = -1 Then
-
-            MessageBox.Show(
-            "Debe seleccionar un estado.",
-            "Validación",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
-            cmbEstado.Focus()
-
-            Return False
-
-        End If
-
-        'Validar fecha.
-        If dtpFecha.Value.Date < Date.Today Then
-
-            MessageBox.Show(
-            "No puede programar una cita en una fecha pasada.",
-            "Validación",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Warning)
-
-            dtpFecha.Focus()
-
-            Return False
-
-        End If
+        ' Puedes agregar más validaciones aquí si lo necesitas (estado, etc.)
 
         Return True
-
     End Function
 
     ' --- MÉTODO PARA CARGAR DATOS EN LA TABLA ---
-    Private Sub CargarTabla()
+    Private Sub CargarTablaCitas() ' Le cambiamos el nombre para que quede claro que es de citas
         Try
-            Dim dao As New CitaDAO()
-            Dim dt As DataTable = dao.Mostrar()
+            ' 1. Usamos el DAO de Citas (no el de pacientes)
+            Dim daoC As New CitaDAO()
 
-            ' --- DIAGNÓSTICO ---
-            MessageBox.Show("Registros recibidos de la BD: " & dt.Rows.Count)
-            ' -------------------
+            dgvCitas.DataSource = daoC.Mostrar() ' O el método que uses en tu CitaDAO para hacer el SELECT
 
-            dgvCitas.DataSource = dt
         Catch ex As Exception
-            ' Si hay error, esto nos dirá exactamente cuál es
-            MessageBox.Show("Error en CargarTabla: " & ex.Message)
+            MessageBox.Show("Error al refrescar la tabla de citas: " & ex.Message, "Error Visual")
         End Try
+
     End Sub
 
-    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        If Not ValidarCampos() Then Exit Sub
 
-        Try
-            Dim idPaciente As Integer
-
-            ' Si el índice es -1, el usuario escribió un nombre nuevo que no está en el combo
-            If cmbPaciente.SelectedIndex = -1 Then
-                ' Pedimos ambos datos
-                Dim apellido As String = InputBox("Ingrese el APELLIDO del paciente:", "Nuevo Paciente")
-                Dim fechaInput As String = InputBox("Ingrese la FECHA DE NACIMIENTO (YYYY-MM-DD):", "Nuevo Paciente", "2000-01-01")
-
-                Dim fechaNac As DateTime
-                If Not DateTime.TryParse(fechaInput, fechaNac) Then
-                    MessageBox.Show("Fecha inválida.")
-                    Exit Sub
-                End If
-
-                Dim daoP As New PacienteDAO()
-                idPaciente = daoP.RegistrarYRetornarID(cmbPaciente.Text, apellido, fechaNac)
-            Else
-                idPaciente = Convert.ToInt32(cmbPaciente.SelectedValue)
-            End If
-
-            ' Guardamos la cita (tu código existente de citaDAO...)
-            Dim cita As New Cita()
-            cita.IdPaciente = idPaciente
-            cita.IdMedico = Convert.ToInt32(cmbMedico.SelectedValue)
-            cita.Fecha = dtpFecha.Value.Date
-            cita.Hora = dtpHora.Value.TimeOfDay
-            cita.Estado = (cmbEstado.SelectedIndex + 1)
-
-            Dim daoC As New CitaDAO()
-            daoC.Insertar(cita)
-
-            MessageBox.Show("Cita registrada correctamente.", "Éxito")
-            CargarTabla()
-            ' Limpiar y recargar combos aquí
-        Catch ex As Exception
-            MessageBox.Show("Error al guardar: " & ex.Message)
-        End Try
+    Private Sub LimpiarCajas()
+        ' Justo al final de tu código de guardar exitoso:
+        LimpiarCampos()       ' Limpia los combos para el siguiente registro
     End Sub
 
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
@@ -217,7 +131,7 @@ Public Class Form5
             dao.Editar(cita)
 
             MessageBox.Show("Cita modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            CargarTabla()
+            CargarTablaCitas()
             LimpiarCampos()
         Catch ex As Exception
             MessageBox.Show("Error al editar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -236,7 +150,7 @@ Public Class Form5
                 dao.Eliminar(Convert.ToInt32(txtIdCita.Text))
 
                 MessageBox.Show("Cita eliminada.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                CargarTabla()
+                CargarTablaCitas()
                 LimpiarCampos()
             Catch ex As Exception
                 MessageBox.Show("Error al eliminar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -316,5 +230,46 @@ Public Class Form5
             ' Convertimos el ID de estado a índice (si tu ID es 1, 2, 3, restamos 1 para el índice)
             cmbEstado.SelectedIndex = Convert.ToInt32(fila.Cells("id_estado").Value) - 1
         End If
+    End Sub
+
+    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+        Try
+            ' 1. Creamos el objeto
+            Dim nuevaCita As New Cita()
+
+            ' 2. Asignamos los demás datos que ya tienes listos
+            nuevaCita.IdPaciente = Convert.ToInt32(cmbPaciente.SelectedValue)
+            nuevaCita.IdMedico = Convert.ToInt32(cmbMedico.SelectedValue)
+            nuevaCita.Fecha = dtpFecha.Value.Date
+            nuevaCita.Hora = dtpHora.Value.TimeOfDay ' El que corregimos para TimeSpan
+
+
+            ' Creamos una variable para guardar el número del ID
+            Dim idEstadoSeleccionado As Integer
+
+            ' Traducimos la palabra del combo al número que espera PostgreSQL
+            Select Case cmbEstado.Text.Trim()
+                Case "Programada"
+                    idEstadoSeleccionado = 1 ' 👈 Cámbialo si en tu BD "Programada" no es el ID 1
+                Case "Cancelada"
+                    idEstadoSeleccionado = 2 ' 👈 Cámbialo si en tu BD "Cancelada" no es el ID 2
+                Case "Atendida", "Realizada"
+                    idEstadoSeleccionado = 3
+                Case Else
+                    idEstadoSeleccionado = 1
+            End Select
+
+            ' Ahora sí, le pasamos el número entero a la propiedad sin que truene
+            nuevaCita.Estado = idEstadoSeleccionado
+
+            ' 3. Envío al DAO para guardar en la Base de Datos de Neon
+            Dim daoCita As New CitaDAO()
+            daoCita.Insertar(nuevaCita)
+
+            MessageBox.Show("¡Cita agendada exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show("Error al guardar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 End Class
