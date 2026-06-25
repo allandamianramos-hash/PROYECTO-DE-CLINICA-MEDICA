@@ -115,4 +115,19 @@ Public Class PacienteDAO
             End Using
         End Using
     End Sub
+
+    ' Añadimos el parámetro fechaNacimiento
+    Public Function RegistrarYRetornarID(nombre As String, apellido As String, fechaNac As DateTime) As Integer
+        Dim query As String = "INSERT INTO pacientes (nombre, apellido, fecha_nacimiento) VALUES (@nom, @ape, @fec) RETURNING id_paciente"
+
+        Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
+            conn.Open()
+            Using cmd As New NpgsqlCommand(query, conn)
+                cmd.Parameters.AddWithValue("@nom", nombre)
+                cmd.Parameters.AddWithValue("@ape", apellido)
+                cmd.Parameters.AddWithValue("@fec", fechaNac) ' Enviamos la fecha
+                Return Convert.ToInt32(cmd.ExecuteScalar())
+            End Using
+        End Using
+    End Function
 End Class
