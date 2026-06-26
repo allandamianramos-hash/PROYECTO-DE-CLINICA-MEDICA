@@ -47,7 +47,7 @@ Partial Class Form1
         lblMenu.Location = New Point(13, 9)
         lblMenu.Margin = New Padding(4, 0, 4, 0)
         lblMenu.Name = "lblMenu"
-        lblMenu.Size = New Size(140, 16)
+        lblMenu.Size = New Size(180, 21)
         lblMenu.TabIndex = 1
         lblMenu.Text = "Menú de selección"
         lblMenu.TextAlign = ContentAlignment.MiddleCenter
@@ -139,7 +139,7 @@ Partial Class Form1
         lblFechaActual.Location = New Point(13, 223)
         lblFechaActual.Margin = New Padding(4, 0, 4, 0)
         lblFechaActual.Name = "lblFechaActual"
-        lblFechaActual.Size = New Size(16, 16)
+        lblFechaActual.Size = New Size(22, 21)
         lblFechaActual.TabIndex = 10
         lblFechaActual.Text = "1"
         lblFechaActual.TextAlign = ContentAlignment.MiddleCenter
@@ -151,7 +151,7 @@ Partial Class Form1
         lblNumPacientes.Location = New Point(13, 242)
         lblNumPacientes.Margin = New Padding(4, 0, 4, 0)
         lblNumPacientes.Name = "lblNumPacientes"
-        lblNumPacientes.Size = New Size(16, 16)
+        lblNumPacientes.Size = New Size(22, 21)
         lblNumPacientes.TabIndex = 11
         lblNumPacientes.Text = "2"
         lblNumPacientes.TextAlign = ContentAlignment.MiddleCenter
@@ -163,7 +163,7 @@ Partial Class Form1
         lblNumMedicos.Location = New Point(13, 261)
         lblNumMedicos.Margin = New Padding(4, 0, 4, 0)
         lblNumMedicos.Name = "lblNumMedicos"
-        lblNumMedicos.Size = New Size(16, 16)
+        lblNumMedicos.Size = New Size(22, 21)
         lblNumMedicos.TabIndex = 12
         lblNumMedicos.Text = "3"
         lblNumMedicos.TextAlign = ContentAlignment.MiddleCenter
@@ -175,7 +175,7 @@ Partial Class Form1
         lblNumCitas.Location = New Point(13, 280)
         lblNumCitas.Margin = New Padding(4, 0, 4, 0)
         lblNumCitas.Name = "lblNumCitas"
-        lblNumCitas.Size = New Size(16, 16)
+        lblNumCitas.Size = New Size(22, 21)
         lblNumCitas.TabIndex = 13
         lblNumCitas.Text = "4"
         lblNumCitas.TextAlign = ContentAlignment.MiddleCenter
@@ -187,7 +187,7 @@ Partial Class Form1
         lblNumConsultas.Location = New Point(13, 299)
         lblNumConsultas.Margin = New Padding(4, 0, 4, 0)
         lblNumConsultas.Name = "lblNumConsultas"
-        lblNumConsultas.Size = New Size(16, 16)
+        lblNumConsultas.Size = New Size(22, 21)
         lblNumConsultas.TabIndex = 14
         lblNumConsultas.Text = "5"
         lblNumConsultas.TextAlign = ContentAlignment.MiddleCenter
@@ -197,7 +197,7 @@ Partial Class Form1
         lblInstrucciones.AutoSize = True
         lblInstrucciones.Location = New Point(13, 35)
         lblInstrucciones.Name = "lblInstrucciones"
-        lblInstrucciones.Size = New Size(318, 16)
+        lblInstrucciones.Size = New Size(421, 21)
         lblInstrucciones.TabIndex = 15
         lblInstrucciones.Text = "Por favor, ingrese al módulo que desee consultar:"
         lblInstrucciones.TextAlign = ContentAlignment.MiddleCenter
@@ -207,16 +207,16 @@ Partial Class Form1
         Label1.AutoSize = True
         Label1.Location = New Point(13, 196)
         Label1.Name = "Label1"
-        Label1.Size = New Size(48, 16)
+        Label1.Size = New Size(63, 21)
         Label1.TabIndex = 15
         Label1.Text = "Datos:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(506, 320)
+        ClientSize = New Size(741, 346)
         Controls.Add(Label1)
         Controls.Add(lblInstrucciones)
         Controls.Add(lblNumConsultas)

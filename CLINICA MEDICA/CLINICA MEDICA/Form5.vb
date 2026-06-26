@@ -99,9 +99,6 @@ Public Class Form5
         End Try
 
     End Sub
-<<<<<<< HEAD
-    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
-=======
 
     Private Sub CargarEstados()
 
@@ -135,8 +132,6 @@ Public Class Form5
         End Try
 
     End Sub
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
-
     Private Sub CargarTablaCitas()
 
         Try
@@ -226,10 +221,6 @@ Public Class Form5
         posicion = 0
         cmbPaciente.Focus()
 
-    End Sub
-
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-        LimpiarCampos()
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click

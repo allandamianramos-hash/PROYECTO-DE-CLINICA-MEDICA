@@ -1,47 +1,5 @@
 ﻿Public Class Form6
 
-<<<<<<< HEAD
-    Dim tablaConsultas As New DataTable
-    Dim posicion As Integer = 0
-    Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-            ' ID no editable
-            txtIdConsulta.ReadOnly = True
-
-            ' ComboBox de citas
-            cmbIdCita.DropDownStyle = ComboBoxStyle.DropDownList
-            cmbIdCita.Items.Clear()
-
-            For i As Integer = 1 To 100
-                cmbIdCita.Items.Add("Cita " & i)
-            Next
-
-            cmbIdCita.SelectedIndex = -1
-
-            ' TextBox multilínea
-            txtDiagnostico.Multiline = True
-            txtObservaciones.Multiline = True
-
-            txtDiagnostico.ScrollBars = ScrollBars.Vertical
-            txtObservaciones.ScrollBars = ScrollBars.Vertical
-
-            ' Configuración del DataGridView
-            dgvConsultas.AllowUserToAddRows = False
-            dgvConsultas.ReadOnly = True
-            dgvConsultas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvConsultas.MultiSelect = False
-            dgvConsultas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-
-            ' Crear columnas
-            tablaConsultas.Columns.Add("id_consulta")
-            tablaConsultas.Columns.Add("id_cita")
-            tablaConsultas.Columns.Add("diagnostico")
-            tablaConsultas.Columns.Add("observaciones")
-
-            dgvConsultas.DataSource = tablaConsultas
-
-            ' Cambiar títulos de columnas
-=======
     Dim posicion As Integer = 0
 
     Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -52,7 +10,6 @@
             dgvConsultas.DataSource = dao.Mostrar()
 
             ' Ajustar títulos si es necesario
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
             dgvConsultas.Columns("id_consulta").HeaderText = "ID Consulta"
             dgvConsultas.Columns("id_cita").HeaderText = "ID Cita"
         Catch ex As Exception
@@ -100,126 +57,10 @@
         txtCita.Focus()
     End Sub
 
-    Private Function LimpiarTextoFiltro(texto As String) As String
-
-        Return texto.Replace("'", "''")
-
-    End Function
-
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-        LimpiarCampos()
-
-    End Sub
-
-<<<<<<< HEAD
-            cmbIdCita.SelectedIndex = -1
-
-            dgvConsultas.DataSource = tablaConsultas
-
-            GenerarId()
-            cmbIdCita.Focus()
-
-        End Sub
-
-    Private Function LimpiarTextoFiltro(texto As String) As String
-
-        Return texto.Replace("'", "''")
-
-    End Function
-    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-
-            If ValidarCampos() = False Then Exit Sub
-
-            tablaConsultas.Rows.Add(
-            txtIdConsulta.Text,
-            cmbIdCita.SelectedIndex + 1,
-            txtDiagnostico.Text.Trim(),
-            txtObservaciones.Text.Trim()
-        )
-
-            MessageBox.Show("Consulta guardada correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            LimpiarCampos()
-
-        End Sub
-
-        Private Sub dgvConsultas_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvConsultas.CellClick
-
-            If e.RowIndex >= 0 Then
-
-                posicion = e.RowIndex
-
-                txtIdConsulta.Text = dgvConsultas.Rows(posicion).Cells("id_consulta").Value.ToString()
-
-                Dim idCita As Integer = CInt(dgvConsultas.Rows(posicion).Cells("id_cita").Value)
-                cmbIdCita.SelectedIndex = idCita - 1
-
-                txtDiagnostico.Text = dgvConsultas.Rows(posicion).Cells("diagnostico").Value.ToString()
-                txtObservaciones.Text = dgvConsultas.Rows(posicion).Cells("observaciones").Value.ToString()
-
-            End If
-
-        End Sub
-
-        Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-
-            If dgvConsultas.CurrentRow Is Nothing Then
-                MessageBox.Show("Seleccione una consulta para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-
-            If ValidarCampos() = False Then Exit Sub
-
-            posicion = dgvConsultas.CurrentRow.Index
-
-            dgvConsultas.Rows(posicion).Cells("id_cita").Value = cmbIdCita.SelectedIndex + 1
-            dgvConsultas.Rows(posicion).Cells("diagnostico").Value = txtDiagnostico.Text.Trim()
-            dgvConsultas.Rows(posicion).Cells("observaciones").Value = txtObservaciones.Text.Trim()
-
-            MessageBox.Show("Consulta editada correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            LimpiarCampos()
-
-        End Sub
-
-        Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
-            If dgvConsultas.CurrentRow Is Nothing Then
-                MessageBox.Show("Seleccione una consulta para eliminar.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
-
-            Dim respuesta As DialogResult
-
-            respuesta = MessageBox.Show("¿Desea eliminar esta consulta?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If respuesta = DialogResult.Yes Then
-
-                dgvConsultas.Rows.RemoveAt(dgvConsultas.CurrentRow.Index)
-
-                MessageBox.Show("Consulta eliminada correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-                LimpiarCampos()
-
-            End If
-
-        End Sub
-
-    Private Sub btnBuscar_Click(sender As Object, e As EventArgs)
-
-        Dim buscar As String
-
-        buscar = InputBox("Ingrese diagnóstico u observación que desea buscar:", "Buscar consulta")
-
-        If buscar.Trim = "" Then
-            dgvConsultas.DataSource = tablaConsultas
-=======
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         ' Pequeña validación rápida
         If String.IsNullOrWhiteSpace(txtCita.Text) Then
             MessageBox.Show("Debe ingresar el ID de una cita válida.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
             Exit Sub
         End If
 
@@ -362,45 +203,35 @@
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
-
         LimpiarCampos()
-
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
-
         If dgvConsultas.Rows.Count > 0 Then
             posicion = 0
             MostrarRegistro()
         End If
-
     End Sub
 
     Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
-
         If posicion > 0 Then
             posicion -= 1
             MostrarRegistro()
         End If
-
     End Sub
 
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
-
         If posicion < dgvConsultas.Rows.Count - 1 Then
             posicion += 1
             MostrarRegistro()
         End If
-
     End Sub
 
     Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
-
         If dgvConsultas.Rows.Count > 0 Then
             posicion = dgvConsultas.Rows.Count - 1
             MostrarRegistro()
         End If
-
     End Sub
 
     Private Sub MostrarRegistro()
@@ -436,16 +267,12 @@
         End Try
     End Sub
 
-
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
-
         Form1.Show()
         Me.Hide()
-
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-
         Dim respuesta As DialogResult
 
         respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -453,30 +280,24 @@
         If respuesta = DialogResult.Yes Then
             Application.Exit()
         End If
-
-    End Sub
-
-    Private Sub txtObservaciones_TextChanged(sender As Object, e As EventArgs) Handles txtObservaciones.TextChanged
-
     End Sub
 
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
         Try
             ' 1. Obtenemos los datos actuales que están cargados en tu DataGridView
-            ' (Usamos un bloque Try-Catch por si la tabla aún no se ha cargado al abrir el programa)
             Dim dt As DataTable = CType(dgvConsultas.DataSource, DataTable)
 
             If dt Is Nothing Then Exit Sub
 
-            ' 2. Creamos una "Vista" para poder filtrar la tabla sin ir a la base de datos de nuevo
+            ' 2. Creamos una "Vista" para poder filtrar la tabla
             Dim vista As New DataView(dt)
 
-            ' 3. Limpiamos el texto (Reemplazamos la comilla simple por doble comilla para que no truene el SQL)
+            ' 3. Limpiamos el texto
             Dim textoBuscar As String = txtBuscar.Text.Trim().Replace("'", "''")
 
-            ' 4. Aplicamos el filtro: Buscamos coincidencias en síntomas, diagnóstico u observaciones
+            ' 4. Aplicamos el filtro
             If textoBuscar = "" Then
-                vista.RowFilter = "" ' Si el usuario borra el texto, mostramos toda la tabla de nuevo
+                vista.RowFilter = ""
             Else
                 vista.RowFilter = String.Format("sintomas LIKE '%{0}%' OR diagnostico LIKE '%{0}%' OR observaciones LIKE '%{0}%'", textoBuscar)
             End If
@@ -485,8 +306,7 @@
             dgvConsultas.DataSource = vista
 
         Catch ex As Exception
-            ' Si hay algún error menor al escribir rápido, lo silenciamos para no molestar al usuario
         End Try
-
     End Sub
+
 End Class
