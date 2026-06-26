@@ -31,17 +31,6 @@ Public Class frm2
             MessageBox.Show("Error al cargar los registros: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
-
-    ' --- Método independiente para la carga de datos ---
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-        'Limpia todos los controles del formulario.
-        LimpiarCampos()
-
-        'Coloca el cursor en el campo Nombre.
-        txtNombre.Focus()
-
-    End Sub
     Private Sub LimpiarCampos()
 
         'Vacía todas las cajas de texto.

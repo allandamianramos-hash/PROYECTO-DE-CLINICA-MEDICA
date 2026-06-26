@@ -1,12 +1,8 @@
 ﻿Public Class Form6
 
-
-
-
     Dim tablaConsultas As New DataTable
-        Dim posicion As Integer = 0
-
-        Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Dim posicion As Integer = 0
+    Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
             ' ID no editable
             txtIdConsulta.ReadOnly = True
@@ -98,19 +94,12 @@
 
         End Sub
 
-        Private Function LimpiarTextoFiltro(texto As String) As String
+    Private Function LimpiarTextoFiltro(texto As String) As String
 
-            Return texto.Replace("'", "''")
+        Return texto.Replace("'", "''")
 
-        End Function
-
-        Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-            LimpiarCampos()
-
-        End Sub
-
-        Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+    End Function
+    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
 
             If ValidarCampos() = False Then Exit Sub
 

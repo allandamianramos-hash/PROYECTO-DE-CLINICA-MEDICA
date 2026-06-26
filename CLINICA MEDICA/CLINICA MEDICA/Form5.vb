@@ -60,12 +60,6 @@ Public Class Form5
         cmbPaciente.Focus()
 
     End Sub
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-        'Preparar formulario para nueva cita.
-        LimpiarCampos()
-
-    End Sub
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
         'Restablecer formulario.

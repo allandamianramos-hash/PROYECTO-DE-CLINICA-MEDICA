@@ -217,11 +217,6 @@
         cmbIdConsulta.Focus()
 
     End Sub
-
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-        LimpiarCampos()
-    End Sub
-
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
 
         If ValidarCampos() = False Then Exit Sub

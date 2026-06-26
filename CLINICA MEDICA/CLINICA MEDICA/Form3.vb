@@ -111,28 +111,21 @@
 
         End Function
 
-        Private Sub LimpiarCampos()
+    Private Sub LimpiarCampos()
 
-            txtIdMedico.Clear()
-            txtNombre.Clear()
-            txtApellido.Clear()
-            txtTelefono.Clear()
-            txtCorreo.Clear()
-            txtBuscar.Clear()
+        txtIdMedico.Clear()
+        txtNombre.Clear()
+        txtApellido.Clear()
+        txtTelefono.Clear()
+        txtCorreo.Clear()
+        txtBuscar.Clear()
 
-            cmbEspecialidad.SelectedIndex = -1
+        cmbEspecialidad.SelectedIndex = -1
 
-            GenerarId()
-            txtNombre.Focus()
+        GenerarId()
+        txtNombre.Focus()
 
-        End Sub
-
-        Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-
-            LimpiarCampos()
-
-        End Sub
-
+    End Sub
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         If ValidarCampos() = False Then Exit Sub
 

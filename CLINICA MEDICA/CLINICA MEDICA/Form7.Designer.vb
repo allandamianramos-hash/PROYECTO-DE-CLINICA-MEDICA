@@ -36,7 +36,6 @@ Partial Class Form7
         btnEliminar = New Button()
         btnEditar = New Button()
         btnGuardar = New Button()
-        btnNuevo = New Button()
         cmbIdConsulta = New ComboBox()
         dgvRecetas = New DataGridView()
         cmbMedicamento = New ComboBox()
@@ -53,223 +52,225 @@ Partial Class Form7
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(234, 9)
+        Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
+        Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(310, 20)
+        Label1.Size = New Size(218, 16)
         Label1.TabIndex = 3
-        Label1.Text = "Formulario de Control de Recetas"
+        Label1.Text = "Módulo de control de recetas"
+        Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 427)
+        btnRegresar.Location = New Point(12, 261)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(108, 50)
+        btnRegresar.Size = New Size(285, 25)
         btnRegresar.TabIndex = 16
-        btnRegresar.Text = "Menú Principal"
+        btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' txtIdReceta
         ' 
-        txtIdReceta.Location = New Point(26, 56)
+        txtIdReceta.Location = New Point(201, 38)
         txtIdReceta.Name = "txtIdReceta"
-        txtIdReceta.Size = New Size(100, 23)
+        txtIdReceta.Size = New Size(114, 27)
         txtIdReceta.TabIndex = 17
+        txtIdReceta.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtDosis
         ' 
-        txtDosis.Location = New Point(26, 111)
+        txtDosis.Location = New Point(201, 131)
         txtDosis.Name = "txtDosis"
-        txtDosis.Size = New Size(100, 23)
+        txtDosis.Size = New Size(114, 27)
         txtDosis.TabIndex = 19
+        txtDosis.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtIndicaciones
         ' 
-        txtIndicaciones.Location = New Point(26, 168)
+        txtIndicaciones.Location = New Point(201, 164)
         txtIndicaciones.Name = "txtIndicaciones"
-        txtIndicaciones.Size = New Size(100, 23)
+        txtIndicaciones.Size = New Size(114, 27)
         txtIndicaciones.TabIndex = 20
+        txtIndicaciones.TextAlign = HorizontalAlignment.Center
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(1126, 427)
+        btnSalir.Location = New Point(400, 230)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(108, 50)
+        btnSalir.Size = New Size(91, 25)
         btnSalir.TabIndex = 33
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(406, 381)
+        btnUltimo.Location = New Point(1056, 261)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(75, 23)
+        btnUltimo.Size = New Size(91, 25)
         btnUltimo.TabIndex = 32
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(325, 382)
+        btnSiguiente.Location = New Point(1056, 230)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(75, 23)
+        btnSiguiente.Size = New Size(91, 25)
         btnSiguiente.TabIndex = 31
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(244, 382)
+        btnAnterior.Location = New Point(959, 230)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(75, 23)
+        btnAnterior.Size = New Size(91, 25)
         btnAnterior.TabIndex = 30
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(163, 382)
+        btnPrimero.Location = New Point(959, 261)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(75, 23)
+        btnPrimero.Size = New Size(91, 25)
         btnPrimero.TabIndex = 29
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(244, 431)
+        btnLimpiar.Location = New Point(303, 230)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(75, 23)
+        btnLimpiar.Size = New Size(91, 25)
         btnLimpiar.TabIndex = 28
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(325, 431)
+        btnEliminar.Location = New Point(206, 230)
         btnEliminar.Name = "btnEliminar"
-        btnEliminar.Size = New Size(75, 23)
+        btnEliminar.Size = New Size(91, 25)
         btnEliminar.TabIndex = 27
         btnEliminar.Text = "Eliminar"
         btnEliminar.UseVisualStyleBackColor = True
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(347, 291)
+        btnEditar.Location = New Point(109, 230)
         btnEditar.Name = "btnEditar"
-        btnEditar.Size = New Size(80, 22)
+        btnEditar.Size = New Size(91, 25)
         btnEditar.TabIndex = 26
         btnEditar.Text = "Editar"
         btnEditar.UseVisualStyleBackColor = True
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(274, 339)
+        btnGuardar.Location = New Point(12, 230)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(80, 23)
+        btnGuardar.Size = New Size(91, 25)
         btnGuardar.TabIndex = 25
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
         ' 
-        ' btnNuevo
-        ' 
-        btnNuevo.Location = New Point(209, 290)
-        btnNuevo.Name = "btnNuevo"
-        btnNuevo.Size = New Size(75, 23)
-        btnNuevo.TabIndex = 24
-        btnNuevo.Text = "Nuevo"
-        btnNuevo.UseVisualStyleBackColor = True
-        ' 
         ' cmbIdConsulta
         ' 
         cmbIdConsulta.FormattingEnabled = True
-        cmbIdConsulta.Location = New Point(171, 56)
+        cmbIdConsulta.Location = New Point(201, 71)
         cmbIdConsulta.Name = "cmbIdConsulta"
-        cmbIdConsulta.Size = New Size(121, 23)
+        cmbIdConsulta.Size = New Size(114, 24)
         cmbIdConsulta.TabIndex = 34
         ' 
         ' dgvRecetas
         ' 
         dgvRecetas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvRecetas.Location = New Point(511, 56)
+        dgvRecetas.Location = New Point(321, 38)
         dgvRecetas.Name = "dgvRecetas"
-        dgvRecetas.Size = New Size(723, 237)
+        dgvRecetas.Size = New Size(826, 186)
         dgvRecetas.TabIndex = 35
         ' 
         ' cmbMedicamento
         ' 
         cmbMedicamento.FormattingEnabled = True
-        cmbMedicamento.Location = New Point(352, 56)
+        cmbMedicamento.Location = New Point(201, 101)
         cmbMedicamento.Name = "cmbMedicamento"
-        cmbMedicamento.Size = New Size(121, 23)
+        cmbMedicamento.Size = New Size(114, 24)
         cmbMedicamento.TabIndex = 37
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(352, 38)
+        Label2.Location = New Point(12, 104)
         Label2.Name = "Label2"
-        Label2.Size = New Size(86, 15)
+        Label2.Size = New Size(102, 16)
         Label2.TabIndex = 38
-        Label2.Text = "Medicamentos"
+        Label2.Text = "Medicamentos:"
+        Label2.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(26, 38)
+        Label3.Location = New Point(12, 41)
         Label3.Name = "Label3"
-        Label3.Size = New Size(42, 15)
+        Label3.Size = New Size(167, 16)
         Label3.TabIndex = 39
-        Label3.Text = "Receta"
+        Label3.Text = "Identificador de la receta:"
+        Label3.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(26, 93)
+        Label4.Location = New Point(12, 134)
         Label4.Name = "Label4"
-        Label4.Size = New Size(35, 15)
+        Label4.Size = New Size(47, 16)
         Label4.TabIndex = 40
-        Label4.Text = "Dosis"
+        Label4.Text = "Dosis:"
+        Label4.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(26, 150)
+        Label5.Location = New Point(12, 167)
         Label5.Name = "Label5"
-        Label5.Size = New Size(73, 15)
+        Label5.Size = New Size(90, 16)
         Label5.TabIndex = 41
-        Label5.Text = "Indicaciones"
+        Label5.Text = "Indicaciones:"
+        Label5.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(171, 38)
+        Label6.Location = New Point(12, 74)
         Label6.Name = "Label6"
-        Label6.Size = New Size(54, 15)
+        Label6.Size = New Size(183, 16)
         Label6.TabIndex = 42
-        Label6.Text = "Consulta"
+        Label6.Text = "Identificador de la consulta:"
+        Label6.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(26, 213)
+        Label7.Location = New Point(14, 200)
         Label7.Name = "Label7"
-        Label7.Size = New Size(42, 15)
+        Label7.Size = New Size(71, 16)
         Label7.TabIndex = 43
-        Label7.Text = "Buscar"
+        Label7.Text = "Búsqueda:"
+        Label7.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(26, 232)
+        txtBuscar.Location = New Point(201, 197)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(100, 23)
+        txtBuscar.Size = New Size(114, 27)
         txtBuscar.TabIndex = 44
+        txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
         ' Form7
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1246, 489)
+        ClientSize = New Size(1163, 296)
         Controls.Add(txtBuscar)
         Controls.Add(Label7)
         Controls.Add(Label6)
@@ -289,14 +290,14 @@ Partial Class Form7
         Controls.Add(btnEliminar)
         Controls.Add(btnEditar)
         Controls.Add(btnGuardar)
-        Controls.Add(btnNuevo)
         Controls.Add(txtIndicaciones)
         Controls.Add(txtDosis)
         Controls.Add(txtIdReceta)
         Controls.Add(btnRegresar)
         Controls.Add(Label1)
+        Font = New Font("Lucida Sans Unicode", 9.75F)
         Name = "Form7"
-        Text = "Form7"
+        Text = "Control de recetas"
         CType(dgvRecetas, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -316,7 +317,6 @@ Partial Class Form7
     Friend WithEvents btnEliminar As Button
     Friend WithEvents btnEditar As Button
     Friend WithEvents btnGuardar As Button
-    Friend WithEvents btnNuevo As Button
     Friend WithEvents cmbIdConsulta As ComboBox
     Friend WithEvents dgvRecetas As DataGridView
     Friend WithEvents cmbMedicamento As ComboBox

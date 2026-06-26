@@ -38,7 +38,6 @@ Partial Class Form4
         btnEliminar = New Button()
         btnEditar = New Button()
         btnGuardar = New Button()
-        btnNuevo = New Button()
         lblBuscar = New Label()
         lblDescripcion = New Label()
         lblNombre = New Label()
@@ -49,28 +48,26 @@ Partial Class Form4
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(375, 27)
+        Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
+        Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(333, 26)
+        Label1.Size = New Size(193, 16)
         Label1.TabIndex = 3
-        Label1.Text = "Formulario de Especialidades"
+        Label1.Text = "Módulo de especialidades"
+        Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(14, 517)
-        btnRegresar.Margin = New Padding(3, 4, 3, 4)
+        btnRegresar.Location = New Point(12, 208)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(123, 67)
+        btnRegresar.Size = New Size(336, 25)
         btnRegresar.TabIndex = 16
-        btnRegresar.Text = "Menú Principal"
+        btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' txtIdEspecialidad
         ' 
-        txtIdEspecialidad.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        txtIdEspecialidad.Location = New Point(167, 124)
-        txtIdEspecialidad.Margin = New Padding(3, 4, 3, 4)
+        txtIdEspecialidad.Location = New Point(225, 47)
         txtIdEspecialidad.Name = "txtIdEspecialidad"
         txtIdEspecialidad.ReadOnly = True
         txtIdEspecialidad.Size = New Size(114, 27)
@@ -79,9 +76,7 @@ Partial Class Form4
         ' 
         ' txtNombre
         ' 
-        txtNombre.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        txtNombre.Location = New Point(167, 196)
-        txtNombre.Margin = New Padding(3, 4, 3, 4)
+        txtNombre.Location = New Point(225, 80)
         txtNombre.Name = "txtNombre"
         txtNombre.Size = New Size(114, 27)
         txtNombre.TabIndex = 18
@@ -89,20 +84,16 @@ Partial Class Form4
         ' 
         ' txtDescripcion
         ' 
-        txtDescripcion.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        txtDescripcion.Location = New Point(167, 272)
-        txtDescripcion.Margin = New Padding(3, 4, 3, 4)
+        txtDescripcion.Location = New Point(225, 113)
         txtDescripcion.Multiline = True
         txtDescripcion.Name = "txtDescripcion"
-        txtDescripcion.Size = New Size(114, 29)
+        txtDescripcion.Size = New Size(114, 24)
         txtDescripcion.TabIndex = 19
         txtDescripcion.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
-        txtBuscar.Location = New Point(167, 340)
-        txtBuscar.Margin = New Padding(3, 4, 3, 4)
+        txtBuscar.Location = New Point(225, 143)
         txtBuscar.Name = "txtBuscar"
         txtBuscar.Size = New Size(114, 27)
         txtBuscar.TabIndex = 20
@@ -111,156 +102,139 @@ Partial Class Form4
         ' dgvEspecialidades
         ' 
         dgvEspecialidades.AllowUserToAddRows = False
-        dgvEspecialidades.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         dgvEspecialidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvEspecialidades.Location = New Point(375, 104)
-        dgvEspecialidades.Margin = New Padding(3, 4, 3, 4)
+        dgvEspecialidades.Location = New Point(345, 47)
         dgvEspecialidades.Name = "dgvEspecialidades"
         dgvEspecialidades.RowHeadersWidth = 51
-        dgvEspecialidades.Size = New Size(616, 247)
+        dgvEspecialidades.Size = New Size(616, 123)
         dgvEspecialidades.TabIndex = 21
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(487, 476)
-        btnSalir.Margin = New Padding(3, 4, 3, 4)
+        btnSalir.Location = New Point(468, 177)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(86, 31)
+        btnSalir.Size = New Size(108, 25)
         btnSalir.TabIndex = 34
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(927, 553)
-        btnUltimo.Margin = New Padding(3, 4, 3, 4)
+        btnUltimo.Location = New Point(853, 208)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(86, 31)
+        btnUltimo.Size = New Size(108, 25)
         btnUltimo.TabIndex = 32
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(834, 553)
-        btnSiguiente.Margin = New Padding(3, 4, 3, 4)
+        btnSiguiente.Location = New Point(853, 177)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(86, 31)
+        btnSiguiente.Size = New Size(108, 25)
         btnSiguiente.TabIndex = 31
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(742, 553)
-        btnAnterior.Margin = New Padding(3, 4, 3, 4)
+        btnAnterior.Location = New Point(739, 177)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(86, 31)
+        btnAnterior.Size = New Size(108, 25)
         btnAnterior.TabIndex = 30
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(649, 553)
-        btnPrimero.Margin = New Padding(3, 4, 3, 4)
+        btnPrimero.Location = New Point(739, 208)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(86, 31)
+        btnPrimero.Size = New Size(108, 25)
         btnPrimero.TabIndex = 29
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(929, 397)
-        btnLimpiar.Margin = New Padding(3, 4, 3, 4)
+        btnLimpiar.Location = New Point(354, 177)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(86, 31)
+        btnLimpiar.Size = New Size(108, 25)
         btnLimpiar.TabIndex = 28
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(718, 397)
-        btnEliminar.Margin = New Padding(3, 4, 3, 4)
+        btnEliminar.Location = New Point(240, 177)
         btnEliminar.Name = "btnEliminar"
-        btnEliminar.Size = New Size(86, 31)
+        btnEliminar.Size = New Size(108, 25)
         btnEliminar.TabIndex = 27
         btnEliminar.Text = "Eliminar"
         btnEliminar.UseVisualStyleBackColor = True
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(487, 397)
-        btnEditar.Margin = New Padding(3, 4, 3, 4)
+        btnEditar.Location = New Point(126, 177)
         btnEditar.Name = "btnEditar"
-        btnEditar.Size = New Size(86, 31)
+        btnEditar.Size = New Size(108, 25)
         btnEditar.TabIndex = 26
         btnEditar.Text = "Editar"
         btnEditar.UseVisualStyleBackColor = True
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(242, 397)
-        btnGuardar.Margin = New Padding(3, 4, 3, 4)
+        btnGuardar.Location = New Point(12, 177)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(86, 31)
+        btnGuardar.Size = New Size(108, 25)
         btnGuardar.TabIndex = 25
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
         ' 
-        ' btnNuevo
-        ' 
-        btnNuevo.Location = New Point(14, 397)
-        btnNuevo.Margin = New Padding(3, 4, 3, 4)
-        btnNuevo.Name = "btnNuevo"
-        btnNuevo.Size = New Size(86, 31)
-        btnNuevo.TabIndex = 24
-        btnNuevo.Text = "Nuevo"
-        btnNuevo.UseVisualStyleBackColor = True
-        ' 
         ' lblBuscar
         ' 
         lblBuscar.AutoSize = True
-        lblBuscar.Location = New Point(50, 344)
+        lblBuscar.Location = New Point(12, 146)
         lblBuscar.Name = "lblBuscar"
-        lblBuscar.Size = New Size(77, 20)
+        lblBuscar.Size = New Size(71, 16)
         lblBuscar.TabIndex = 38
         lblBuscar.Text = "Búsqueda:"
+        lblBuscar.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' lblDescripcion
         ' 
         lblDescripcion.AutoSize = True
-        lblDescripcion.Location = New Point(40, 276)
+        lblDescripcion.Location = New Point(12, 116)
         lblDescripcion.Name = "lblDescripcion"
-        lblDescripcion.Size = New Size(90, 20)
+        lblDescripcion.Size = New Size(86, 16)
         lblDescripcion.TabIndex = 37
         lblDescripcion.Text = "Descripción:"
+        lblDescripcion.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' lblNombre
         ' 
         lblNombre.AutoSize = True
-        lblNombre.Location = New Point(50, 200)
+        lblNombre.Location = New Point(12, 83)
         lblNombre.Name = "lblNombre"
-        lblNombre.Size = New Size(67, 20)
+        lblNombre.Size = New Size(61, 16)
         lblNombre.TabIndex = 36
         lblNombre.Text = "Nombre:"
+        lblNombre.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' lblIdEspecialidad
         ' 
         lblIdEspecialidad.AutoSize = True
-        lblIdEspecialidad.Location = New Point(14, 128)
+        lblIdEspecialidad.Location = New Point(12, 50)
         lblIdEspecialidad.Name = "lblIdEspecialidad"
-        lblIdEspecialidad.Size = New Size(152, 20)
+        lblIdEspecialidad.Size = New Size(207, 16)
         lblIdEspecialidad.TabIndex = 35
-        lblIdEspecialidad.Text = "ID de la especialidad:"
+        lblIdEspecialidad.Text = "Identificador de la especialidad:"
+        lblIdEspecialidad.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form4
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1026, 600)
+        ClientSize = New Size(973, 242)
         Controls.Add(lblBuscar)
         Controls.Add(lblDescripcion)
         Controls.Add(lblNombre)
@@ -274,7 +248,6 @@ Partial Class Form4
         Controls.Add(btnEliminar)
         Controls.Add(btnEditar)
         Controls.Add(btnGuardar)
-        Controls.Add(btnNuevo)
         Controls.Add(dgvEspecialidades)
         Controls.Add(txtBuscar)
         Controls.Add(txtDescripcion)
@@ -282,9 +255,9 @@ Partial Class Form4
         Controls.Add(txtIdEspecialidad)
         Controls.Add(btnRegresar)
         Controls.Add(Label1)
-        Margin = New Padding(3, 4, 3, 4)
+        Font = New Font("Lucida Sans Unicode", 9.75F)
         Name = "Form4"
-        Text = "Form4"
+        Text = "Especialidades"
         CType(dgvEspecialidades, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -306,7 +279,6 @@ Partial Class Form4
     Friend WithEvents btnEliminar As Button
     Friend WithEvents btnEditar As Button
     Friend WithEvents btnGuardar As Button
-    Friend WithEvents btnNuevo As Button
     Friend WithEvents lblBuscar As Label
     Friend WithEvents lblDescripcion As Label
     Friend WithEvents lblNombre As Label
