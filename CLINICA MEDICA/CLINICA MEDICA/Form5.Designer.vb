@@ -136,10 +136,18 @@ Partial Class Form5
         ' 
         dgvCitas.AllowUserToAddRows = False
         dgvCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+<<<<<<< HEAD
         dgvCitas.Location = New Point(302, 44)
         dgvCitas.Name = "dgvCitas"
         dgvCitas.RowHeadersWidth = 51
         dgvCitas.Size = New Size(704, 216)
+=======
+        dgvCitas.Location = New Point(416, 122)
+        dgvCitas.Margin = New Padding(3, 4, 3, 4)
+        dgvCitas.Name = "dgvCitas"
+        dgvCitas.RowHeadersWidth = 51
+        dgvCitas.Size = New Size(761, 263)
+>>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
         dgvCitas.TabIndex = 24
         ' 
         ' btnSalir
@@ -297,7 +305,11 @@ Partial Class Form5
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
+<<<<<<< HEAD
         ClientSize = New Size(1018, 330)
+=======
+        ClientSize = New Size(1189, 600)
+>>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
         Controls.Add(lblBuscar)
         Controls.Add(lblEstado)
         Controls.Add(lblHora)

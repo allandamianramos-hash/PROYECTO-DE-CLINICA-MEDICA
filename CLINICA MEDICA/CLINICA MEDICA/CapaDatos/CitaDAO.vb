@@ -24,21 +24,31 @@ Public Class CitaDAO
 
     ' 2. MÉTODO PARA INSERTAR
     Public Sub Insertar(cita As Cita)
-        ' 1. Obtén tu conexión (asegúrate de que tu variable 'conn' sea la que usas en tu proyecto)
-        Using cmd As New NpgsqlCommand("CALL registrar_cita(@idPac, @idMed, @fec, @hor, @idEst)", conn)
-            cmd.Parameters.AddWithValue("@idPac", cita.IdPaciente)
-            cmd.Parameters.AddWithValue("@idMed", cita.IdMedico)
+        Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
+            conn.Open()
 
-            ' Esto debe ser tipo DATE
-            cmd.Parameters.AddWithValue("@fec", CType(cita.Fecha, DateTime).Date)
+            Using cmd As New NpgsqlCommand("CALL registrar_cita(@idPac, @idMed, @fec, @hor, @idEst)", conn)
+                ' Los enteros se mapean bien directo
+                cmd.Parameters.AddWithValue("@idPac", cita.IdPaciente)
+                cmd.Parameters.AddWithValue("@idMed", cita.IdMedico)
 
-            ' Esto debe ser tipo TIME (TimeSpan en VB suele funcionar bien con TIME en Postgres)
-            cmd.Parameters.AddWithValue("@hor", TimeSpan.Parse(cita.Hora.ToString()))
+                ' 1. OBLIGAMOS a que se envíe como DATE puro
+                Dim pFecha As New NpgsqlParameter("@fec", NpgsqlTypes.NpgsqlDbType.Date)
+                pFecha.Value = cita.Fecha.Date
+                cmd.Parameters.Add(pFecha)
 
-            ' Esto debe ser INTEGER
-            cmd.Parameters.AddWithValue("@idEst", cita.Estado)
+                ' 2. OBLIGAMOS a que se envíe como TIME puro
+                Dim pHora As New NpgsqlParameter("@hor", NpgsqlTypes.NpgsqlDbType.Time)
+                pHora.Value = cita.Hora ' Asegúrate de que cita.Hora sea un TimeSpan
+                cmd.Parameters.Add(pHora)
 
-            cmd.ExecuteNonQuery()
+                ' 3. OBLIGAMOS a que el estado se envíe como INTEGER (Su ID)
+                Dim pEstado As New NpgsqlParameter("@idEst", NpgsqlTypes.NpgsqlDbType.Integer)
+                pEstado.Value = Convert.ToInt32(cita.Estado) ' Si cita.Estado es String, usa el ID numérico aquí
+                cmd.Parameters.Add(pEstado)
+
+                cmd.ExecuteNonQuery()
+            End Using
         End Using
     End Sub
 
@@ -119,6 +129,33 @@ Public Class CitaDAO
         Return dt
     End Function
 
+    Public Function ListarCitas() As DataTable
+        Dim dt As New DataTable()
+        ' Tu consulta SQL (la que usas para mostrar los datos en el grid)
+        Dim query As String = "SELECT c.id_cita, p.nombre AS nombre_paciente, m.nombre AS nombre_medico, c.fecha, c.hora FROM citas c JOIN pacientes p ON c.id_paciente = p.id_paciente JOIN medicos m ON c.id_medico = m.id_medico ORDER BY c.id_cita DESC"
+
+        Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
+            Using cmd As New NpgsqlCommand(query, conn)
+                Using da As New NpgsqlDataAdapter(cmd)
+                    da.Fill(dt) ' Llenamos el DataTable con los datos frescos de la BD
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
 
 
+    Public Function ListarPacientes() As DataTable
+        Dim dt As New DataTable()
+        Dim query As String = "SELECT id_paciente, nombre, apellido, telefono, sexo FROM pacientes ORDER BY id_paciente DESC"
+
+        Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
+            Using cmd As New NpgsqlCommand(query, conn)
+                Using da As New NpgsqlDataAdapter(cmd)
+                    da.Fill(dt)
+                End Using
+            End Using
+        End Using
+        Return dt
+    End Function
 End Class
