@@ -283,30 +283,40 @@
     End Sub
 
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
+
         Try
-            ' 1. Obtenemos los datos actuales que están cargados en tu DataGridView
-            Dim dt As DataTable = CType(dgvConsultas.DataSource, DataTable)
+            If dgvConsultas.DataSource Is Nothing Then Exit Sub
 
-            If dt Is Nothing Then Exit Sub
-
-            ' 2. Creamos una "Vista" para poder filtrar la tabla
-            Dim vista As New DataView(dt)
-
-            ' 3. Limpiamos el texto
             Dim textoBuscar As String = txtBuscar.Text.Trim().Replace("'", "''")
 
-            ' 4. Aplicamos el filtro
-            If textoBuscar = "" Then
-                vista.RowFilter = ""
-            Else
-                vista.RowFilter = String.Format("sintomas LIKE '%{0}%' OR diagnostico LIKE '%{0}%' OR observaciones LIKE '%{0}%'", textoBuscar)
+            ' Si el DataSource es DataTable
+            If TypeOf dgvConsultas.DataSource Is DataTable Then
+
+                Dim tabla As DataTable = CType(dgvConsultas.DataSource, DataTable)
+
+                If textoBuscar = "" Then
+                    tabla.DefaultView.RowFilter = ""
+                Else
+                    tabla.DefaultView.RowFilter = "diagnostico LIKE '%" & textoBuscar & "%'"
+                End If
+
+                ' Si el DataSource es DataView
+            ElseIf TypeOf dgvConsultas.DataSource Is DataView Then
+
+                Dim vista As DataView = CType(dgvConsultas.DataSource, DataView)
+
+                If textoBuscar = "" Then
+                    vista.RowFilter = ""
+                Else
+                    vista.RowFilter = "diagnostico LIKE '%" & textoBuscar & "%'"
+                End If
+
             End If
 
-            ' 5. Le devolvemos los datos filtrados a la tabla visual
-            dgvConsultas.DataSource = vista
-
         Catch ex As Exception
+            MessageBox.Show("Error al buscar: " & ex.Message)
         End Try
+
     End Sub
 
 End Class
