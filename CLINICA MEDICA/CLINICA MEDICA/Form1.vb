@@ -83,5 +83,9 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnMedicamentos_Click(sender As Object, e As EventArgs) Handles btnMedicamentos.Click
+        Form9.Show()
+        Me.Hide()
 
+    End Sub
 End Class

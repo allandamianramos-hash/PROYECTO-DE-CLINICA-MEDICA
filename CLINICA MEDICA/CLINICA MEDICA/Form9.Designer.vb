@@ -38,7 +38,7 @@ Partial Class Form9
         btnSiguiente = New Button()
         btnAnterior = New Button()
         btnPrimero = New Button()
-        DataGridView1 = New DataGridView()
+        dgvMedicamentos = New DataGridView()
         Label1 = New Label()
         cmbFormaFarmaceutica = New ComboBox()
         Label2 = New Label()
@@ -48,7 +48,7 @@ Partial Class Form9
         Label6 = New Label()
         Label7 = New Label()
         Label8 = New Label()
-        CType(DataGridView1, ComponentModel.ISupportInitialize).BeginInit()
+        CType(dgvMedicamentos, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' txtIdMedicamento
@@ -185,17 +185,17 @@ Partial Class Form9
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
-        ' DataGridView1
+        ' dgvMedicamentos
         ' 
-        DataGridView1.AllowUserToDeleteRows = False
-        DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridView1.Location = New Point(307, 74)
-        DataGridView1.MultiSelect = False
-        DataGridView1.Name = "DataGridView1"
-        DataGridView1.ReadOnly = True
-        DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        DataGridView1.Size = New Size(481, 231)
-        DataGridView1.TabIndex = 45
+        dgvMedicamentos.AllowUserToDeleteRows = False
+        dgvMedicamentos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvMedicamentos.Location = New Point(307, 74)
+        dgvMedicamentos.MultiSelect = False
+        dgvMedicamentos.Name = "dgvMedicamentos"
+        dgvMedicamentos.ReadOnly = True
+        dgvMedicamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvMedicamentos.Size = New Size(481, 231)
+        dgvMedicamentos.TabIndex = 45
         ' 
         ' Label1
         ' 
@@ -293,7 +293,7 @@ Partial Class Form9
         Controls.Add(Label2)
         Controls.Add(cmbFormaFarmaceutica)
         Controls.Add(Label1)
-        Controls.Add(DataGridView1)
+        Controls.Add(dgvMedicamentos)
         Controls.Add(btnUltimo)
         Controls.Add(btnSiguiente)
         Controls.Add(btnAnterior)
@@ -312,7 +312,7 @@ Partial Class Form9
         Controls.Add(txtIdMedicamento)
         Name = "Form9"
         Text = "Form9"
-        CType(DataGridView1, ComponentModel.ISupportInitialize).EndInit()
+        CType(dgvMedicamentos, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -333,7 +333,7 @@ Partial Class Form9
     Friend WithEvents btnSiguiente As Button
     Friend WithEvents btnAnterior As Button
     Friend WithEvents btnPrimero As Button
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents dgvMedicamentos As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents cmbFormaFarmaceutica As ComboBox
     Friend WithEvents Label2 As Label

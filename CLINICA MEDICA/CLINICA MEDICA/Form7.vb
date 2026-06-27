@@ -1,181 +1,68 @@
-﻿Public Class Form7
-
+﻿Imports System.Data
+Public Class Form7
 
     Dim tablaRecetas As New DataTable
-    Dim tablaMedicamentos As New DataTable
     Dim posicion As Integer = 0
 
-    Private Sub FormReceta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FormRecetas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         txtIdReceta.ReadOnly = True
 
-        ' ComboBox consultas
         cmbIdConsulta.DropDownStyle = ComboBoxStyle.DropDownList
-        cmbIdConsulta.Items.Clear()
-
-        For i As Integer = 1 To 100
-            cmbIdConsulta.Items.Add("Consulta " & i)
-        Next
-
-        cmbIdConsulta.SelectedIndex = -1
-
-        ' ComboBox medicamentos
         cmbMedicamento.DropDownStyle = ComboBoxStyle.DropDownList
-        CargarMedicamentos()
 
-        ' TextBox multilínea
-        txtIndicaciones.Multiline = True
-        txtIndicaciones.ScrollBars = ScrollBars.Vertical
-
-        ' Configuración DataGridView
         dgvRecetas.AllowUserToAddRows = False
         dgvRecetas.ReadOnly = True
         dgvRecetas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvRecetas.MultiSelect = False
         dgvRecetas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-        ' Columnas del DataGridView
-        tablaRecetas.Columns.Add("id_receta")
-        tablaRecetas.Columns.Add("id_consulta")
-        tablaRecetas.Columns.Add("id_medicamento")
-        tablaRecetas.Columns.Add("medicamento")
-        tablaRecetas.Columns.Add("dosis")
-        tablaRecetas.Columns.Add("frecuencia_indicacion")
-
-        dgvRecetas.DataSource = tablaRecetas
-
-        dgvRecetas.Columns("id_receta").HeaderText = "ID Receta"
-        dgvRecetas.Columns("id_consulta").HeaderText = "ID Consulta"
-        dgvRecetas.Columns("id_medicamento").HeaderText = "ID Medicamento"
-        dgvRecetas.Columns("medicamento").HeaderText = "Medicamento"
-        dgvRecetas.Columns("dosis").HeaderText = "Dosis"
-        dgvRecetas.Columns("frecuencia_indicacion").HeaderText = "Indicaciones"
-
-        GenerarId()
+        CargarCombos()
+        CargarTablaRecetas()
+        LimpiarCampos()
 
     End Sub
 
-    Private Sub CargarMedicamentos()
+    Private Sub CargarCombos()
 
-        tablaMedicamentos.Columns.Add("id_medicamento", GetType(Integer))
-        tablaMedicamentos.Columns.Add("nombre_medicamento", GetType(String))
+        Dim dao As New RecetaDAO()
 
-        tablaMedicamentos.Rows.Add(1, "Panadol - Paracetamol 500 mg")
-        tablaMedicamentos.Rows.Add(2, "Tylenol - Paracetamol 500 mg")
-        tablaMedicamentos.Rows.Add(3, "Advil - Ibuprofeno 400 mg")
-        tablaMedicamentos.Rows.Add(4, "Motrin - Ibuprofeno 600 mg")
-        tablaMedicamentos.Rows.Add(5, "Amoxil - Amoxicilina 500 mg")
-        tablaMedicamentos.Rows.Add(6, "Clamoxin - Amoxicilina Ácido Clavulánico 875/125 mg")
-        tablaMedicamentos.Rows.Add(7, "Loratadina MK - Loratadina 10 mg")
-        tablaMedicamentos.Rows.Add(8, "Claritin - Loratadina 10 mg")
-        tablaMedicamentos.Rows.Add(9, "Omeprazol Genfar - Omeprazol 20 mg")
-        tablaMedicamentos.Rows.Add(10, "Losec - Omeprazol 20 mg")
-        tablaMedicamentos.Rows.Add(11, "Losartán MK - Losartán 50 mg")
-        tablaMedicamentos.Rows.Add(12, "Cozaar - Losartán 100 mg")
-        tablaMedicamentos.Rows.Add(13, "Metformina La Santé - Metformina 850 mg")
-        tablaMedicamentos.Rows.Add(14, "Glucophage - Metformina 500 mg")
-        tablaMedicamentos.Rows.Add(15, "Salbutamol Inhalador - Salbutamol 100 mcg/dosis")
-        tablaMedicamentos.Rows.Add(16, "Ventolin - Salbutamol 100 mcg/dosis")
-        tablaMedicamentos.Rows.Add(17, "Diclofenaco MK - Diclofenaco 50 mg")
-        tablaMedicamentos.Rows.Add(18, "Voltaren - Diclofenaco 75 mg")
-        tablaMedicamentos.Rows.Add(19, "Azitromicina Genfar - Azitromicina 500 mg")
-        tablaMedicamentos.Rows.Add(20, "Zitromax - Azitromicina 500 mg")
-        tablaMedicamentos.Rows.Add(21, "Cetrine - Cetirizina 10 mg")
-        tablaMedicamentos.Rows.Add(22, "Zyrtec - Cetirizina 10 mg")
-        tablaMedicamentos.Rows.Add(23, "Allegra - Fexofenadina 120 mg")
-        tablaMedicamentos.Rows.Add(24, "Telfast - Fexofenadina 180 mg")
-        tablaMedicamentos.Rows.Add(25, "Aspirina - Ácido Acetilsalicílico 100 mg")
-        tablaMedicamentos.Rows.Add(26, "Aspirina Forte - Ácido Acetilsalicílico 500 mg")
-        tablaMedicamentos.Rows.Add(27, "Naproxeno MK - Naproxeno 500 mg")
-        tablaMedicamentos.Rows.Add(28, "Apronax - Naproxeno 550 mg")
-        tablaMedicamentos.Rows.Add(29, "Dolex Gripa")
-        tablaMedicamentos.Rows.Add(30, "Tabcin")
-        tablaMedicamentos.Rows.Add(31, "Buscapina")
-        tablaMedicamentos.Rows.Add(32, "Buscapina Compositum")
-        tablaMedicamentos.Rows.Add(33, "Sertal")
-        tablaMedicamentos.Rows.Add(34, "Plidan")
-        tablaMedicamentos.Rows.Add(35, "Ranitidina Genfar")
-        tablaMedicamentos.Rows.Add(36, "Famotidina MK")
-        tablaMedicamentos.Rows.Add(37, "Pantoprazol La Santé")
-        tablaMedicamentos.Rows.Add(38, "Esomeprazol MK")
-        tablaMedicamentos.Rows.Add(39, "Enalapril MK")
-        tablaMedicamentos.Rows.Add(40, "Captopril Genfar")
-        tablaMedicamentos.Rows.Add(41, "Amlodipino MK")
-        tablaMedicamentos.Rows.Add(42, "Norvasc")
-        tablaMedicamentos.Rows.Add(43, "Atenolol Genfar")
-        tablaMedicamentos.Rows.Add(44, "Propranolol MK")
-        tablaMedicamentos.Rows.Add(45, "Hidroclorotiazida MK")
-        tablaMedicamentos.Rows.Add(46, "Furosemida Genfar")
-        tablaMedicamentos.Rows.Add(47, "Atorvastatina MK")
-        tablaMedicamentos.Rows.Add(48, "Lipitor")
-        tablaMedicamentos.Rows.Add(49, "Simvastatina Genfar")
-        tablaMedicamentos.Rows.Add(50, "Rosuvastatina MK")
-        tablaMedicamentos.Rows.Add(51, "Glibenclamida MK")
-        tablaMedicamentos.Rows.Add(52, "Glimepirida Genfar")
-        tablaMedicamentos.Rows.Add(53, "Insulina NPH")
-        tablaMedicamentos.Rows.Add(54, "Insulina Rápida")
-        tablaMedicamentos.Rows.Add(55, "Ciprofloxacino MK")
-        tablaMedicamentos.Rows.Add(56, "Ciproxin")
-        tablaMedicamentos.Rows.Add(57, "Levofloxacino Genfar")
-        tablaMedicamentos.Rows.Add(58, "Claritromicina MK")
-        tablaMedicamentos.Rows.Add(59, "Metronidazol Genfar")
-        tablaMedicamentos.Rows.Add(60, "Flagyl")
-        tablaMedicamentos.Rows.Add(61, "Albendazol MK")
-        tablaMedicamentos.Rows.Add(62, "Zentel")
-        tablaMedicamentos.Rows.Add(63, "Mebendazol Genfar")
-        tablaMedicamentos.Rows.Add(64, "Fluconazol MK")
-        tablaMedicamentos.Rows.Add(65, "Diflucan")
-        tablaMedicamentos.Rows.Add(66, "Clotrimazol MK")
-        tablaMedicamentos.Rows.Add(67, "Canesten")
-        tablaMedicamentos.Rows.Add(68, "Aciclovir Genfar")
-        tablaMedicamentos.Rows.Add(69, "Zovirax")
-        tablaMedicamentos.Rows.Add(70, "Prednisona MK")
-        tablaMedicamentos.Rows.Add(71, "Dexametasona Genfar")
-        tablaMedicamentos.Rows.Add(72, "Betametasona MK")
-        tablaMedicamentos.Rows.Add(73, "Hidrocortisona MK")
-        tablaMedicamentos.Rows.Add(74, "Lágrimas Artificiales")
-        tablaMedicamentos.Rows.Add(75, "Tobramicina Oftálmica")
-        tablaMedicamentos.Rows.Add(76, "Gentamicina Oftálmica")
-        tablaMedicamentos.Rows.Add(77, "Neomicina Polimixina")
-        tablaMedicamentos.Rows.Add(78, "Ambroxol MK")
-        tablaMedicamentos.Rows.Add(79, "Mucosolvan")
-        tablaMedicamentos.Rows.Add(80, "Dextrometorfano Genfar")
-        tablaMedicamentos.Rows.Add(81, "Vick Jarabe")
-        tablaMedicamentos.Rows.Add(82, "Loperamida MK")
-        tablaMedicamentos.Rows.Add(83, "Imodium")
-        tablaMedicamentos.Rows.Add(84, "Suero Oral")
-        tablaMedicamentos.Rows.Add(85, "Pedialyte")
-        tablaMedicamentos.Rows.Add(86, "Hierro MK")
-        tablaMedicamentos.Rows.Add(87, "Ácido Fólico Genfar")
-        tablaMedicamentos.Rows.Add(88, "Vitamina C MK")
-        tablaMedicamentos.Rows.Add(89, "Complejo B")
-        tablaMedicamentos.Rows.Add(90, "Calcio D")
-        tablaMedicamentos.Rows.Add(91, "Ketorolaco MK")
-        tablaMedicamentos.Rows.Add(92, "Ketorolaco Inyectable")
-        tablaMedicamentos.Rows.Add(93, "Tramadol Genfar")
-        tablaMedicamentos.Rows.Add(94, "Lidocaína")
-        tablaMedicamentos.Rows.Add(95, "Bupivacaína")
-        tablaMedicamentos.Rows.Add(96, "Sertralina MK")
-        tablaMedicamentos.Rows.Add(97, "Fluoxetina Genfar")
-        tablaMedicamentos.Rows.Add(98, "Diazepam Genfar")
-        tablaMedicamentos.Rows.Add(99, "Clonazepam MK")
-        tablaMedicamentos.Rows.Add(100, "Melatonina")
+        Dim tablaConsultas As DataTable = dao.ObtenerConsultas()
+        cmbIdConsulta.DataSource = tablaConsultas
+        cmbIdConsulta.DisplayMember = "descripcion_consulta"
+        cmbIdConsulta.ValueMember = "id_consulta"
+        cmbIdConsulta.SelectedIndex = -1
 
+        Dim tablaMedicamentos As DataTable = dao.ObtenerMedicamentos()
         cmbMedicamento.DataSource = tablaMedicamentos
-        cmbMedicamento.DisplayMember = "nombre_medicamento"
+        cmbMedicamento.DisplayMember = "descripcion_medicamento"
         cmbMedicamento.ValueMember = "id_medicamento"
         cmbMedicamento.SelectedIndex = -1
 
     End Sub
 
-    Private Sub GenerarId()
-        txtIdReceta.Text = (tablaRecetas.Rows.Count + 1).ToString()
+    Private Sub CargarTablaRecetas()
+
+        Dim dao As New RecetaDAO()
+
+        tablaRecetas = dao.ListarRecetas()
+        dgvRecetas.DataSource = tablaRecetas
+
+        If dgvRecetas.Columns.Contains("id_receta") Then dgvRecetas.Columns("id_receta").HeaderText = "ID Receta"
+        If dgvRecetas.Columns.Contains("id_consulta") Then dgvRecetas.Columns("id_consulta").HeaderText = "ID Consulta"
+        If dgvRecetas.Columns.Contains("fecha_emision") Then dgvRecetas.Columns("fecha_emision").HeaderText = "Fecha Emisión"
+        If dgvRecetas.Columns.Contains("id_detalle") Then dgvRecetas.Columns("id_detalle").Visible = False
+        If dgvRecetas.Columns.Contains("id_medicamento") Then dgvRecetas.Columns("id_medicamento").HeaderText = "ID Medicamento"
+        If dgvRecetas.Columns.Contains("medicamento") Then dgvRecetas.Columns("medicamento").HeaderText = "Medicamento"
+        If dgvRecetas.Columns.Contains("dosis") Then dgvRecetas.Columns("dosis").HeaderText = "Dosis"
+        If dgvRecetas.Columns.Contains("indicaciones") Then dgvRecetas.Columns("indicaciones").HeaderText = "Indicaciones"
+
     End Sub
 
     Private Function ValidarCampos() As Boolean
 
         If cmbIdConsulta.SelectedIndex = -1 Then
-            MessageBox.Show("Seleccione una consulta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Seleccione el identificador de la consulta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             cmbIdConsulta.Focus()
             Return False
         End If
@@ -207,81 +94,68 @@
         txtIdReceta.Clear()
         txtDosis.Clear()
         txtIndicaciones.Clear()
+        txtBuscar.Clear()
 
-        cmbIdConsulta.SelectedIndex = -1
-        cmbMedicamento.SelectedIndex = -1
+        If cmbIdConsulta.DataSource IsNot Nothing Then cmbIdConsulta.SelectedIndex = -1
+        If cmbMedicamento.DataSource IsNot Nothing Then cmbMedicamento.SelectedIndex = -1
 
-        dgvRecetas.DataSource = tablaRecetas
-
-        GenerarId()
+        posicion = 0
         cmbIdConsulta.Focus()
 
     End Sub
+
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
 
         If ValidarCampos() = False Then Exit Sub
 
-        tablaRecetas.Rows.Add(
-            txtIdReceta.Text,
-            cmbIdConsulta.SelectedIndex + 1,
-            CInt(cmbMedicamento.SelectedValue),
-            cmbMedicamento.Text,
-            txtDosis.Text.Trim(),
-            txtIndicaciones.Text.Trim()
-        )
+        Dim receta As New Receta()
+
+        receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
+        receta.IdMedicamento = CInt(cmbMedicamento.SelectedValue)
+        receta.Dosis = txtDosis.Text.Trim()
+        receta.Indicaciones = txtIndicaciones.Text.Trim()
+
+        Dim dao As New RecetaDAO()
+        dao.Guardar(receta)
 
         MessageBox.Show("Receta guardada correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        CargarCombos()
+        CargarTablaRecetas()
         LimpiarCampos()
-
-    End Sub
-
-    Private Sub dgvRecetas_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRecetas.CellClick
-
-        If e.RowIndex >= 0 Then
-
-            posicion = e.RowIndex
-
-            txtIdReceta.Text = dgvRecetas.Rows(posicion).Cells("id_receta").Value.ToString()
-
-            Dim idConsulta As Integer = CInt(dgvRecetas.Rows(posicion).Cells("id_consulta").Value)
-            cmbIdConsulta.SelectedIndex = idConsulta - 1
-
-            cmbMedicamento.SelectedValue = CInt(dgvRecetas.Rows(posicion).Cells("id_medicamento").Value)
-
-            txtDosis.Text = dgvRecetas.Rows(posicion).Cells("dosis").Value.ToString()
-            txtIndicaciones.Text = dgvRecetas.Rows(posicion).Cells("frecuencia_indicacion").Value.ToString()
-
-        End If
 
     End Sub
 
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
 
-        If dgvRecetas.CurrentRow Is Nothing Then
+        If txtIdReceta.Text.Trim() = "" Then
             MessageBox.Show("Seleccione una receta para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
         If ValidarCampos() = False Then Exit Sub
 
-        posicion = dgvRecetas.CurrentRow.Index
+        Dim receta As New Receta()
 
-        dgvRecetas.Rows(posicion).Cells("id_consulta").Value = cmbIdConsulta.SelectedIndex + 1
-        dgvRecetas.Rows(posicion).Cells("id_medicamento").Value = CInt(cmbMedicamento.SelectedValue)
-        dgvRecetas.Rows(posicion).Cells("medicamento").Value = cmbMedicamento.Text
-        dgvRecetas.Rows(posicion).Cells("dosis").Value = txtDosis.Text.Trim()
-        dgvRecetas.Rows(posicion).Cells("frecuencia_indicacion").Value = txtIndicaciones.Text.Trim()
+        receta.IdReceta = CInt(txtIdReceta.Text)
+        receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
+        receta.IdMedicamento = CInt(cmbMedicamento.SelectedValue)
+        receta.Dosis = txtDosis.Text.Trim()
+        receta.Indicaciones = txtIndicaciones.Text.Trim()
+
+        Dim dao As New RecetaDAO()
+        dao.Editar(receta)
 
         MessageBox.Show("Receta editada correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        CargarTablaRecetas()
         LimpiarCampos()
 
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
-        If dgvRecetas.CurrentRow Is Nothing Then
+        If txtIdReceta.Text.Trim() = "" Then
             MessageBox.Show("Seleccione una receta para eliminar.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
@@ -290,61 +164,114 @@
 
         respuesta = MessageBox.Show("¿Desea eliminar esta receta?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-        If respuesta = DialogResult.Yes Then
-            dgvRecetas.Rows.RemoveAt(dgvRecetas.CurrentRow.Index)
-            MessageBox.Show("Receta eliminada correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            LimpiarCampos()
-        End If
+        If respuesta = DialogResult.No Then Exit Sub
 
-    End Sub
+        Dim dao As New RecetaDAO()
+        dao.Eliminar(CInt(txtIdReceta.Text))
 
-    Private Sub btnBuscar_Click(sender As Object, e As EventArgs)
+        MessageBox.Show("Receta eliminada correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-        Dim buscar = InputBox("Ingrese medicamento, dosis o indicación:", "Buscar receta")
-
-        If buscar.Trim = "" Then
-            dgvRecetas.DataSource = tablaRecetas
-            Exit Sub
-        End If
-
-        Dim vista As New DataView(tablaRecetas)
-
-        vista.RowFilter = String.Format(
-            "medicamento LIKE '%{0}%' OR dosis LIKE '%{0}%' OR frecuencia_indicacion LIKE '%{0}%'",
-            buscar.Trim
-        )
-
-        dgvRecetas.DataSource = vista
+        CargarTablaRecetas()
+        LimpiarCampos()
 
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+
+        CargarTablaRecetas()
         LimpiarCampos()
+
+    End Sub
+
+    Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
+
+        Try
+            If tablaRecetas Is Nothing OrElse tablaRecetas.Rows.Count = 0 Then Exit Sub
+
+            Dim texto As String = txtBuscar.Text.Trim().Replace("'", "''")
+
+            If texto = "" Then
+                tablaRecetas.DefaultView.RowFilter = ""
+            Else
+                tablaRecetas.DefaultView.RowFilter =
+                    "medicamento LIKE '%" & texto & "%' OR " &
+                    "dosis LIKE '%" & texto & "%' OR " &
+                    "indicaciones LIKE '%" & texto & "%'"
+            End If
+
+            dgvRecetas.DataSource = tablaRecetas
+
+        Catch ex As Exception
+            MessageBox.Show("Error al buscar: " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub dgvRecetas_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvRecetas.CellClick
+
+        If e.RowIndex >= 0 Then
+            posicion = e.RowIndex
+            MostrarReceta()
+        End If
+
+    End Sub
+
+    Private Sub MostrarReceta()
+
+        If dgvRecetas.Rows.Count = 0 Then Exit Sub
+        If posicion < 0 OrElse posicion >= dgvRecetas.Rows.Count Then Exit Sub
+
+        dgvRecetas.ClearSelection()
+        dgvRecetas.Rows(posicion).Selected = True
+        dgvRecetas.CurrentCell = dgvRecetas.Rows(posicion).Cells("id_receta")
+
+        Dim fila As DataGridViewRow = dgvRecetas.Rows(posicion)
+
+        txtIdReceta.Text = fila.Cells("id_receta").Value.ToString()
+
+        cmbIdConsulta.SelectedValue = CInt(fila.Cells("id_consulta").Value)
+        cmbMedicamento.SelectedValue = CInt(fila.Cells("id_medicamento").Value)
+
+        txtDosis.Text = fila.Cells("dosis").Value.ToString()
+        txtIndicaciones.Text = fila.Cells("indicaciones").Value.ToString()
+
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
 
         If dgvRecetas.Rows.Count > 0 Then
             posicion = 0
-            MostrarRegistro()
+            MostrarReceta()
         End If
 
     End Sub
 
     Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
 
-        If posicion > 0 Then
-            posicion -= 1
-            MostrarRegistro()
+        If dgvRecetas.Rows.Count > 0 Then
+
+            If posicion > 0 Then
+                posicion -= 1
+                MostrarReceta()
+            Else
+                MessageBox.Show("Ya está en el primer registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
         End If
 
     End Sub
 
     Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
 
-        If posicion < dgvRecetas.Rows.Count - 1 Then
-            posicion += 1
-            MostrarRegistro()
+        If dgvRecetas.Rows.Count > 0 Then
+
+            If posicion < dgvRecetas.Rows.Count - 1 Then
+                posicion += 1
+                MostrarReceta()
+            Else
+                MessageBox.Show("Ya está en el último registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
         End If
 
     End Sub
@@ -353,27 +280,15 @@
 
         If dgvRecetas.Rows.Count > 0 Then
             posicion = dgvRecetas.Rows.Count - 1
-            MostrarRegistro()
+            MostrarReceta()
         End If
 
     End Sub
 
-    Private Sub MostrarRegistro()
+    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
 
-        If dgvRecetas.Rows.Count = 0 Then Exit Sub
-
-        dgvRecetas.ClearSelection()
-        dgvRecetas.Rows(posicion).Selected = True
-
-        txtIdReceta.Text = dgvRecetas.Rows(posicion).Cells("id_receta").Value.ToString()
-
-        Dim idConsulta As Integer = CInt(dgvRecetas.Rows(posicion).Cells("id_consulta").Value)
-        cmbIdConsulta.SelectedIndex = idConsulta - 1
-
-        cmbMedicamento.SelectedValue = CInt(dgvRecetas.Rows(posicion).Cells("id_medicamento").Value)
-
-        txtDosis.Text = dgvRecetas.Rows(posicion).Cells("dosis").Value.ToString()
-        txtIndicaciones.Text = dgvRecetas.Rows(posicion).Cells("frecuencia_indicacion").Value.ToString()
+        Form1.Show()
+        Me.Hide()
 
     End Sub
 
@@ -389,8 +304,4 @@
 
     End Sub
 
-    Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
-        Form1.Show()
-        Me.Hide()
-    End Sub
 End Class
