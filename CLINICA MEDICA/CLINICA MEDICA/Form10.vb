@@ -1,301 +1,400 @@
-﻿Imports Npgsql
+﻿Imports System.Data
+Imports System.Globalization
 
 Public Class Form10
 
-    Dim conexionString As String = "Server=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech; Port=5432; Database=neondb; User Id=neondb_owner; Password=npg_8KIjvXm6uzAi; SSL Mode=Require; Trust Server Certificate=True;"
+    Dim tablaFacturas As New DataTable
+    Dim posicion As Integer = 0
+    Dim cantidadesMedicamentos As New Dictionary(Of Integer, Integer)
 
-    ' El precio fijo de tu consulta clínica
-    Dim precioFijoConsulta As Decimal = 500.0
-    Dim catalogoMedicamentos As New Dictionary(Of String, Decimal)
+    Private Sub Form10_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    ' Esta lista "invisible" recordará las medicinas que el usuario ya seleccionó
-    Dim medicinasSeleccionadas As New List(Of String)
-    ' Este candado evita errores cuando la lista se recarga por la búsqueda
-    Dim actualizandoLista As Boolean = False
-
-    Private Sub FormPagos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtIdFactura.ReadOnly = True
         txtMontoTotal.ReadOnly = True
 
-        ' --- AGREGAR ESTO PARA LLENAR LOS COMBOBOX AUTOMÁTICAMENTE ---
-        ' Opciones de Método de Pago
+        cmbConsulta.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbMetodoPago.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbEstadoPago.DropDownStyle = ComboBoxStyle.DropDownList
+
+        dtpFechaPago.Format = DateTimePickerFormat.Custom
+        dtpFechaPago.CustomFormat = "dd/MM/yyyy HH:mm:ss"
+
+        dgvFacturas.AllowUserToAddRows = False
+        dgvFacturas.ReadOnly = True
+        dgvFacturas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvFacturas.MultiSelect = False
+        dgvFacturas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
+        CargarCombos()
+        CargarMedicamentosAdquiridos()
+        CargarTablaFacturas()
+        LimpiarCampos()
+
+    End Sub
+
+    Private Sub CargarCombos()
+
+        Dim dao As New FacturaDAO()
+
+        Dim tablaConsultas As DataTable = dao.ObtenerConsultas()
+
+        cmbConsulta.DataSource = tablaConsultas
+        cmbConsulta.DisplayMember = "descripcion_consulta"
+        cmbConsulta.ValueMember = "id_consulta"
+        cmbConsulta.SelectedIndex = -1
+
         cmbMetodoPago.Items.Clear()
         cmbMetodoPago.Items.Add("Efectivo")
         cmbMetodoPago.Items.Add("Tarjeta")
         cmbMetodoPago.Items.Add("Transferencia")
+        cmbMetodoPago.SelectedIndex = -1
 
-        ' Opciones de Estado de Pago
         cmbEstadoPago.Items.Clear()
         cmbEstadoPago.Items.Add("Pagado")
         cmbEstadoPago.Items.Add("Pendiente")
-        ' -------------------------------------------------------------
+        cmbEstadoPago.Items.Add("Cancelado")
+        cmbEstadoPago.SelectedIndex = -1
 
-        ' 1. Cargar las facturas en el DataGridView
-        Try
-            Dim dao As New FacturaDAO()
-            dgvFacturas.DataSource = dao.Mostrar()
-        Catch ex As Exception
-            MessageBox.Show("Error al cargar la tabla facturas: " & ex.Message)
-        End Try
-
-        ' 2. Cargar los medicamentos
-        CargarMedicamentosDesdeBD()
-
-        ' 3. Mostrar medicamentos visualmente y calcular total base
-        ActualizarVistaMedicamentos("")
-        CalcularTotal()
-    End Sub
-    ' 🌟 Magia pura: Leemos de la base de datos y llenamos nuestro catálogo interno
-    Private Sub CargarMedicamentosDesdeBD()
-        catalogoMedicamentos.Clear()
-
-        Dim query As String = "SELECT nombre_generico, precio FROM medicamentos"
-
-        Using conn As New NpgsqlConnection(conexionString)
-            Try
-                conn.Open()
-                Using cmd As New NpgsqlCommand(query, conn)
-                    Using reader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Dim nombreMedicina As String = reader("nombre_generico").ToString()
-                            Dim precioMedicina As Decimal = Convert.ToDecimal(reader("precio"))
-
-                            ' 🛡️ Solo lo agrega al catálogo si no está repetido
-                            If Not catalogoMedicamentos.ContainsKey(nombreMedicina) Then
-                                catalogoMedicamentos.Add(nombreMedicina, precioMedicina)
-                            End If
-                        End While
-                    End Using
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al conectar con la tabla de medicamentos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
     End Sub
 
-    ' --- LÓGICA DE BÚSQUEDA Y SELECCIÓN DE MEDICAMENTOS ---
+    Private Sub CargarMedicamentosAdquiridos()
 
-    Private Sub ActualizarVistaMedicamentos(filtro As String)
-        ' Activamos el candado para que no se dispare el evento ItemCheck por accidente
-        actualizandoLista = True
+        Dim dao As New FacturaDAO()
+        Dim tablaMedicamentos As DataTable = dao.ObtenerMedicamentos()
 
-        clbMedicamentos.Items.Clear()
+        clbMedicamentos.DataSource = tablaMedicamentos
+        clbMedicamentos.DisplayMember = "descripcion"
+        clbMedicamentos.ValueMember = "id_medicamento"
 
-        ' Revisamos todo nuestro catálogo original
-        For Each medicina In catalogoMedicamentos
-            If medicina.Key.ToLower().Contains(filtro.ToLower()) Then
-                ' Lo agregamos a la cajita visual
-                clbMedicamentos.Items.Add(medicina.Key)
-
-                ' Si esta medicina estaba en nuestra memoria de seleccionadas, le ponemos su palomita
-                If medicinasSeleccionadas.Contains(medicina.Key) Then
-                    clbMedicamentos.SetItemChecked(clbMedicamentos.Items.Count - 1, True)
-                End If
-            End If
-        Next
-
-        actualizandoLista = False
     End Sub
 
-    Private Sub txtBuscarMedicamento_TextChanged(sender As Object, e As EventArgs) Handles txtBuscarMedicamento.TextChanged
-        ActualizarVistaMedicamentos(txtBuscarMedicamento.Text.Trim())
+    Private Sub CargarTablaFacturas()
+
+        Dim dao As New FacturaDAO()
+
+        tablaFacturas = dao.ListarFacturas()
+        dgvFacturas.DataSource = tablaFacturas
+
+        If dgvFacturas.Columns.Contains("id_factura") Then dgvFacturas.Columns("id_factura").HeaderText = "ID Factura"
+        If dgvFacturas.Columns.Contains("id_consulta") Then dgvFacturas.Columns("id_consulta").HeaderText = "ID Consulta"
+        If dgvFacturas.Columns.Contains("monto_total") Then dgvFacturas.Columns("monto_total").HeaderText = "Monto Total"
+        If dgvFacturas.Columns.Contains("fecha_pago") Then dgvFacturas.Columns("fecha_pago").HeaderText = "Fecha de Pago"
+        If dgvFacturas.Columns.Contains("metodo_pago") Then dgvFacturas.Columns("metodo_pago").HeaderText = "Método de Pago"
+        If dgvFacturas.Columns.Contains("estado_pago") Then dgvFacturas.Columns("estado_pago").HeaderText = "Estado de Pago"
+
     End Sub
 
-    ' Disparador: se ejecuta cada que pones o quitas una palomita
-    Private Sub clbMedicamentos_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles clbMedicamentos.ItemCheck
-        ' Si el candado está activo (porque estamos buscando), ignoramos
-        If actualizandoLista Then Return
+    Private Function ValidarCampos() As Boolean
 
-        Dim nombreMedicina As String = clbMedicamentos.Items(e.Index).ToString()
-
-        ' Guardamos o borramos de la memoria invisible
-        If e.NewValue = CheckState.Checked Then
-            If Not medicinasSeleccionadas.Contains(nombreMedicina) Then
-                medicinasSeleccionadas.Add(nombreMedicina)
-            End If
-        Else
-            If medicinasSeleccionadas.Contains(nombreMedicina) Then
-                medicinasSeleccionadas.Remove(nombreMedicina)
-            End If
+        If cmbConsulta.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione una consulta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbConsulta.Focus()
+            Return False
         End If
 
-        ' Mandamos recalcular
-        BeginInvoke(New MethodInvoker(AddressOf CalcularTotal))
-    End Sub
+        If cmbMetodoPago.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione el método de pago.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbMetodoPago.Focus()
+            Return False
+        End If
 
-    ' Sumamos leyendo nuestra memoria, no la pantalla
-    Private Sub CalcularTotal()
-        Dim totalAPagar As Decimal = precioFijoConsulta
+        If cmbEstadoPago.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione el estado de pago.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbEstadoPago.Focus()
+            Return False
+        End If
 
-        For Each medicina In medicinasSeleccionadas
-            totalAPagar += catalogoMedicamentos(medicina)
+        If txtMontoTotal.Text.Trim() = "" OrElse txtMontoTotal.Text.Trim() = "0.00" Then
+            MessageBox.Show("Seleccione al menos un medicamento para calcular el monto total.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
+    Private Function ObtenerMonto() As Decimal
+
+        Dim monto As Decimal
+
+        If Decimal.TryParse(txtMontoTotal.Text.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, monto) Then
+            Return monto
+        End If
+
+        Decimal.TryParse(txtMontoTotal.Text.Trim(), monto)
+        Return monto
+
+    End Function
+
+    Private Sub LimpiarCampos()
+
+        txtIdFactura.Clear()
+        txtMontoTotal.Text = "0.00"
+
+        If cmbConsulta.DataSource IsNot Nothing Then cmbConsulta.SelectedIndex = -1
+        cmbMetodoPago.SelectedIndex = -1
+        cmbEstadoPago.SelectedIndex = -1
+
+        For i As Integer = 0 To clbMedicamentos.Items.Count - 1
+            clbMedicamentos.SetItemChecked(i, False)
         Next
 
-        txtMontoTotal.Text = totalAPagar.ToString("0.00")
+        cantidadesMedicamentos.Clear()
+
+        dtpFechaPago.Value = Date.Now
+
+        posicion = 0
+        cmbConsulta.Focus()
+
     End Sub
 
+    Private Sub clbMedicamentos_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles clbMedicamentos.ItemCheck
 
-    ' --- BOTONES PRINCIPALES ---
+        If e.Index < 0 Then Exit Sub
+
+        If e.NewValue = CheckState.Checked Then
+
+            Dim fila As DataRowView = CType(clbMedicamentos.Items(e.Index), DataRowView)
+            Dim idMedicamento As Integer = CInt(fila("id_medicamento"))
+            Dim nombreMedicamento As String = fila("nombre_comercial").ToString()
+
+            Dim cantidadTexto As String = InputBox("Ingrese la cantidad adquirida de: " & nombreMedicamento, "Cantidad", "1")
+
+            Dim cantidad As Integer
+
+            If Integer.TryParse(cantidadTexto, cantidad) = False OrElse cantidad <= 0 Then
+                MessageBox.Show("Cantidad inválida. Se usará cantidad 1.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                cantidad = 1
+            End If
+
+            If cantidadesMedicamentos.ContainsKey(idMedicamento) Then
+                cantidadesMedicamentos(idMedicamento) = cantidad
+            Else
+                cantidadesMedicamentos.Add(idMedicamento, cantidad)
+            End If
+
+        ElseIf e.NewValue = CheckState.Unchecked Then
+
+            Dim fila As DataRowView = CType(clbMedicamentos.Items(e.Index), DataRowView)
+            Dim idMedicamento As Integer = CInt(fila("id_medicamento"))
+
+            If cantidadesMedicamentos.ContainsKey(idMedicamento) Then
+                cantidadesMedicamentos.Remove(idMedicamento)
+            End If
+
+        End If
+
+        Me.BeginInvoke(New MethodInvoker(AddressOf CalcularTotalMedicamentos))
+
+    End Sub
+
+    Private Sub CalcularTotalMedicamentos()
+
+        Dim total As Decimal = 0D
+
+        For Each item As Object In clbMedicamentos.CheckedItems
+
+            Dim fila As DataRowView = CType(item, DataRowView)
+
+            Dim idMedicamento As Integer = CInt(fila("id_medicamento"))
+            Dim precio As Decimal = CDec(fila("precio"))
+
+            Dim cantidad As Integer = 1
+
+            If cantidadesMedicamentos.ContainsKey(idMedicamento) Then
+                cantidad = cantidadesMedicamentos(idMedicamento)
+            End If
+
+            total += precio * cantidad
+
+        Next
+
+        txtMontoTotal.Text = total.ToString("0.00")
+
+    End Sub
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        Try
-            Dim nuevaFactura As New Factura()
 
-            nuevaFactura.IdConsulta = Convert.ToInt32(Val(cmbConsulta.Text))
-            nuevaFactura.MontoTotal = Convert.ToDecimal(txtMontoTotal.Text)
-            nuevaFactura.FechaPago = dtpFechaPago.Value
-            nuevaFactura.MetodoPago = cmbMetodoPago.Text
-            nuevaFactura.EstadoPago = cmbEstadoPago.Text
+        If ValidarCampos() = False Then Exit Sub
 
-            Dim dao As New FacturaDAO()
-            dao.Insertar(nuevaFactura)
+        Dim factura As New Factura()
 
-            MessageBox.Show("¡Pago registrado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        factura.IdConsulta = CInt(cmbConsulta.SelectedValue)
+        factura.MontoTotal = ObtenerMonto()
+        factura.FechaPago = dtpFechaPago.Value
+        factura.MetodoPago = cmbMetodoPago.Text
+        factura.EstadoPago = cmbEstadoPago.Text
 
-            ' Refrescar pantalla
-            LimpiarCampos()
-            dgvFacturas.DataSource = dao.Mostrar()
+        Dim dao As New FacturaDAO()
+        dao.Guardar(factura)
 
-        Catch ex As Exception
-            MessageBox.Show("Error al guardar la factura: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        MessageBox.Show("Factura guardada correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        CargarTablaFacturas()
+        LimpiarCampos()
+
     End Sub
 
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-        If String.IsNullOrWhiteSpace(txtIdFactura.Text) Then
-            MessageBox.Show("Por favor, seleccione una factura de la tabla inferior para editarla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        If txtIdFactura.Text.Trim() = "" Then
+            MessageBox.Show("Seleccione una factura para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        Try
-            Dim f As New Factura()
-            f.IdFactura = Convert.ToInt32(txtIdFactura.Text)
-            f.IdConsulta = Convert.ToInt32(Val(cmbConsulta.Text))
-            f.MontoTotal = Convert.ToDecimal(txtMontoTotal.Text)
-            f.FechaPago = dtpFechaPago.Value
-            f.MetodoPago = cmbMetodoPago.Text
-            f.EstadoPago = cmbEstadoPago.Text
+        If ValidarCampos() = False Then Exit Sub
 
-            Dim dao As New FacturaDAO()
-            dao.Actualizar(f)
+        Dim factura As New Factura()
 
-            MessageBox.Show("¡La factura se actualizó correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        factura.IdFactura = CInt(txtIdFactura.Text)
+        factura.IdConsulta = CInt(cmbConsulta.SelectedValue)
+        factura.MontoTotal = ObtenerMonto()
+        factura.FechaPago = dtpFechaPago.Value
+        factura.MetodoPago = cmbMetodoPago.Text
+        factura.EstadoPago = cmbEstadoPago.Text
 
-            LimpiarCampos()
-            dgvFacturas.DataSource = dao.Mostrar()
+        Dim dao As New FacturaDAO()
+        dao.Editar(factura)
 
-        Catch ex As Exception
-            MessageBox.Show("Error al editar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
+        MessageBox.Show("Factura editada correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        CargarTablaFacturas()
+        LimpiarCampos()
+
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        If String.IsNullOrWhiteSpace(txtIdFactura.Text) Then
-            MessageBox.Show("Por favor, seleccione una factura de la tabla inferior para eliminarla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        If txtIdFactura.Text.Trim() = "" Then
+            MessageBox.Show("Seleccione una factura para eliminar.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        Dim respuesta As DialogResult = MessageBox.Show("¿Está seguro que desea eliminar permanentemente esta factura?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim respuesta As DialogResult
 
-        If respuesta = DialogResult.Yes Then
-            Try
-                Dim idFactura As Integer = Convert.ToInt32(txtIdFactura.Text)
+        respuesta = MessageBox.Show("¿Desea eliminar esta factura?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-                Dim dao As New FacturaDAO()
-                dao.Eliminar(idFactura)
+        If respuesta = DialogResult.No Then Exit Sub
 
-                MessageBox.Show("Factura eliminada del sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim dao As New FacturaDAO()
+        dao.Eliminar(CInt(txtIdFactura.Text))
 
-                LimpiarCampos()
-                dgvFacturas.DataSource = dao.Mostrar()
+        MessageBox.Show("Factura eliminada correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            Catch ex As Exception
-                MessageBox.Show("Error al intentar eliminar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
+        CargarTablaFacturas()
+        LimpiarCampos()
+
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+
+        CargarTablaFacturas()
         LimpiarCampos()
+
     End Sub
-
-    Private Sub LimpiarCampos()
-        txtIdFactura.Clear()
-        cmbConsulta.SelectedIndex = -1
-        cmbConsulta.Text = ""
-        cmbMetodoPago.SelectedIndex = -1
-        cmbEstadoPago.SelectedIndex = -1
-        dtpFechaPago.Value = DateTime.Now
-        txtBuscarMedicamento.Clear()
-
-        ' Vaciamos la memoria
-        medicinasSeleccionadas.Clear()
-
-        ' Refrescamos la vista (esto desmarcará todo porque la memoria está vacía)
-        ActualizarVistaMedicamentos("")
-
-        CalcularTotal()
-
-        cmbConsulta.Focus()
-    End Sub
-
-    ' --- MANEJO DE LA TABLA ---
 
     Private Sub dgvFacturas_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvFacturas.CellClick
+
         If e.RowIndex >= 0 Then
-            Try
-                Dim fila As DataGridViewRow = dgvFacturas.Rows(e.RowIndex)
-
-                txtIdFactura.Text = fila.Cells("id_factura").Value.ToString()
-                cmbConsulta.Text = fila.Cells("id_consulta").Value.ToString()
-                cmbMetodoPago.Text = fila.Cells("metodo_pago").Value.ToString()
-                cmbEstadoPago.Text = fila.Cells("estado_pago").Value.ToString()
-
-                If Not IsDBNull(fila.Cells("fecha_pago").Value) Then
-                    dtpFechaPago.Value = Convert.ToDateTime(fila.Cells("fecha_pago").Value)
-                End If
-
-                txtMontoTotal.Text = fila.Cells("monto_total").Value.ToString()
-
-                ' Al seleccionar una factura vieja, limpiamos los medicamentos seleccionados temporalmente
-                medicinasSeleccionadas.Clear()
-                ActualizarVistaMedicamentos("")
-
-            Catch ex As Exception
-            End Try
+            posicion = e.RowIndex
+            MostrarFactura()
         End If
+
+    End Sub
+
+    Private Sub MostrarFactura()
+
+        If dgvFacturas.Rows.Count = 0 Then Exit Sub
+        If posicion < 0 OrElse posicion >= dgvFacturas.Rows.Count Then Exit Sub
+
+        dgvFacturas.ClearSelection()
+        dgvFacturas.Rows(posicion).Selected = True
+        dgvFacturas.CurrentCell = dgvFacturas.Rows(posicion).Cells("id_factura")
+
+        Dim fila As DataGridViewRow = dgvFacturas.Rows(posicion)
+
+        txtIdFactura.Text = fila.Cells("id_factura").Value.ToString()
+        cmbConsulta.SelectedValue = CInt(fila.Cells("id_consulta").Value)
+        txtMontoTotal.Text = fila.Cells("monto_total").Value.ToString()
+        cmbMetodoPago.Text = fila.Cells("metodo_pago").Value.ToString()
+        cmbEstadoPago.Text = fila.Cells("estado_pago").Value.ToString()
+
+        Dim fechaTexto As String = fila.Cells("fecha_pago").Value.ToString()
+        Dim fechaConvertida As DateTime
+
+        If DateTime.TryParse(fechaTexto, fechaConvertida) Then
+            dtpFechaPago.Value = fechaConvertida
+        Else
+            dtpFechaPago.Value = Date.Now
+        End If
+
+    End Sub
+
+    Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
+
+        If dgvFacturas.Rows.Count > 0 Then
+            posicion = 0
+            MostrarFactura()
+        End If
+
+    End Sub
+
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+
+        If dgvFacturas.Rows.Count > 0 Then
+
+            If posicion > 0 Then
+                posicion -= 1
+                MostrarFactura()
+            Else
+                MessageBox.Show("Ya está en el primer registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
+
+        If dgvFacturas.Rows.Count > 0 Then
+
+            If posicion < dgvFacturas.Rows.Count - 1 Then
+                posicion += 1
+                MostrarFactura()
+            Else
+                MessageBox.Show("Ya está en el último registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
+
+        If dgvFacturas.Rows.Count > 0 Then
+            posicion = dgvFacturas.Rows.Count - 1
+            MostrarFactura()
+        End If
+
     End Sub
 
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
+
         Form1.Show()
         Me.Hide()
+
     End Sub
 
-    Private Sub CargarConsultasPendientes()
-        cmbConsulta.Items.Clear()
+    Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
-        ' Query que trae los IDs de consultas que NO están en la tabla de facturas
-        Dim query As String = "
-            SELECT id_consulta 
-            FROM consultas 
-            WHERE id_consulta NOT IN (SELECT id_consulta FROM pagos_facturas)
-            ORDER BY id_consulta ASC"
+        Dim respuesta As DialogResult
 
-        Using conn As New NpgsqlConnection(conexionString)
-            Try
-                conn.Open()
-                Using cmd As New NpgsqlCommand(query, conn)
-                    Using reader = cmd.ExecuteReader()
-                        While reader.Read()
-                            ' Agregamos el ID al ComboBox
-                            cmbConsulta.Items.Add(reader("id_consulta").ToString())
-                        End While
-                    End Using
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al cargar las consultas pendientes: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If respuesta = DialogResult.Yes Then
+            Application.Exit()
+        End If
+
     End Sub
 
 End Class
