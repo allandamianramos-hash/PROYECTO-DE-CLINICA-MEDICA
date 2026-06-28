@@ -129,18 +129,10 @@ Public Class frm2
 
     End Function
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        MessageBox.Show("El sistema está leyendo esto en el cuadro de nombre: '" & txtNombre.Text & "'", "Espiando el TextBox")
-
-        ' PASO 2: Si el cuadro de texto de la pantalla realmente está vacío, detenemos todo aquí
-        If String.IsNullOrWhiteSpace(txtNombre.Text) Then
-            MessageBox.Show("¡Alto! No puedes guardar si el cuadro de texto está vacío en la pantalla.", "Validación")
-            Exit Sub
-        End If
+        If Not ValidarCampos() Then Exit Sub
 
         Try
             Dim nuevoPaciente As New Paciente()
-
-            ' 🔬 PASO 3: Mapeo explícito
             nuevoPaciente.Nombre = txtNombre.Text.Trim()
             nuevoPaciente.Apellido = txtApellido.Text.Trim()
             nuevoPaciente.Sexo = cmbSexo.Text.Trim()
@@ -152,13 +144,17 @@ Public Class frm2
             Dim dao As New PacienteDAO()
             dao.Insertar(nuevoPaciente)
 
-            MessageBox.Show("¡Paciente guardado exitosamente en Neon!", "Éxito")
+            MessageBox.Show("¡Paciente guardado exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             CargarTabla() ' Refresca tu DataGridView
+            LimpiarCampos()
+            Form1.CargarEstadisticas() 'Llama a esta funcion del form1
 
         Catch ex As Exception
-            MessageBox.Show("Error al intentar procesar: " & ex.Message)
+            MessageBox.Show("Error al intentar procesar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
         ' 1. Verificar que exista un registro seleccionado.
         If txtIdPaciente.Text = "" Then
@@ -213,6 +209,7 @@ Public Class frm2
             dao.Eliminar(Convert.ToInt32(txtIdPaciente.Text))
             CargarTabla()
             LimpiarCampos()
+            Form1.CargarEstadisticas() 'Llama a esta funcion del form1
         End If
     End Sub
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
@@ -338,11 +335,10 @@ Public Class frm2
     End Sub
     Private Sub txtTelefono_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTelefono.KeyPress
 
-        'Permitir únicamente números.
         If Not Char.IsDigit(e.KeyChar) And
-           Not Char.IsControl(e.KeyChar) Then
+           Not Char.IsControl(e.KeyChar) And
+           e.KeyChar <> "-"c Then
 
-            'Bloquear cualquier letra o símbolo.
             e.Handled = True
 
         End If
