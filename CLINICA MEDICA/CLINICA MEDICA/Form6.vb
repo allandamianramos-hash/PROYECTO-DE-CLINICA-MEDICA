@@ -7,14 +7,38 @@ Public Class Form6
     Dim conexionString As String = "Server=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech; Port=5432; Database=neondb; User Id=neondb_owner; Password=npg_8KIjvXm6uzAi; SSL Mode=Require; Trust Server Certificate=True;"
 
     ' --- MÉTODO AUXILIAR PARA CORREGIR EL ERROR DE DATEONLY ---
+    ' --- MÉTODO AUXILIAR BLINDADO PARA FECHAS Y HORAS ---
     Private Function ConvertirADateTime(valor As Object) As DateTime
+        ' Si el dato viene vacío o nulo desde la base de datos
         If valor Is Nothing OrElse IsDBNull(valor) Then Return DateTime.Now
-        ' Si el objeto es DateOnly (nuevo .NET), lo convertimos correctamente
-        If valor.GetType().Name = "DateOnly" Then
+
+        Dim tipoDato As String = valor.GetType().Name
+
+        ' 1. Si PostgreSQL manda un DateOnly (Solo fecha)
+        If tipoDato = "DateOnly" Then
             Return DirectCast(valor, DateOnly).ToDateTime(TimeOnly.MinValue)
         End If
-        ' Si es string o formato estándar, lo parseamos
-        Return Convert.ToDateTime(valor)
+
+        ' 2. Si PostgreSQL manda un TimeOnly (Solo hora) - ¡El que causaba el error!
+        If tipoDato = "TimeOnly" Then
+            Dim soloHora As TimeOnly = DirectCast(valor, TimeOnly)
+            ' Le sumamos la hora a la fecha de hoy para que el DateTimePicker lo acepte
+            Return DateTime.Today.Add(soloHora.ToTimeSpan())
+        End If
+
+        ' 3. Si manda un TimeSpan (Otro formato de hora que usa a veces PostgreSQL)
+        If tipoDato = "TimeSpan" Then
+            Dim lapso As TimeSpan = DirectCast(valor, TimeSpan)
+            Return DateTime.Today.Add(lapso)
+        End If
+
+        ' 4. Si es un string o fecha normal, usamos el método tradicional
+        Try
+            Return Convert.ToDateTime(valor)
+        Catch ex As Exception
+            ' Si todo falla, devolvemos el momento actual para no congelar el programa
+            Return DateTime.Now
+        End Try
     End Function
 
     Private Sub Form6_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -122,11 +146,17 @@ Public Class Form6
             txtDiagnostico.Text = fila.Cells("diagnostico").Value.ToString()
             txtObservaciones.Text = fila.Cells("observaciones").Value.ToString()
 
-            ' Usamos el nuevo método seguro para fechas
-            dtpFechaConsulta.Value = ConvertirADateTime(fila.Cells("fecha_consulta").Value)
-            dtpHoraConsulta.Value = ConvertirADateTime(fila.Cells("hora_consulta").Value)
+            ' 🛡️ FIX INTELIGENTE: Verificamos cómo se llama realmente la columna en tu tabla
+            Dim colFecha As String = If(dgvConsultas.Columns.Contains("fecha_consulta"), "fecha_consulta", "fecha")
+            Dim colHora As String = If(dgvConsultas.Columns.Contains("hora_consulta"), "hora_consulta", "hora")
+
+            ' Asignamos los valores usando nuestra función segura
+            dtpFechaConsulta.Value = ConvertirADateTime(fila.Cells(colFecha).Value)
+            dtpHoraConsulta.Value = ConvertirADateTime(fila.Cells(colHora).Value)
+
         Catch ex As Exception
-            ' Silencioso para evitar bloqueos si una celda está vacía
+            ' 🚨 Quitamos el silenciador: Si algo falla, ahora sí te lo dirá en pantalla
+            MessageBox.Show("Hubo un detalle al cargar la fila: " & ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
     End Sub
 
@@ -155,9 +185,51 @@ Public Class Form6
     End Sub
 
     ' --- BOTONES DE ACCIÓN ---
+    ' --- BOTÓN EDITAR ---
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-        ' (Lógica de edición omitida por brevedad, usa la misma estructura que btnGuardar)
-        ' Asegúrate de usar ConvertirADateTime si cargas fechas aquí también.
+        ' 1. Validamos que el usuario haya seleccionado una consulta de la tabla
+        If String.IsNullOrWhiteSpace(txtIdConsulta.Text) Then
+            MessageBox.Show("Primero seleccione una consulta de la tabla inferior para editarla.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        ' 2. Validamos que no hayan borrado el ID de la cita por accidente
+        If String.IsNullOrWhiteSpace(txtCita.Text) Then
+            MessageBox.Show("Debe ingresar el ID de una cita válida.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Try
+            ' 3. Creamos un nuevo objeto Consulta con los datos modificados en pantalla
+            Dim c As New Consulta()
+
+            c.IdConsulta = Convert.ToInt32(txtIdConsulta.Text)
+            c.IdCita = Convert.ToInt32(Val(txtCita.Text))
+
+            ' Usamos Val() para evitar que el programa explote si dejan el peso o estatura vacíos
+            c.Peso = Convert.ToDecimal(Val(txtPeso.Text))
+            c.Estatura = Convert.ToDecimal(Val(txtEstatura.Text))
+
+            c.Sintomas = txtSintomas.Text
+            c.Diagnostico = txtDiagnostico.Text
+            c.Observaciones = txtObservaciones.Text
+
+            c.Fecha = dtpFechaConsulta.Value.Date
+            c.Hora = dtpHoraConsulta.Value.TimeOfDay
+
+            ' 4. Mandamos los datos a Neon a través del DAO
+            Dim dao As New ConsultaDAO()
+            dao.Actualizar(c)
+
+            MessageBox.Show("¡La estructura del registro se actualizó correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' 5. Limpiamos la pantalla y refrescamos la tabla
+            LimpiarCampos()
+            dgvConsultas.DataSource = dao.Mostrar()
+
+        Catch ex As Exception
+            MessageBox.Show("Error al editar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
