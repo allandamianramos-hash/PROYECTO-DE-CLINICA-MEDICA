@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form5
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form5
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Label1 = New Label()
         btnRegresar = New Button()
@@ -63,7 +63,7 @@ Partial Class Form5
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 297)
+        btnRegresar.Location = New Point(12, 298)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(270, 25)
         btnRegresar.TabIndex = 16
@@ -136,23 +136,16 @@ Partial Class Form5
         ' 
         dgvCitas.AllowUserToAddRows = False
         dgvCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-<<<<<<< HEAD
         dgvCitas.Location = New Point(302, 44)
-        dgvCitas.Name = "dgvCitas"
-        dgvCitas.RowHeadersWidth = 51
-        dgvCitas.Size = New Size(704, 216)
-=======
-        dgvCitas.Location = New Point(416, 122)
         dgvCitas.Margin = New Padding(3, 4, 3, 4)
         dgvCitas.Name = "dgvCitas"
         dgvCitas.RowHeadersWidth = 51
-        dgvCitas.Size = New Size(761, 263)
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
+        dgvCitas.Size = New Size(725, 216)
         dgvCitas.TabIndex = 24
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(380, 266)
+        btnSalir.Location = New Point(288, 298)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(86, 25)
         btnSalir.TabIndex = 34
@@ -161,43 +154,43 @@ Partial Class Form5
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(920, 297)
+        btnUltimo.Location = New Point(958, 298)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(86, 25)
+        btnUltimo.Size = New Size(69, 25)
         btnUltimo.TabIndex = 33
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(920, 266)
+        btnSiguiente.Location = New Point(958, 267)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(86, 25)
+        btnSiguiente.Size = New Size(69, 25)
         btnSiguiente.TabIndex = 32
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(828, 266)
+        btnAnterior.Location = New Point(883, 267)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(86, 25)
+        btnAnterior.Size = New Size(69, 25)
         btnAnterior.TabIndex = 31
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(828, 297)
+        btnPrimero.Location = New Point(883, 298)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(86, 25)
+        btnPrimero.Size = New Size(69, 25)
         btnPrimero.TabIndex = 30
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(288, 266)
+        btnLimpiar.Location = New Point(288, 267)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(86, 25)
         btnLimpiar.TabIndex = 29
@@ -206,7 +199,7 @@ Partial Class Form5
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(196, 266)
+        btnEliminar.Location = New Point(196, 267)
         btnEliminar.Name = "btnEliminar"
         btnEliminar.Size = New Size(86, 25)
         btnEliminar.TabIndex = 28
@@ -215,7 +208,7 @@ Partial Class Form5
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(104, 266)
+        btnEditar.Location = New Point(104, 267)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(86, 25)
         btnEditar.TabIndex = 27
@@ -224,7 +217,7 @@ Partial Class Form5
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(12, 266)
+        btnGuardar.Location = New Point(12, 267)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(86, 25)
         btnGuardar.TabIndex = 26
@@ -305,11 +298,7 @@ Partial Class Form5
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-<<<<<<< HEAD
-        ClientSize = New Size(1018, 330)
-=======
-        ClientSize = New Size(1189, 600)
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
+        ClientSize = New Size(1039, 334)
         Controls.Add(lblBuscar)
         Controls.Add(lblEstado)
         Controls.Add(lblHora)

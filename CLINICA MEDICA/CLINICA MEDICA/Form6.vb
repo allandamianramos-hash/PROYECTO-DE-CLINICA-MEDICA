@@ -1,49 +1,48 @@
 ﻿Public Class Form6
 
-<<<<<<< HEAD
+
     Dim tablaConsultas As New DataTable
     Dim posicion As Integer = 0
     Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-            ' ID no editable
-            txtIdConsulta.ReadOnly = True
+        ' ID no editable
+        txtIdConsulta.ReadOnly = True
 
-            ' ComboBox de citas
-            cmbIdCita.DropDownStyle = ComboBoxStyle.DropDownList
-            cmbIdCita.Items.Clear()
+        ' ComboBox de citas
+        cmbCita.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbIdCita.Items.Clear()
 
-            For i As Integer = 1 To 100
-                cmbIdCita.Items.Add("Cita " & i)
-            Next
+        For i As Integer = 1 To 100
+            cmbIdCita.Items.Add("Cita " & i)
+        Next
 
-            cmbIdCita.SelectedIndex = -1
+        cmbIdCita.SelectedIndex = -1
 
-            ' TextBox multilínea
-            txtDiagnostico.Multiline = True
-            txtObservaciones.Multiline = True
+        ' TextBox multilínea
+        txtDiagnostico.Multiline = True
+        txtObservaciones.Multiline = True
 
-            txtDiagnostico.ScrollBars = ScrollBars.Vertical
-            txtObservaciones.ScrollBars = ScrollBars.Vertical
+        txtDiagnostico.ScrollBars = ScrollBars.Vertical
+        txtObservaciones.ScrollBars = ScrollBars.Vertical
 
-            ' Configuración del DataGridView
-            dgvConsultas.AllowUserToAddRows = False
-            dgvConsultas.ReadOnly = True
-            dgvConsultas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            dgvConsultas.MultiSelect = False
-            dgvConsultas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        ' Configuración del DataGridView
+        dgvConsultas.AllowUserToAddRows = False
+        dgvConsultas.ReadOnly = True
+        dgvConsultas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvConsultas.MultiSelect = False
+        dgvConsultas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-            ' Crear columnas
-            tablaConsultas.Columns.Add("id_consulta")
-            tablaConsultas.Columns.Add("id_cita")
-            tablaConsultas.Columns.Add("diagnostico")
-            tablaConsultas.Columns.Add("observaciones")
+        ' Crear columnas
+        tablaConsultas.Columns.Add("id_consulta")
+        tablaConsultas.Columns.Add("id_cita")
+        tablaConsultas.Columns.Add("diagnostico")
+        tablaConsultas.Columns.Add("observaciones")
 
-            dgvConsultas.DataSource = tablaConsultas
+        dgvConsultas.DataSource = tablaConsultas
 
-            ' Cambiar títulos de columnas
-=======
-    Dim posicion As Integer = 0
-
+        ' Cambiar títulos de columnas
+        Dim posicion As Integer = 0
+    End Sub
     Private Sub FormConsulta_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtIdConsulta.ReadOnly = True
 
@@ -52,7 +51,6 @@
             dgvConsultas.DataSource = dao.Mostrar()
 
             ' Ajustar títulos si es necesario
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
             dgvConsultas.Columns("id_consulta").HeaderText = "ID Consulta"
             dgvConsultas.Columns("id_cita").HeaderText = "ID Cita"
         Catch ex As Exception
@@ -112,13 +110,12 @@
 
     End Sub
 
-<<<<<<< HEAD
-            cmbIdCita.SelectedIndex = -1
+            cmbCita.SelectedIndex = -1
 
             dgvConsultas.DataSource = tablaConsultas
 
             GenerarId()
-            cmbIdCita.Focus()
+            cmbCita.Focus()
 
         End Sub
 
@@ -131,14 +128,14 @@
 
             If ValidarCampos() = False Then Exit Sub
 
-            tablaConsultas.Rows.Add(
+        tablaConsultas.Rows.Add(
             txtIdConsulta.Text,
-            cmbIdCita.SelectedIndex + 1,
+            cmbCita.SelectedIndex + 1,
             txtDiagnostico.Text.Trim(),
             txtObservaciones.Text.Trim()
         )
 
-            MessageBox.Show("Consulta guardada correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Consulta guardada correctamente.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             LimpiarCampos()
 
@@ -153,9 +150,9 @@
                 txtIdConsulta.Text = dgvConsultas.Rows(posicion).Cells("id_consulta").Value.ToString()
 
                 Dim idCita As Integer = CInt(dgvConsultas.Rows(posicion).Cells("id_cita").Value)
-                cmbIdCita.SelectedIndex = idCita - 1
+            cmbCita.SelectedIndex = idCita - 1
 
-                txtDiagnostico.Text = dgvConsultas.Rows(posicion).Cells("diagnostico").Value.ToString()
+            txtDiagnostico.Text = dgvConsultas.Rows(posicion).Cells("diagnostico").Value.ToString()
                 txtObservaciones.Text = dgvConsultas.Rows(posicion).Cells("observaciones").Value.ToString()
 
             End If
@@ -173,8 +170,8 @@
 
             posicion = dgvConsultas.CurrentRow.Index
 
-            dgvConsultas.Rows(posicion).Cells("id_cita").Value = cmbIdCita.SelectedIndex + 1
-            dgvConsultas.Rows(posicion).Cells("diagnostico").Value = txtDiagnostico.Text.Trim()
+        dgvConsultas.Rows(posicion).Cells("id_cita").Value = cmbCita.SelectedIndex + 1
+        dgvConsultas.Rows(posicion).Cells("diagnostico").Value = txtDiagnostico.Text.Trim()
             dgvConsultas.Rows(posicion).Cells("observaciones").Value = txtObservaciones.Text.Trim()
 
             MessageBox.Show("Consulta editada correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -214,13 +211,13 @@
 
         If buscar.Trim = "" Then
             dgvConsultas.DataSource = tablaConsultas
-=======
+        End If
+    End Sub
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         ' Pequeña validación rápida
         If String.IsNullOrWhiteSpace(txtCita.Text) Then
             MessageBox.Show("Debe ingresar el ID de una cita válida.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
-            Exit Sub
+        Exit Sub
         End If
 
         Try
