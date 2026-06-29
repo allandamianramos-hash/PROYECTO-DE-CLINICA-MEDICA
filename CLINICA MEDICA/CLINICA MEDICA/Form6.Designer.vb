@@ -226,7 +226,7 @@ Partial Class Form6
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(31, 27)
+        Label2.Location = New Point(7, 27)
         Label2.Name = "Label2"
         Label2.Size = New Size(193, 20)
         Label2.TabIndex = 48
@@ -256,7 +256,7 @@ Partial Class Form6
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(206, 27)
+        Label5.Location = New Point(143, 57)
         Label5.Name = "Label5"
         Label5.Size = New Size(162, 20)
         Label5.TabIndex = 51
@@ -371,7 +371,7 @@ Partial Class Form6
         ' 
         ' txtCita
         ' 
-        txtCita.Location = New Point(172, 51)
+        txtCita.Location = New Point(172, 78)
         txtCita.Margin = New Padding(3, 4, 3, 4)
         txtCita.Name = "txtCita"
         txtCita.Size = New Size(114, 27)

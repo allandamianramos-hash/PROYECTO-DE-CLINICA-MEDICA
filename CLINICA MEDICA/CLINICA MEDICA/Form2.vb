@@ -1,4 +1,7 @@
-﻿'Clase del formulario de pacientes
+﻿'Clase del formulario de pacientes\
+
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports Npgsql
 Public Class frm2
 
 
@@ -302,8 +305,13 @@ Public Class frm2
     End Sub
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
 
-        'Cerrar completamente la aplicación.
-        Application.Exit()
+        Dim respuesta As DialogResult
+
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If respuesta = DialogResult.Yes Then
+            Application.Exit()
+        End If
 
     End Sub
     Private Sub txtNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNombre.KeyPress

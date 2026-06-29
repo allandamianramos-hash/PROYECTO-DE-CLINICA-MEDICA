@@ -212,7 +212,11 @@
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Application.Exit()
+        Dim respuesta As DialogResult
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If respuesta = DialogResult.Yes Then
+            Application.Exit()
+        End If
     End Sub
 
     Private Sub dgvEspecialidades_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEspecialidades.CellContentClick
