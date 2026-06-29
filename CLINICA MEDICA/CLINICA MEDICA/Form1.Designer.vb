@@ -38,6 +38,8 @@ Partial Class Form1
         lblNumConsultas = New Label()
         lblInstrucciones = New Label()
         Label1 = New Label()
+        btnMedicamentos = New Button()
+        Button2 = New Button()
         SuspendLayout()
         ' 
         ' lblMenu
@@ -124,10 +126,17 @@ Partial Class Form1
         ' 
         ' btnSalir
         ' 
+
         btnSalir.Location = New Point(256, 234)
         btnSalir.Margin = New Padding(4, 3, 4, 3)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(235, 54)
+
+        btnSalir.Location = New Point(598, 290)
+        btnSalir.Margin = New Padding(4, 3, 4, 3)
+        btnSalir.Name = "btnSalir"
+        btnSalir.Size = New Size(130, 44)
+
         btnSalir.TabIndex = 9
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -212,11 +221,36 @@ Partial Class Form1
         Label1.Text = "Datos:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
+        ' btnMedicamentos
+        ' 
+        btnMedicamentos.Location = New Point(257, 158)
+        btnMedicamentos.Name = "btnMedicamentos"
+        btnMedicamentos.Size = New Size(235, 23)
+        btnMedicamentos.TabIndex = 16
+        btnMedicamentos.Text = "Modulo de Medicamentos"
+        btnMedicamentos.UseVisualStyleBackColor = True
+        ' 
+        ' Button2
+        ' 
+        Button2.Location = New Point(500, 110)
+        Button2.Margin = New Padding(4, 3, 4, 3)
+        Button2.Name = "Button2"
+        Button2.Size = New Size(235, 24)
+        Button2.TabIndex = 18
+        Button2.Text = "Módulo de pagos"
+        Button2.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
+
         ClientSize = New Size(504, 419)
+
+        ClientSize = New Size(741, 346)
+        Controls.Add(Button2)
+        Controls.Add(btnMedicamentos)
+
         Controls.Add(Label1)
         Controls.Add(lblInstrucciones)
         Controls.Add(lblNumConsultas)
@@ -256,5 +290,7 @@ Partial Class Form1
     Friend WithEvents lblNumConsultas As Label
     Friend WithEvents lblInstrucciones As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents btnMedicamentos As Button
+    Friend WithEvents Button2 As Button
 
 End Class

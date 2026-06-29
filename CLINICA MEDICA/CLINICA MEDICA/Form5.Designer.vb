@@ -57,7 +57,7 @@ Partial Class Form5
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
         Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(186, 16)
+        Label1.Size = New Size(239, 21)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de citas médicas"
         ' 
@@ -75,7 +75,7 @@ Partial Class Form5
         txtIdCita.Location = New Point(172, 44)
         txtIdCita.Name = "txtIdCita"
         txtIdCita.ReadOnly = True
-        txtIdCita.Size = New Size(124, 27)
+        txtIdCita.Size = New Size(124, 32)
         txtIdCita.TabIndex = 17
         txtIdCita.TextAlign = HorizontalAlignment.Center
         ' 
@@ -83,7 +83,7 @@ Partial Class Form5
         ' 
         txtBuscar.Location = New Point(172, 233)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(124, 27)
+        txtBuscar.Size = New Size(124, 32)
         txtBuscar.TabIndex = 18
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -94,7 +94,7 @@ Partial Class Form5
         cmbPaciente.FormattingEnabled = True
         cmbPaciente.Location = New Point(172, 77)
         cmbPaciente.Name = "cmbPaciente"
-        cmbPaciente.Size = New Size(124, 24)
+        cmbPaciente.Size = New Size(124, 28)
         cmbPaciente.TabIndex = 19
         ' 
         ' cmbMedico
@@ -103,7 +103,7 @@ Partial Class Form5
         cmbMedico.FormattingEnabled = True
         cmbMedico.Location = New Point(172, 107)
         cmbMedico.Name = "cmbMedico"
-        cmbMedico.Size = New Size(124, 24)
+        cmbMedico.Size = New Size(124, 28)
         cmbMedico.TabIndex = 20
         ' 
         ' cmbEstado
@@ -112,7 +112,7 @@ Partial Class Form5
         cmbEstado.Items.AddRange(New Object() {"Programada", "Completada", "Cancelada"})
         cmbEstado.Location = New Point(172, 203)
         cmbEstado.Name = "cmbEstado"
-        cmbEstado.Size = New Size(124, 24)
+        cmbEstado.Size = New Size(124, 28)
         cmbEstado.TabIndex = 21
         ' 
         ' dtpFecha
@@ -120,7 +120,7 @@ Partial Class Form5
         dtpFecha.Format = DateTimePickerFormat.Short
         dtpFecha.Location = New Point(172, 137)
         dtpFecha.Name = "dtpFecha"
-        dtpFecha.Size = New Size(124, 27)
+        dtpFecha.Size = New Size(124, 32)
         dtpFecha.TabIndex = 22
         ' 
         ' dtpHora
@@ -129,23 +129,35 @@ Partial Class Form5
         dtpHora.Location = New Point(172, 170)
         dtpHora.Name = "dtpHora"
         dtpHora.ShowUpDown = True
-        dtpHora.Size = New Size(124, 27)
+        dtpHora.Size = New Size(124, 32)
         dtpHora.TabIndex = 23
         ' 
         ' dgvCitas
         ' 
         dgvCitas.AllowUserToAddRows = False
         dgvCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+
         dgvCitas.Location = New Point(302, 44)
         dgvCitas.Margin = New Padding(3, 4, 3, 4)
         dgvCitas.Name = "dgvCitas"
         dgvCitas.RowHeadersWidth = 51
         dgvCitas.Size = New Size(725, 216)
+
+        dgvCitas.Location = New Point(472, 47)
+        dgvCitas.Margin = New Padding(3, 4, 3, 4)
+        dgvCitas.Name = "dgvCitas"
+        dgvCitas.RowHeadersWidth = 51
+        dgvCitas.Size = New Size(722, 263)
+
         dgvCitas.TabIndex = 24
         ' 
         ' btnSalir
         ' 
+
         btnSalir.Location = New Point(288, 298)
+
+        btnSalir.Location = New Point(288, 297)
+
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(86, 25)
         btnSalir.TabIndex = 34
@@ -154,7 +166,11 @@ Partial Class Form5
         ' 
         ' btnUltimo
         ' 
+
         btnUltimo.Location = New Point(958, 298)
+
+        btnUltimo.Location = New Point(898, 423)
+
         btnUltimo.Name = "btnUltimo"
         btnUltimo.Size = New Size(69, 25)
         btnUltimo.TabIndex = 33
@@ -163,7 +179,11 @@ Partial Class Form5
         ' 
         ' btnSiguiente
         ' 
+
         btnSiguiente.Location = New Point(958, 267)
+
+        btnSiguiente.Location = New Point(898, 392)
+
         btnSiguiente.Name = "btnSiguiente"
         btnSiguiente.Size = New Size(69, 25)
         btnSiguiente.TabIndex = 32
@@ -172,7 +192,11 @@ Partial Class Form5
         ' 
         ' btnAnterior
         ' 
+
         btnAnterior.Location = New Point(883, 267)
+
+        btnAnterior.Location = New Point(823, 392)
+
         btnAnterior.Name = "btnAnterior"
         btnAnterior.Size = New Size(69, 25)
         btnAnterior.TabIndex = 31
@@ -181,7 +205,11 @@ Partial Class Form5
         ' 
         ' btnPrimero
         ' 
+
         btnPrimero.Location = New Point(883, 298)
+
+        btnPrimero.Location = New Point(823, 423)
+
         btnPrimero.Name = "btnPrimero"
         btnPrimero.Size = New Size(69, 25)
         btnPrimero.TabIndex = 30
@@ -229,7 +257,7 @@ Partial Class Form5
         lblIdCita.AutoSize = True
         lblIdCita.Location = New Point(12, 47)
         lblIdCita.Name = "lblIdCita"
-        lblIdCita.Size = New Size(152, 16)
+        lblIdCita.Size = New Size(202, 21)
         lblIdCita.TabIndex = 35
         lblIdCita.Text = "Identificador de la cita:"
         lblIdCita.TextAlign = ContentAlignment.MiddleCenter
@@ -239,7 +267,7 @@ Partial Class Form5
         lblPaciente.AutoSize = True
         lblPaciente.Location = New Point(12, 80)
         lblPaciente.Name = "lblPaciente"
-        lblPaciente.Size = New Size(63, 16)
+        lblPaciente.Size = New Size(84, 21)
         lblPaciente.TabIndex = 36
         lblPaciente.Text = "Paciente:"
         lblPaciente.TextAlign = ContentAlignment.MiddleCenter
@@ -249,7 +277,7 @@ Partial Class Form5
         lblMedico.AutoSize = True
         lblMedico.Location = New Point(12, 110)
         lblMedico.Name = "lblMedico"
-        lblMedico.Size = New Size(56, 16)
+        lblMedico.Size = New Size(76, 21)
         lblMedico.TabIndex = 37
         lblMedico.Text = "Médico:"
         lblMedico.TextAlign = ContentAlignment.MiddleCenter
@@ -259,7 +287,7 @@ Partial Class Form5
         lblFecha.AutoSize = True
         lblFecha.Location = New Point(12, 144)
         lblFecha.Name = "lblFecha"
-        lblFecha.Size = New Size(108, 16)
+        lblFecha.Size = New Size(144, 21)
         lblFecha.TabIndex = 38
         lblFecha.Text = "Fecha de la cita:"
         lblFecha.TextAlign = ContentAlignment.MiddleCenter
@@ -269,7 +297,7 @@ Partial Class Form5
         lblHora.AutoSize = True
         lblHora.Location = New Point(12, 177)
         lblHora.Name = "lblHora"
-        lblHora.Size = New Size(102, 16)
+        lblHora.Size = New Size(137, 21)
         lblHora.TabIndex = 39
         lblHora.Text = "Hora de la cita:"
         lblHora.TextAlign = ContentAlignment.MiddleCenter
@@ -279,7 +307,7 @@ Partial Class Form5
         lblEstado.AutoSize = True
         lblEstado.Location = New Point(12, 206)
         lblEstado.Name = "lblEstado"
-        lblEstado.Size = New Size(114, 16)
+        lblEstado.Size = New Size(151, 21)
         lblEstado.TabIndex = 40
         lblEstado.Text = "Estado de la cita:"
         lblEstado.TextAlign = ContentAlignment.MiddleCenter
@@ -289,16 +317,20 @@ Partial Class Form5
         lblBuscar.AutoSize = True
         lblBuscar.Location = New Point(12, 236)
         lblBuscar.Name = "lblBuscar"
-        lblBuscar.Size = New Size(71, 16)
+        lblBuscar.Size = New Size(95, 21)
         lblBuscar.TabIndex = 41
         lblBuscar.Text = "Búsqueda:"
         lblBuscar.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form5
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
+
         ClientSize = New Size(1039, 334)
+
+        ClientSize = New Size(1206, 600)
+
         Controls.Add(lblBuscar)
         Controls.Add(lblEstado)
         Controls.Add(lblHora)

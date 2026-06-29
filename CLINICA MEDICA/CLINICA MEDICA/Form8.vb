@@ -1,76 +1,243 @@
-﻿Public Class Form8
-    ' Instancia del validador visual para la interfaz
-    Private errorValidador As New ErrorProvider()
+﻿Imports System.Data
 
-    Private Sub frmReportes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Configuración inicial de la UI
-        cmbFiltroSeleccion.Enabled = False
+Public Class Form8
+
+    Dim tablaReportes As New DataTable
+    Dim posicion As Integer = 0
+
+    Private Sub Form8_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        dgvResultados.AllowUserToAddRows = False
+        dgvResultados.ReadOnly = True
+        dgvResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvResultados.MultiSelect = False
+        dgvResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
+        cmbFiltroSeleccion.DropDownStyle = ComboBoxStyle.DropDownList
+
         rdbCitasDia.Checked = True
-    End Sub
+        CargarFechasCitas()
 
-    ' Control dinámico de la interfaz según el reporte seleccionado
-    Private Sub rdbHistorial_CheckedChanged(sender As Object, e As EventArgs) Handles rdbHistorial.CheckedChanged, rdbMedicos.CheckedChanged
-        If rdbHistorial.Checked Then
-            cmbFiltroSeleccion.Enabled = True
-            ' Cambiamos el texto del label para orientar al usuario
-            lblFiltro.Text = "Seleccione un Paciente (Registro de Prueba):"
-            ' NOTA: Aquí cargaremos los datos al ComboBox después
-
-        ElseIf rdbMedicos.Checked Then
-            cmbFiltroSeleccion.Enabled = True
-            ' Adaptamos el texto para la entidad correspondiente
-            lblFiltro.Text = "Seleccione un Médico:"
-            ' NOTA: Aquí cargaremos los datos al ComboBox después
-
-        End If
     End Sub
 
     Private Sub rdbCitasDia_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCitasDia.CheckedChanged
+
         If rdbCitasDia.Checked Then
-            cmbFiltroSeleccion.Enabled = False
-            cmbFiltroSeleccion.SelectedIndex = -1 ' Limpia la selección
-            ' Indicamos claramente que no se requiere elegir nada
-            lblFiltro.Text = "Filtro no requerido"
-            errorValidador.Clear()
+            CargarFechasCitas()
         End If
+
     End Sub
 
-    ' VALIDACIONES OBLIGATORIAS ANTES DE GENERAR EL REPORTE
+    Private Sub rdbHistorial_CheckedChanged(sender As Object, e As EventArgs) Handles rdbHistorial.CheckedChanged
+
+        If rdbHistorial.Checked Then
+            CargarPacientes()
+        End If
+
+    End Sub
+
+    Private Sub rdbMedicos_CheckedChanged(sender As Object, e As EventArgs) Handles rdbMedicos.CheckedChanged
+
+        If rdbMedicos.Checked Then
+            CargarMedicos()
+        End If
+
+    End Sub
+
+    Private Sub CargarFechasCitas()
+
+        Dim dao As New ReportesDAO()
+        Dim tabla As DataTable = dao.ObtenerFechasCitas()
+
+        cmbFiltroSeleccion.DataSource = tabla
+        cmbFiltroSeleccion.DisplayMember = "fecha_texto"
+        cmbFiltroSeleccion.ValueMember = "fecha_texto"
+        cmbFiltroSeleccion.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub CargarPacientes()
+
+        Dim dao As New ReportesDAO()
+        Dim tabla As DataTable = dao.ObtenerPacientes()
+
+        cmbFiltroSeleccion.DataSource = tabla
+        cmbFiltroSeleccion.DisplayMember = "paciente"
+        cmbFiltroSeleccion.ValueMember = "id_paciente"
+        cmbFiltroSeleccion.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub CargarMedicos()
+
+        Dim dao As New ReportesDAO()
+        Dim tabla As DataTable = dao.ObtenerMedicos()
+
+        cmbFiltroSeleccion.DataSource = tabla
+        cmbFiltroSeleccion.DisplayMember = "medico"
+        cmbFiltroSeleccion.ValueMember = "id_medico"
+        cmbFiltroSeleccion.SelectedIndex = -1
+
+    End Sub
+
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
-        errorValidador.Clear()
 
-        ' 1. Validar que si requiere un filtro específico, este haya sido seleccionado
-        If cmbFiltroSeleccion.Enabled AndAlso cmbFiltroSeleccion.SelectedIndex = -1 Then
-            errorValidador.SetError(cmbFiltroSeleccion, "Debe seleccionar un elemento de la lista para filtrar este reporte.")
-            Return
-        End If
-
-        ' Ejecución visual simulada del reporte
         If rdbCitasDia.Checked Then
-            MessageBox.Show("Invocando función 'obtener_citas_hoy' en PostgreSQL. Cargando datos...", "Reporte Procesado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            GenerarReporteCitasDia()
+
         ElseIf rdbHistorial.Checked Then
-            MessageBox.Show("Invocando función 'historial_clinico_paciente' filtrado por ID. Cargando datos...", "Reporte Procesado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            GenerarHistorialPaciente()
+
         ElseIf rdbMedicos.Checked Then
-            MessageBox.Show("Invocando función 'rendimiento_medicos_mes' con métricas agregadas (COUNT/GROUP BY). Cargando datos...", "Reporte Procesado", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            GenerarProductividadMedicos()
+
+        Else
+            MessageBox.Show("Seleccione un tipo de reporte.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
 
-        ' NOTA: Aquí se asignará el DataTable resultante al dgvResultados.DataSource
+    End Sub
+
+    Private Sub GenerarReporteCitasDia()
+
+        If cmbFiltroSeleccion.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione una fecha para generar el reporte.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Dim dao As New ReportesDAO()
+
+        tablaReportes = dao.ReporteCitasPorDia(cmbFiltroSeleccion.SelectedValue.ToString())
+        dgvResultados.DataSource = tablaReportes
+
+        posicion = 0
+
+    End Sub
+
+    Private Sub GenerarHistorialPaciente()
+
+        If cmbFiltroSeleccion.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione un paciente para generar el historial.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub
+        End If
+
+        Dim dao As New ReportesDAO()
+
+        tablaReportes = dao.HistorialClinicoPaciente(CInt(cmbFiltroSeleccion.SelectedValue))
+        dgvResultados.DataSource = tablaReportes
+
+        posicion = 0
+
+    End Sub
+
+    Private Sub GenerarProductividadMedicos()
+
+        Dim dao As New ReportesDAO()
+
+        tablaReportes = dao.ProductividadMedicos()
+        dgvResultados.DataSource = tablaReportes
+
+        posicion = 0
+
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
-        rdbCitasDia.Checked = True
-        cmbFiltroSeleccion.SelectedIndex = -1
-        cmbFiltroSeleccion.Enabled = False
+
         dgvResultados.DataSource = Nothing
-        errorValidador.Clear()
+        tablaReportes.Clear()
+
+        If cmbFiltroSeleccion.DataSource IsNot Nothing Then
+            cmbFiltroSeleccion.SelectedIndex = -1
+        End If
+
+        posicion = 0
+
     End Sub
 
-    ' BOTONES DE SISTEMA
+    Private Sub dgvResultados_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvResultados.CellClick
+
+        If e.RowIndex >= 0 Then
+            posicion = e.RowIndex
+            SeleccionarFila()
+        End If
+
+    End Sub
+
+    Private Sub SeleccionarFila()
+
+        If dgvResultados.Rows.Count = 0 Then Exit Sub
+        If posicion < 0 OrElse posicion >= dgvResultados.Rows.Count Then Exit Sub
+
+        dgvResultados.ClearSelection()
+        dgvResultados.Rows(posicion).Selected = True
+        dgvResultados.CurrentCell = dgvResultados.Rows(posicion).Cells(0)
+
+    End Sub
+
+    Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
+
+        If dgvResultados.Rows.Count > 0 Then
+            posicion = 0
+            SeleccionarFila()
+        End If
+
+    End Sub
+
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+
+        If dgvResultados.Rows.Count > 0 Then
+
+            If posicion > 0 Then
+                posicion -= 1
+                SeleccionarFila()
+            Else
+                MessageBox.Show("Ya está en el primer registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
+
+        If dgvResultados.Rows.Count > 0 Then
+
+            If posicion < dgvResultados.Rows.Count - 1 Then
+                posicion += 1
+                SeleccionarFila()
+            Else
+                MessageBox.Show("Ya está en el último registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
+
+        If dgvResultados.Rows.Count > 0 Then
+            posicion = dgvResultados.Rows.Count - 1
+            SeleccionarFila()
+        End If
+
+    End Sub
+
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
-        Me.Close() ' Regresa al Dashboard principal
+
+        Form1.Show()
+        Me.Hide()
+
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Application.Exit() ' Cierre total seguro
+
+        Dim respuesta As DialogResult
+
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If respuesta = DialogResult.Yes Then
+            Application.Exit()
+        End If
+
     End Sub
+
 End Class

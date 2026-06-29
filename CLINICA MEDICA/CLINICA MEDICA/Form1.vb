@@ -1,13 +1,13 @@
 ﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement
-
+Imports Npgsql
 Public Class Form1
     ' Evento que se ejecuta al abrir el menú principal
     Private Sub frmMenuPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Despliega la fecha del día actual elegantemente
-        lblFechaActual.Text = "Fecha: " & DateTime.Now.ToString("dd 'de' MMMM 'del' yyyy")
+        ' 1. Ponemos la fecha actual
+        lblFechaActual.Text = "Fecha: " & DateTime.Now.ToString("dd/MM/yyyy")
 
-        ' Inicializa los marcadores visuales del Dashboard en cero
-        InicializarDashboard()
+        ' 2. Disparamos la búsqueda a la base de datos
+        CargarEstadisticas()
     End Sub
 
     ' Llena las tarjetas del Dashboard de forma predeterminada mientras conectamos a la base de datos
@@ -29,8 +29,8 @@ Public Class Form1
     Private Sub btnModuloMedicos_Click(sender As Object, e As EventArgs) Handles btnModuloMedicos.Click
         ' frmMedicos.ShowDialog()
         MessageBox.Show("Abriendo el Formulario de Médicos...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Form3.Show()
-        Me.Hide()
+        Form3.Show
+        Hide
     End Sub
 
     Private Sub btnModuloEspecialidades_Click(sender As Object, e As EventArgs) Handles btnModuloEspecialidades.Click
@@ -83,5 +83,71 @@ Public Class Form1
 
     End Sub
 
+    Private Sub btnMedicamentos_Click(sender As Object, e As EventArgs) Handles btnMedicamentos.Click
+        Form9.Show()
+        Me.Hide()
 
+    End Sub
+
+    Public Sub CargarEstadisticas()
+        Using conn As New NpgsqlConnection(conexionString)
+            Try
+                conn.Open()
+                Dim fechaHoy As DateTime = DateTime.Now.Date
+                Dim horaActual As TimeSpan = DateTime.Now.TimeOfDay
+
+
+                ActualizarLabel(conn, "SELECT COUNT(*) FROM pacientes", lblNumPacientes, "Pacientes: ")
+
+
+                ActualizarLabel(conn, "SELECT COUNT(*) FROM medicos", lblNumMedicos, "Médicos activos: ")
+
+                Dim queryCitas As String = "SELECT COUNT(*) FROM citas WHERE fecha = @fechaHoy AND hora >= @horaActual AND id_estado IN (1, 2, 3, 4)"
+                Using cmdCitas As New NpgsqlCommand(queryCitas, conn)
+                    cmdCitas.Parameters.AddWithValue("fechaHoy", fechaHoy)
+                    cmdCitas.Parameters.AddWithValue("horaActual", horaActual)
+
+                    Dim countCitas = cmdCitas.ExecuteScalar()
+                    lblNumCitas.Text = "Citas para hoy: " & If(countCitas IsNot Nothing, countCitas.ToString(), "0")
+                End Using
+
+                Dim queryConsultas As String = "SELECT COUNT(c.id_consulta) FROM consultas c INNER JOIN citas ci ON c.id_cita = ci.id_cita WHERE c.fecha_consulta = @fechaHoy AND ci.id_estado IN (5, 9)"
+                Using cmdConsultas As New NpgsqlCommand(queryConsultas, conn)
+                    cmdConsultas.Parameters.AddWithValue("fechaHoy", fechaHoy)
+
+                    Dim countConsultas = cmdConsultas.ExecuteScalar()
+                    lblNumConsultas.Text = "Consultas realizadas: " & If(countConsultas IsNot Nothing, countConsultas.ToString(), "0")
+                End Using
+
+            Catch ex As Exception
+                MessageBox.Show("Error al cargar estadísticas: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub ActualizarLabel(conn As NpgsqlConnection, query As String, label As Label, prefijo As String)
+        Using cmd As New NpgsqlCommand(query, conn)
+            Dim resultado = cmd.ExecuteScalar()
+
+            label.Text = prefijo & If(resultado IsNot Nothing, resultado.ToString(), "0")
+        End Using
+    End Sub
+
+    ' Esta es la cadena de conexión (asegúrate de que sea la misma que usas en otros formularios)
+    Dim conexionString As String = "Server=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech; Port=5432; Database=neondb; User Id=neondb_owner; Password=npg_8KIjvXm6uzAi; SSL Mode=Require; Trust Server Certificate=True;"
+
+    ' Este evento se ejecuta automáticamente al abrir el formulario
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' 1. Fecha actual
+        lblFechaActual.Text = ("Fecha: ") & DateTime.Now.ToString("dd/MM/yyyy")
+
+        ' 2. Cargar las demás métricas de la base de datos
+        CargarEstadisticas()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Form10.Show()
+        Me.Hide()
+
+    End Sub
 End Class

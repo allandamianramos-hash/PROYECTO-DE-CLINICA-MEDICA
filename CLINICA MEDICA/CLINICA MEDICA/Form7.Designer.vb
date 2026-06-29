@@ -25,8 +25,6 @@ Partial Class Form7
         Label1 = New Label()
         btnRegresar = New Button()
         txtIdReceta = New TextBox()
-        txtDosis = New TextBox()
-        txtIndicaciones = New TextBox()
         btnSalir = New Button()
         btnUltimo = New Button()
         btnSiguiente = New Button()
@@ -38,14 +36,12 @@ Partial Class Form7
         btnGuardar = New Button()
         cmbIdConsulta = New ComboBox()
         dgvRecetas = New DataGridView()
-        cmbMedicamento = New ComboBox()
         Label2 = New Label()
         Label3 = New Label()
-        Label4 = New Label()
-        Label5 = New Label()
         Label6 = New Label()
         Label7 = New Label()
         txtBuscar = New TextBox()
+        clbMedicamentos = New CheckedListBox()
         CType(dgvRecetas, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -76,22 +72,6 @@ Partial Class Form7
         txtIdReceta.Size = New Size(114, 27)
         txtIdReceta.TabIndex = 17
         txtIdReceta.TextAlign = HorizontalAlignment.Center
-        ' 
-        ' txtDosis
-        ' 
-        txtDosis.Location = New Point(201, 131)
-        txtDosis.Name = "txtDosis"
-        txtDosis.Size = New Size(114, 27)
-        txtDosis.TabIndex = 19
-        txtDosis.TextAlign = HorizontalAlignment.Center
-        ' 
-        ' txtIndicaciones
-        ' 
-        txtIndicaciones.Location = New Point(201, 164)
-        txtIndicaciones.Name = "txtIndicaciones"
-        txtIndicaciones.Size = New Size(114, 27)
-        txtIndicaciones.TabIndex = 20
-        txtIndicaciones.TextAlign = HorizontalAlignment.Center
         ' 
         ' btnSalir
         ' 
@@ -190,14 +170,6 @@ Partial Class Form7
         dgvRecetas.Size = New Size(826, 186)
         dgvRecetas.TabIndex = 35
         ' 
-        ' cmbMedicamento
-        ' 
-        cmbMedicamento.FormattingEnabled = True
-        cmbMedicamento.Location = New Point(201, 101)
-        cmbMedicamento.Name = "cmbMedicamento"
-        cmbMedicamento.Size = New Size(114, 24)
-        cmbMedicamento.TabIndex = 37
-        ' 
         ' Label2
         ' 
         Label2.AutoSize = True
@@ -218,26 +190,6 @@ Partial Class Form7
         Label3.Text = "Identificador de la receta:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
         ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Location = New Point(12, 134)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(47, 16)
-        Label4.TabIndex = 40
-        Label4.Text = "Dosis:"
-        Label4.TextAlign = ContentAlignment.MiddleCenter
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Location = New Point(12, 167)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(90, 16)
-        Label5.TabIndex = 41
-        Label5.Text = "Indicaciones:"
-        Label5.TextAlign = ContentAlignment.MiddleCenter
-        ' 
         ' Label6
         ' 
         Label6.AutoSize = True
@@ -251,7 +203,7 @@ Partial Class Form7
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(14, 200)
+        Label7.Location = New Point(12, 200)
         Label7.Name = "Label7"
         Label7.Size = New Size(71, 16)
         Label7.TabIndex = 43
@@ -266,19 +218,25 @@ Partial Class Form7
         txtBuscar.TabIndex = 44
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
+        ' clbMedicamentos
+        ' 
+        clbMedicamentos.FormattingEnabled = True
+        clbMedicamentos.Location = New Point(201, 101)
+        clbMedicamentos.Name = "clbMedicamentos"
+        clbMedicamentos.Size = New Size(114, 26)
+        clbMedicamentos.TabIndex = 45
+        ' 
         ' Form7
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1163, 296)
+        Controls.Add(clbMedicamentos)
         Controls.Add(txtBuscar)
         Controls.Add(Label7)
         Controls.Add(Label6)
-        Controls.Add(Label5)
-        Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
-        Controls.Add(cmbMedicamento)
         Controls.Add(dgvRecetas)
         Controls.Add(cmbIdConsulta)
         Controls.Add(btnSalir)
@@ -290,8 +248,6 @@ Partial Class Form7
         Controls.Add(btnEliminar)
         Controls.Add(btnEditar)
         Controls.Add(btnGuardar)
-        Controls.Add(txtIndicaciones)
-        Controls.Add(txtDosis)
         Controls.Add(txtIdReceta)
         Controls.Add(btnRegresar)
         Controls.Add(Label1)
@@ -306,8 +262,6 @@ Partial Class Form7
     Friend WithEvents Label1 As Label
     Friend WithEvents btnRegresar As Button
     Friend WithEvents txtIdReceta As TextBox
-    Friend WithEvents txtDosis As TextBox
-    Friend WithEvents txtIndicaciones As TextBox
     Friend WithEvents btnSalir As Button
     Friend WithEvents btnUltimo As Button
     Friend WithEvents btnSiguiente As Button
@@ -319,12 +273,10 @@ Partial Class Form7
     Friend WithEvents btnGuardar As Button
     Friend WithEvents cmbIdConsulta As ComboBox
     Friend WithEvents dgvRecetas As DataGridView
-    Friend WithEvents cmbMedicamento As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents txtBuscar As TextBox
+    Friend WithEvents clbMedicamentos As CheckedListBox
 End Class

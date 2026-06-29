@@ -99,9 +99,6 @@ Public Class Form5
         End Try
 
     End Sub
-<<<<<<< HEAD
-    Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
-=======
 
     Private Sub CargarEstados()
 
@@ -135,8 +132,6 @@ Public Class Form5
         End Try
 
     End Sub
->>>>>>> fc3cdc4b0c481da1983059a8cadd5186a3f012fc
-
     Private Sub CargarTablaCitas()
 
         Try
@@ -228,10 +223,6 @@ Public Class Form5
 
     End Sub
 
-    Private Sub btnNuevo_Click(sender As Object, e As EventArgs) Handles btnNuevo.Click
-        LimpiarCampos()
-    End Sub
-
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
         CargarTablaCitas()
         LimpiarCampos()
@@ -271,6 +262,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al guardar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -326,6 +318,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al editar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -366,6 +359,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al eliminar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
