@@ -1,4 +1,4 @@
-﻿'Formulario de citas médicas
+﻿
 Imports Npgsql
 Imports System.Data
 Imports System.Globalization
@@ -229,6 +229,15 @@ Public Class Form5
     End Sub
 
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
+
+        Dim medicoSeleccionado As Integer = Convert.ToInt32(cmbMedico.SelectedValue)
+        Dim horaDeseada As TimeSpan = dtpHora.Value.TimeOfDay
+
+
+        If Not MedicoEstaDisponible(medicoSeleccionado, horaDeseada) Then
+            MessageBox.Show("El médico seleccionado no está disponible en ese horario. Por favor, revise sus horas de atención.", "Horario Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Exit Sub ' Esto cancela el clic del botón para que no guarde
+        End If
 
         If ValidarCampos() = False Then Exit Sub
 
@@ -525,5 +534,39 @@ Public Class Form5
         End If
 
     End Sub
+
+    ' Función limpia y directa a la tabla de horarios
+    Private Function MedicoEstaDisponible(idMedico As Integer, horaCita As TimeSpan) As Boolean
+        Dim estaDisponible As Boolean = False
+
+        ' Buscamos directo en la tabla de disponibilidad sin mezclar tablas
+        Dim query As String = "
+            SELECT COUNT(*) 
+            FROM disponibilidad_medico 
+            WHERE id_medico = @idMedico 
+            AND @horaCita >= hora_inicio 
+            AND @horaCita <= hora_fin"
+
+        Using conn As New NpgsqlConnection(cadenaConexion)
+            Try
+                conn.Open()
+                Using cmd As New NpgsqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("idMedico", idMedico)
+                    cmd.Parameters.AddWithValue("horaCita", horaCita)
+
+                    Dim coincidencias As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+
+                    ' Si encuentra que la hora encaja en el turno, devuelve True
+                    If coincidencias > 0 Then
+                        estaDisponible = True
+                    End If
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al verificar disponibilidad: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End Using
+
+        Return estaDisponible
+    End Function
 
 End Class

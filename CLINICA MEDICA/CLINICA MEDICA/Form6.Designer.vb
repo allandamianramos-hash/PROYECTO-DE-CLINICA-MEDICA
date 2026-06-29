@@ -71,7 +71,7 @@ Partial Class Form6
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(14, 585)
+        btnRegresar.Location = New Point(15, 585)
         btnRegresar.Margin = New Padding(3, 4, 3, 4)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(123, 67)
@@ -171,7 +171,7 @@ Partial Class Form6
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(1219, 585)
+        btnSalir.Location = New Point(622, 585)
         btnSalir.Margin = New Padding(3, 4, 3, 4)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(123, 67)
