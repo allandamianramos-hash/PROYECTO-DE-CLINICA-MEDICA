@@ -262,6 +262,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al guardar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -317,6 +318,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al editar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -357,6 +359,7 @@ Public Class Form5
 
             CargarTablaCitas()
             LimpiarCampos()
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al eliminar la cita: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

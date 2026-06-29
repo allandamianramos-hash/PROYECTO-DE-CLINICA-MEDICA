@@ -122,6 +122,7 @@ Public Class Form6
 
             MessageBox.Show("¡Consulta guardada exitosamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             LimpiarCampos()
+            Form1.CargarEstadisticas()
             dgvConsultas.DataSource = dao.Mostrar()
         Catch ex As Exception
             MessageBox.Show("Error al guardar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -146,7 +147,6 @@ Public Class Form6
             txtDiagnostico.Text = fila.Cells("diagnostico").Value.ToString()
             txtObservaciones.Text = fila.Cells("observaciones").Value.ToString()
 
-            ' 🛡️ FIX INTELIGENTE: Verificamos cómo se llama realmente la columna en tu tabla
             Dim colFecha As String = If(dgvConsultas.Columns.Contains("fecha_consulta"), "fecha_consulta", "fecha")
             Dim colHora As String = If(dgvConsultas.Columns.Contains("hora_consulta"), "hora_consulta", "hora")
 
@@ -184,8 +184,7 @@ Public Class Form6
         If dgvConsultas.Rows.Count > 0 Then posicion = dgvConsultas.Rows.Count - 1 : MostrarRegistro()
     End Sub
 
-    ' --- BOTONES DE ACCIÓN ---
-    ' --- BOTÓN EDITAR ---
+
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
         ' 1. Validamos que el usuario haya seleccionado una consulta de la tabla
         If String.IsNullOrWhiteSpace(txtIdConsulta.Text) Then
@@ -217,14 +216,14 @@ Public Class Form6
             c.Fecha = dtpFechaConsulta.Value.Date
             c.Hora = dtpHoraConsulta.Value.TimeOfDay
 
-            ' 4. Mandamos los datos a Neon a través del DAO
             Dim dao As New ConsultaDAO()
             dao.Actualizar(c)
 
             MessageBox.Show("¡La estructura del registro se actualizó correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' 5. Limpiamos la pantalla y refrescamos la tabla
+
             LimpiarCampos()
+            Form1.CargarEstadisticas()
             dgvConsultas.DataSource = dao.Mostrar()
 
         Catch ex As Exception
@@ -238,6 +237,7 @@ Public Class Form6
             Dim dao As New ConsultaDAO()
             dao.Eliminar(Convert.ToInt32(txtIdConsulta.Text))
             LimpiarCampos()
+            Form1.CargarEstadisticas()
             dgvConsultas.DataSource = dao.Mostrar()
         End If
     End Sub
