@@ -1,15 +1,16 @@
 ﻿Imports System.Data
+
 Public Class Form7
 
     Dim tablaRecetas As New DataTable
     Dim posicion As Integer = 0
+    Dim tablaMedicamentosCompleta As New DataTable
 
-    Private Sub FormRecetas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub Form7_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         txtIdReceta.ReadOnly = True
 
         cmbIdConsulta.DropDownStyle = ComboBoxStyle.DropDownList
-        cmbMedicamento.DropDownStyle = ComboBoxStyle.DropDownList
 
         dgvRecetas.AllowUserToAddRows = False
         dgvRecetas.ReadOnly = True
@@ -18,6 +19,7 @@ Public Class Form7
         dgvRecetas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         CargarCombos()
+        CargarMedicamentos()
         CargarTablaRecetas()
         LimpiarCampos()
 
@@ -28,16 +30,45 @@ Public Class Form7
         Dim dao As New RecetaDAO()
 
         Dim tablaConsultas As DataTable = dao.ObtenerConsultas()
+
         cmbIdConsulta.DataSource = tablaConsultas
         cmbIdConsulta.DisplayMember = "descripcion_consulta"
         cmbIdConsulta.ValueMember = "id_consulta"
         cmbIdConsulta.SelectedIndex = -1
 
-        Dim tablaMedicamentos As DataTable = dao.ObtenerMedicamentos()
-        cmbMedicamento.DataSource = tablaMedicamentos
-        cmbMedicamento.DisplayMember = "descripcion_medicamento"
-        cmbMedicamento.ValueMember = "id_medicamento"
-        cmbMedicamento.SelectedIndex = -1
+    End Sub
+
+    Private Sub CargarTodasLasConsultas()
+
+        Dim dao As New RecetaDAO()
+
+        Dim tablaConsultas As DataTable = dao.ObtenerTodasLasConsultas()
+
+        cmbIdConsulta.DataSource = tablaConsultas
+        cmbIdConsulta.DisplayMember = "descripcion_consulta"
+        cmbIdConsulta.ValueMember = "id_consulta"
+        cmbIdConsulta.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub CargarMedicamentos()
+
+        Dim dao As New RecetaDAO()
+
+        tablaMedicamentosCompleta = dao.ObtenerMedicamentos()
+
+        clbMedicamentos.DataSource = tablaMedicamentosCompleta
+        clbMedicamentos.DisplayMember = "medicamento"
+        clbMedicamentos.ValueMember = "id_medicamento"
+
+    End Sub
+
+    Private Sub MostrarTodosLosMedicamentos()
+
+        clbMedicamentos.DataSource = Nothing
+        clbMedicamentos.DataSource = tablaMedicamentosCompleta
+        clbMedicamentos.DisplayMember = "medicamento"
+        clbMedicamentos.ValueMember = "id_medicamento"
 
     End Sub
 
@@ -61,15 +92,15 @@ Public Class Form7
 
     Private Function ValidarCampos() As Boolean
 
-        If cmbIdConsulta.SelectedIndex = -1 Then
+        If cmbIdConsulta.SelectedIndex = -1 OrElse cmbIdConsulta.SelectedValue Is Nothing Then
             MessageBox.Show("Seleccione el identificador de la consulta.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             cmbIdConsulta.Focus()
             Return False
         End If
 
-        If cmbMedicamento.SelectedIndex = -1 Then
-            MessageBox.Show("Seleccione un medicamento.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            cmbMedicamento.Focus()
+        If clbMedicamentos.CheckedItems.Count = 0 Then
+            MessageBox.Show("Seleccione al menos un medicamento.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            clbMedicamentos.Focus()
             Return False
         End If
 
@@ -89,6 +120,29 @@ Public Class Form7
 
     End Function
 
+    Private Function ObtenerMedicamentosSeleccionados() As List(Of Integer)
+
+        Dim lista As New List(Of Integer)
+
+        For Each item As Object In clbMedicamentos.CheckedItems
+
+            Dim fila As DataRowView = CType(item, DataRowView)
+            lista.Add(CInt(fila("id_medicamento")))
+
+        Next
+
+        Return lista
+
+    End Function
+
+    Private Sub LimpiarMedicamentosMarcados()
+
+        For i As Integer = 0 To clbMedicamentos.Items.Count - 1
+            clbMedicamentos.SetItemChecked(i, False)
+        Next
+
+    End Sub
+
     Private Sub LimpiarCampos()
 
         txtIdReceta.Clear()
@@ -97,7 +151,9 @@ Public Class Form7
         txtBuscar.Clear()
 
         If cmbIdConsulta.DataSource IsNot Nothing Then cmbIdConsulta.SelectedIndex = -1
-        If cmbMedicamento.DataSource IsNot Nothing Then cmbMedicamento.SelectedIndex = -1
+
+        MostrarTodosLosMedicamentos()
+        LimpiarMedicamentosMarcados()
 
         posicion = 0
         cmbIdConsulta.Focus()
@@ -111,9 +167,9 @@ Public Class Form7
         Dim receta As New Receta()
 
         receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
-        receta.IdMedicamento = CInt(cmbMedicamento.SelectedValue)
         receta.Dosis = txtDosis.Text.Trim()
         receta.Indicaciones = txtIndicaciones.Text.Trim()
+        receta.Medicamentos = ObtenerMedicamentosSeleccionados()
 
         Dim dao As New RecetaDAO()
         dao.Guardar(receta)
@@ -139,15 +195,16 @@ Public Class Form7
 
         receta.IdReceta = CInt(txtIdReceta.Text)
         receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
-        receta.IdMedicamento = CInt(cmbMedicamento.SelectedValue)
         receta.Dosis = txtDosis.Text.Trim()
         receta.Indicaciones = txtIndicaciones.Text.Trim()
+        receta.Medicamentos = ObtenerMedicamentosSeleccionados()
 
         Dim dao As New RecetaDAO()
         dao.Editar(receta)
 
         MessageBox.Show("Receta editada correctamente.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        CargarCombos()
         CargarTablaRecetas()
         LimpiarCampos()
 
@@ -171,6 +228,7 @@ Public Class Form7
 
         MessageBox.Show("Receta eliminada correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        CargarCombos()
         CargarTablaRecetas()
         LimpiarCampos()
 
@@ -178,6 +236,7 @@ Public Class Form7
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
+        CargarCombos()
         CargarTablaRecetas()
         LimpiarCampos()
 
@@ -186,23 +245,28 @@ Public Class Form7
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
 
         Try
-            If tablaRecetas Is Nothing OrElse tablaRecetas.Rows.Count = 0 Then Exit Sub
+            If tablaMedicamentosCompleta Is Nothing OrElse tablaMedicamentosCompleta.Rows.Count = 0 Then Exit Sub
 
             Dim texto As String = txtBuscar.Text.Trim().Replace("'", "''")
 
             If texto = "" Then
-                tablaRecetas.DefaultView.RowFilter = ""
+
+                MostrarTodosLosMedicamentos()
+
             Else
-                tablaRecetas.DefaultView.RowFilter =
-                    "medicamento LIKE '%" & texto & "%' OR " &
-                    "dosis LIKE '%" & texto & "%' OR " &
-                    "indicaciones LIKE '%" & texto & "%'"
+
+                Dim vista As New DataView(tablaMedicamentosCompleta)
+                vista.RowFilter = "medicamento LIKE '%" & texto & "%'"
+
+                clbMedicamentos.DataSource = Nothing
+                clbMedicamentos.DataSource = vista
+                clbMedicamentos.DisplayMember = "medicamento"
+                clbMedicamentos.ValueMember = "id_medicamento"
+
             End If
 
-            dgvRecetas.DataSource = tablaRecetas
-
         Catch ex As Exception
-            MessageBox.Show("Error al buscar: " & ex.Message)
+            MessageBox.Show("Error al buscar medicamento: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -229,11 +293,36 @@ Public Class Form7
 
         txtIdReceta.Text = fila.Cells("id_receta").Value.ToString()
 
+        CargarTodasLasConsultas()
+
         cmbIdConsulta.SelectedValue = CInt(fila.Cells("id_consulta").Value)
-        cmbMedicamento.SelectedValue = CInt(fila.Cells("id_medicamento").Value)
 
         txtDosis.Text = fila.Cells("dosis").Value.ToString()
         txtIndicaciones.Text = fila.Cells("indicaciones").Value.ToString()
+
+        txtBuscar.Clear()
+        MostrarTodosLosMedicamentos()
+        LimpiarMedicamentosMarcados()
+
+        Dim dao As New RecetaDAO()
+        Dim medicamentosReceta As DataTable = dao.ObtenerMedicamentosPorReceta(CInt(txtIdReceta.Text))
+
+        For Each medRow As DataRow In medicamentosReceta.Rows
+
+            Dim idMedicamentoActual As Integer = CInt(medRow("id_medicamento"))
+
+            For i As Integer = 0 To clbMedicamentos.Items.Count - 1
+
+                Dim item As DataRowView = CType(clbMedicamentos.Items(i), DataRowView)
+
+                If CInt(item("id_medicamento")) = idMedicamentoActual Then
+                    clbMedicamentos.SetItemChecked(i, True)
+                    Exit For
+                End If
+
+            Next
+
+        Next
 
     End Sub
 

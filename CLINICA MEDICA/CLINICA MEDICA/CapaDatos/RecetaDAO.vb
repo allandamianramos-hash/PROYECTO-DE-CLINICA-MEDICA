@@ -15,15 +15,15 @@ Public Class RecetaDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                SELECT 
-                    c.id_consulta,
-                    'Consulta ' || c.id_consulta || ' - ' || c.diagnostico AS descripcion_consulta
-                FROM consultas c
-                WHERE c.id_consulta NOT IN (
-                    SELECT id_consulta FROM recetas
-                )
-                ORDER BY c.id_consulta;
-            "
+                    SELECT 
+                        c.id_consulta,
+                        'Consulta ' || c.id_consulta || ' - ' || c.diagnostico AS descripcion_consulta
+                    FROM consultas c
+                    WHERE c.id_consulta NOT IN (
+                        SELECT id_consulta FROM recetas
+                    )
+                    ORDER BY c.id_consulta;
+                "
 
                 Using adaptador As New NpgsqlDataAdapter(sql, conexion)
                     adaptador.Fill(tabla)
@@ -32,7 +32,38 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al cargar consultas: " & ex.Message)
+            MessageBox.Show("Error al cargar consultas: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
+    Public Function ObtenerTodasLasConsultas() As DataTable
+
+        Dim tabla As New DataTable
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Dim sql As String = "
+                    SELECT 
+                        id_consulta,
+                        'Consulta ' || id_consulta || ' - ' || diagnostico AS descripcion_consulta
+                    FROM consultas
+                    ORDER BY id_consulta;
+                "
+
+                Using adaptador As New NpgsqlDataAdapter(sql, conexion)
+                    adaptador.Fill(tabla)
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al cargar todas las consultas: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         Return tabla
@@ -51,7 +82,7 @@ Public Class RecetaDAO
                 Dim sql As String = "
                     SELECT 
                         id_medicamento,
-                        nombre_comercial || ' - ' || nombre_generico || ' ' || concentracion AS descripcion_medicamento
+                        nombre_comercial || ' - ' || nombre_generico || ' ' || concentracion AS medicamento
                     FROM medicamentos
                     ORDER BY id_medicamento;
                 "
@@ -63,7 +94,7 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al cargar medicamentos: " & ex.Message)
+            MessageBox.Show("Error al cargar medicamentos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         Return tabla
@@ -92,7 +123,7 @@ Public Class RecetaDAO
                     FROM recetas r
                     INNER JOIN detalle_receta dr ON r.id_receta = dr.id_receta
                     INNER JOIN medicamentos m ON dr.id_medicamento = m.id_medicamento
-                    ORDER BY r.id_receta;
+                    ORDER BY r.id_receta, dr.id_detalle;
                 "
 
                 Using adaptador As New NpgsqlDataAdapter(sql, conexion)
@@ -102,7 +133,42 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al listar recetas: " & ex.Message)
+            MessageBox.Show("Error al listar recetas: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
+    Public Function ObtenerMedicamentosPorReceta(idReceta As Integer) As DataTable
+
+        Dim tabla As New DataTable
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Dim sql As String = "
+                    SELECT id_medicamento
+                    FROM detalle_receta
+                    WHERE id_receta = @id_receta;
+                "
+
+                Using comando As New NpgsqlCommand(sql, conexion)
+
+                    comando.Parameters.AddWithValue("@id_receta", idReceta)
+
+                    Using adaptador As New NpgsqlDataAdapter(comando)
+                        adaptador.Fill(tabla)
+                    End Using
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al obtener medicamentos de receta: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         Return tabla
@@ -132,28 +198,31 @@ Public Class RecetaDAO
                         Using comando As New NpgsqlCommand(sqlReceta, conexion, transaccion)
 
                             comando.Parameters.AddWithValue("@id_consulta", receta.IdConsulta)
-
                             idRecetaGenerado = CInt(comando.ExecuteScalar())
 
                         End Using
 
-                        Dim sqlDetalle As String = "
-                            INSERT INTO detalle_receta
-                            (id_receta, id_medicamento, dosis, frecuencia_indicacion)
-                            VALUES
-                            (@id_receta, @id_medicamento, @dosis, @indicaciones);
-                        "
+                        For Each idMedicamento As Integer In receta.Medicamentos
 
-                        Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
+                            Dim sqlDetalle As String = "
+                                INSERT INTO detalle_receta
+                                (id_receta, id_medicamento, dosis, frecuencia_indicacion)
+                                VALUES
+                                (@id_receta, @id_medicamento, @dosis, @indicaciones);
+                            "
 
-                            comandoDetalle.Parameters.AddWithValue("@id_receta", idRecetaGenerado)
-                            comandoDetalle.Parameters.AddWithValue("@id_medicamento", receta.IdMedicamento)
-                            comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
-                            comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
+                            Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
 
-                            comandoDetalle.ExecuteNonQuery()
+                                comandoDetalle.Parameters.AddWithValue("@id_receta", idRecetaGenerado)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", idMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
+                                comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
 
-                        End Using
+                                comandoDetalle.ExecuteNonQuery()
+
+                            End Using
+
+                        Next
 
                         transaccion.Commit()
 
@@ -167,7 +236,7 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al guardar receta: " & ex.Message)
+            MessageBox.Show("Error al guardar receta: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -192,29 +261,43 @@ Public Class RecetaDAO
 
                             comando.Parameters.AddWithValue("@id_receta", receta.IdReceta)
                             comando.Parameters.AddWithValue("@id_consulta", receta.IdConsulta)
-
                             comando.ExecuteNonQuery()
 
                         End Using
 
-                        Dim sqlDetalle As String = "
-                            UPDATE detalle_receta SET
-                                id_medicamento = @id_medicamento,
-                                dosis = @dosis,
-                                frecuencia_indicacion = @indicaciones
+                        Dim sqlBorrarDetalle As String = "
+                            DELETE FROM detalle_receta
                             WHERE id_receta = @id_receta;
                         "
 
-                        Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
+                        Using comandoBorrar As New NpgsqlCommand(sqlBorrarDetalle, conexion, transaccion)
 
-                            comandoDetalle.Parameters.AddWithValue("@id_receta", receta.IdReceta)
-                            comandoDetalle.Parameters.AddWithValue("@id_medicamento", receta.IdMedicamento)
-                            comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
-                            comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
-
-                            comandoDetalle.ExecuteNonQuery()
+                            comandoBorrar.Parameters.AddWithValue("@id_receta", receta.IdReceta)
+                            comandoBorrar.ExecuteNonQuery()
 
                         End Using
+
+                        For Each idMedicamento As Integer In receta.Medicamentos
+
+                            Dim sqlDetalle As String = "
+                                INSERT INTO detalle_receta
+                                (id_receta, id_medicamento, dosis, frecuencia_indicacion)
+                                VALUES
+                                (@id_receta, @id_medicamento, @dosis, @indicaciones);
+                            "
+
+                            Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
+
+                                comandoDetalle.Parameters.AddWithValue("@id_receta", receta.IdReceta)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", idMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
+                                comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
+
+                                comandoDetalle.ExecuteNonQuery()
+
+                            End Using
+
+                        Next
 
                         transaccion.Commit()
 
@@ -228,7 +311,7 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al editar receta: " & ex.Message)
+            MessageBox.Show("Error al editar receta: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub
@@ -279,7 +362,7 @@ Public Class RecetaDAO
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al eliminar receta: " & ex.Message)
+            MessageBox.Show("Error al eliminar receta: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub

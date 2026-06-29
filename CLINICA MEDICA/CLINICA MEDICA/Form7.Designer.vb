@@ -38,7 +38,6 @@ Partial Class Form7
         btnGuardar = New Button()
         cmbIdConsulta = New ComboBox()
         dgvRecetas = New DataGridView()
-        cmbMedicamento = New ComboBox()
         Label2 = New Label()
         Label3 = New Label()
         Label4 = New Label()
@@ -46,6 +45,7 @@ Partial Class Form7
         Label6 = New Label()
         Label7 = New Label()
         txtBuscar = New TextBox()
+        clbMedicamentos = New CheckedListBox()
         CType(dgvRecetas, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -190,14 +190,6 @@ Partial Class Form7
         dgvRecetas.Size = New Size(826, 186)
         dgvRecetas.TabIndex = 35
         ' 
-        ' cmbMedicamento
-        ' 
-        cmbMedicamento.FormattingEnabled = True
-        cmbMedicamento.Location = New Point(201, 101)
-        cmbMedicamento.Name = "cmbMedicamento"
-        cmbMedicamento.Size = New Size(114, 24)
-        cmbMedicamento.TabIndex = 37
-        ' 
         ' Label2
         ' 
         Label2.AutoSize = True
@@ -266,11 +258,20 @@ Partial Class Form7
         txtBuscar.TabIndex = 44
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
+        ' clbMedicamentos
+        ' 
+        clbMedicamentos.FormattingEnabled = True
+        clbMedicamentos.Location = New Point(201, 101)
+        clbMedicamentos.Name = "clbMedicamentos"
+        clbMedicamentos.Size = New Size(114, 26)
+        clbMedicamentos.TabIndex = 45
+        ' 
         ' Form7
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1163, 296)
+        Controls.Add(clbMedicamentos)
         Controls.Add(txtBuscar)
         Controls.Add(Label7)
         Controls.Add(Label6)
@@ -278,7 +279,6 @@ Partial Class Form7
         Controls.Add(Label4)
         Controls.Add(Label3)
         Controls.Add(Label2)
-        Controls.Add(cmbMedicamento)
         Controls.Add(dgvRecetas)
         Controls.Add(cmbIdConsulta)
         Controls.Add(btnSalir)
@@ -319,7 +319,6 @@ Partial Class Form7
     Friend WithEvents btnGuardar As Button
     Friend WithEvents cmbIdConsulta As ComboBox
     Friend WithEvents dgvRecetas As DataGridView
-    Friend WithEvents cmbMedicamento As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
@@ -327,4 +326,5 @@ Partial Class Form7
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents txtBuscar As TextBox
+    Friend WithEvents clbMedicamentos As CheckedListBox
 End Class
