@@ -150,7 +150,10 @@ Public Class RecetaDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    SELECT id_medicamento
+                    SELECT 
+                        id_medicamento,
+                        dosis,
+                        frecuencia_indicacion AS indicaciones
                     FROM detalle_receta
                     WHERE id_receta = @id_receta;
                 "
@@ -202,7 +205,7 @@ Public Class RecetaDAO
 
                         End Using
 
-                        For Each idMedicamento As Integer In receta.Medicamentos
+                        For Each detalle As DetalleReceta In receta.Detalles
 
                             Dim sqlDetalle As String = "
                                 INSERT INTO detalle_receta
@@ -214,9 +217,9 @@ Public Class RecetaDAO
                             Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
 
                                 comandoDetalle.Parameters.AddWithValue("@id_receta", idRecetaGenerado)
-                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", idMedicamento)
-                                comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
-                                comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", detalle.IdMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@dosis", detalle.Dosis)
+                                comandoDetalle.Parameters.AddWithValue("@indicaciones", detalle.Indicaciones)
 
                                 comandoDetalle.ExecuteNonQuery()
 
@@ -277,7 +280,7 @@ Public Class RecetaDAO
 
                         End Using
 
-                        For Each idMedicamento As Integer In receta.Medicamentos
+                        For Each detalle As DetalleReceta In receta.Detalles
 
                             Dim sqlDetalle As String = "
                                 INSERT INTO detalle_receta
@@ -289,9 +292,9 @@ Public Class RecetaDAO
                             Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
 
                                 comandoDetalle.Parameters.AddWithValue("@id_receta", receta.IdReceta)
-                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", idMedicamento)
-                                comandoDetalle.Parameters.AddWithValue("@dosis", receta.Dosis)
-                                comandoDetalle.Parameters.AddWithValue("@indicaciones", receta.Indicaciones)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", detalle.IdMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@dosis", detalle.Dosis)
+                                comandoDetalle.Parameters.AddWithValue("@indicaciones", detalle.Indicaciones)
 
                                 comandoDetalle.ExecuteNonQuery()
 

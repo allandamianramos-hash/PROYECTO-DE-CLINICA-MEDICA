@@ -5,6 +5,8 @@ Public Class Form7
     Dim tablaRecetas As New DataTable
     Dim posicion As Integer = 0
     Dim tablaMedicamentosCompleta As New DataTable
+    Dim detallesMedicamentos As New Dictionary(Of Integer, DetalleReceta)
+    Dim cargandoDatos As Boolean = False
 
     Private Sub Form7_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -57,6 +59,7 @@ Public Class Form7
 
         tablaMedicamentosCompleta = dao.ObtenerMedicamentos()
 
+        clbMedicamentos.DataSource = Nothing
         clbMedicamentos.DataSource = tablaMedicamentosCompleta
         clbMedicamentos.DisplayMember = "medicamento"
         clbMedicamentos.ValueMember = "id_medicamento"
@@ -104,15 +107,13 @@ Public Class Form7
             Return False
         End If
 
-        If txtDosis.Text.Trim() = "" Then
-            MessageBox.Show("Ingrese la dosis.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtDosis.Focus()
+        If detallesMedicamentos.Count = 0 Then
+            MessageBox.Show("Debe ingresar dosis e indicaciones para los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
-        If txtIndicaciones.Text.Trim() = "" Then
-            MessageBox.Show("Ingrese las indicaciones.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtIndicaciones.Focus()
+        If detallesMedicamentos.Count <> clbMedicamentos.CheckedItems.Count Then
+            MessageBox.Show("Debe ingresar dosis e indicaciones para todos los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return False
         End If
 
@@ -120,15 +121,12 @@ Public Class Form7
 
     End Function
 
-    Private Function ObtenerMedicamentosSeleccionados() As List(Of Integer)
+    Private Function ObtenerDetallesMedicamentos() As List(Of DetalleReceta)
 
-        Dim lista As New List(Of Integer)
+        Dim lista As New List(Of DetalleReceta)
 
-        For Each item As Object In clbMedicamentos.CheckedItems
-
-            Dim fila As DataRowView = CType(item, DataRowView)
-            lista.Add(CInt(fila("id_medicamento")))
-
+        For Each item As KeyValuePair(Of Integer, DetalleReceta) In detallesMedicamentos
+            lista.Add(item.Value)
         Next
 
         Return lista
@@ -137,17 +135,19 @@ Public Class Form7
 
     Private Sub LimpiarMedicamentosMarcados()
 
+        cargandoDatos = True
+
         For i As Integer = 0 To clbMedicamentos.Items.Count - 1
             clbMedicamentos.SetItemChecked(i, False)
         Next
+
+        cargandoDatos = False
 
     End Sub
 
     Private Sub LimpiarCampos()
 
         txtIdReceta.Clear()
-        txtDosis.Clear()
-        txtIndicaciones.Clear()
         txtBuscar.Clear()
 
         If cmbIdConsulta.DataSource IsNot Nothing Then cmbIdConsulta.SelectedIndex = -1
@@ -155,8 +155,58 @@ Public Class Form7
         MostrarTodosLosMedicamentos()
         LimpiarMedicamentosMarcados()
 
+        detallesMedicamentos.Clear()
+
         posicion = 0
         cmbIdConsulta.Focus()
+
+    End Sub
+
+    Private Sub clbMedicamentos_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles clbMedicamentos.ItemCheck
+
+        If cargandoDatos = True Then Exit Sub
+        If e.Index < 0 Then Exit Sub
+
+        Dim fila As DataRowView = CType(clbMedicamentos.Items(e.Index), DataRowView)
+        Dim idMedicamento As Integer = CInt(fila("id_medicamento"))
+        Dim nombreMedicamento As String = fila("medicamento").ToString()
+
+        If e.NewValue = CheckState.Checked Then
+
+            Dim dosis As String = InputBox("Ingrese la dosis para: " & nombreMedicamento, "Dosis del medicamento")
+
+            If dosis.Trim() = "" Then
+                MessageBox.Show("Debe ingresar una dosis.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                e.NewValue = CheckState.Unchecked
+                Exit Sub
+            End If
+
+            Dim indicaciones As String = InputBox("Ingrese las indicaciones para: " & nombreMedicamento, "Indicaciones del medicamento")
+
+            If indicaciones.Trim() = "" Then
+                MessageBox.Show("Debe ingresar las indicaciones.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                e.NewValue = CheckState.Unchecked
+                Exit Sub
+            End If
+
+            Dim detalle As New DetalleReceta()
+            detalle.IdMedicamento = idMedicamento
+            detalle.Dosis = dosis.Trim()
+            detalle.Indicaciones = indicaciones.Trim()
+
+            If detallesMedicamentos.ContainsKey(idMedicamento) Then
+                detallesMedicamentos(idMedicamento) = detalle
+            Else
+                detallesMedicamentos.Add(idMedicamento, detalle)
+            End If
+
+        ElseIf e.NewValue = CheckState.Unchecked Then
+
+            If detallesMedicamentos.ContainsKey(idMedicamento) Then
+                detallesMedicamentos.Remove(idMedicamento)
+            End If
+
+        End If
 
     End Sub
 
@@ -167,9 +217,7 @@ Public Class Form7
         Dim receta As New Receta()
 
         receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
-        receta.Dosis = txtDosis.Text.Trim()
-        receta.Indicaciones = txtIndicaciones.Text.Trim()
-        receta.Medicamentos = ObtenerMedicamentosSeleccionados()
+        receta.Detalles = ObtenerDetallesMedicamentos()
 
         Dim dao As New RecetaDAO()
         dao.Guardar(receta)
@@ -195,9 +243,7 @@ Public Class Form7
 
         receta.IdReceta = CInt(txtIdReceta.Text)
         receta.IdConsulta = CInt(cmbIdConsulta.SelectedValue)
-        receta.Dosis = txtDosis.Text.Trim()
-        receta.Indicaciones = txtIndicaciones.Text.Trim()
-        receta.Medicamentos = ObtenerMedicamentosSeleccionados()
+        receta.Detalles = ObtenerDetallesMedicamentos()
 
         Dim dao As New RecetaDAO()
         dao.Editar(receta)
@@ -265,9 +311,30 @@ Public Class Form7
 
             End If
 
+            MarcarMedicamentosGuardados()
+
         Catch ex As Exception
             MessageBox.Show("Error al buscar medicamento: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+
+    End Sub
+
+    Private Sub MarcarMedicamentosGuardados()
+
+        cargandoDatos = True
+
+        For i As Integer = 0 To clbMedicamentos.Items.Count - 1
+
+            Dim item As DataRowView = CType(clbMedicamentos.Items(i), DataRowView)
+            Dim idMedicamento As Integer = CInt(item("id_medicamento"))
+
+            If detallesMedicamentos.ContainsKey(idMedicamento) Then
+                clbMedicamentos.SetItemChecked(i, True)
+            End If
+
+        Next
+
+        cargandoDatos = False
 
     End Sub
 
@@ -297,32 +364,31 @@ Public Class Form7
 
         cmbIdConsulta.SelectedValue = CInt(fila.Cells("id_consulta").Value)
 
-        txtDosis.Text = fila.Cells("dosis").Value.ToString()
-        txtIndicaciones.Text = fila.Cells("indicaciones").Value.ToString()
-
         txtBuscar.Clear()
         MostrarTodosLosMedicamentos()
         LimpiarMedicamentosMarcados()
+        detallesMedicamentos.Clear()
 
         Dim dao As New RecetaDAO()
         Dim medicamentosReceta As DataTable = dao.ObtenerMedicamentosPorReceta(CInt(txtIdReceta.Text))
 
         For Each medRow As DataRow In medicamentosReceta.Rows
 
-            Dim idMedicamentoActual As Integer = CInt(medRow("id_medicamento"))
+            Dim detalle As New DetalleReceta()
 
-            For i As Integer = 0 To clbMedicamentos.Items.Count - 1
+            detalle.IdMedicamento = CInt(medRow("id_medicamento"))
+            detalle.Dosis = medRow("dosis").ToString()
+            detalle.Indicaciones = medRow("indicaciones").ToString()
 
-                Dim item As DataRowView = CType(clbMedicamentos.Items(i), DataRowView)
-
-                If CInt(item("id_medicamento")) = idMedicamentoActual Then
-                    clbMedicamentos.SetItemChecked(i, True)
-                    Exit For
-                End If
-
-            Next
+            If detallesMedicamentos.ContainsKey(detalle.IdMedicamento) Then
+                detallesMedicamentos(detalle.IdMedicamento) = detalle
+            Else
+                detallesMedicamentos.Add(detalle.IdMedicamento, detalle)
+            End If
 
         Next
+
+        MarcarMedicamentosGuardados()
 
     End Sub
 
