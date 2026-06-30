@@ -1,10 +1,10 @@
 ﻿Imports Npgsql
 
 Public Class MedicoDAO
-    ' 1. MÉTODO PARA MOSTRAR
+
+    ' 1. MÉTODO PARA MOSTRAR (Se queda igual porque no hay función específica en BD)
     Public Function Mostrar() As DataTable
         Dim dt As New DataTable()
-        ' Nota: Asegúrate de que los nombres de las columnas coincidan con los de tu base de datos
         Dim query As String = "SELECT id_medico, id_especialidad, nombre, apellido, telefono, correo_electronico, codigo_colegiacion FROM medicos"
 
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
@@ -22,20 +22,21 @@ Public Class MedicoDAO
         Return dt
     End Function
 
-    ' 2. MÉTODO PARA GUARDAR (Actualizado con tus campos reales)
+    ' 2. MÉTODO PARA GUARDAR (Conectado a registrar_medico)
     Public Sub Insertar(medico As Medico)
-        ' Ajustamos el query para que use id_especialidad y codigo_colegiacion
-        Dim query As String = "INSERT INTO medicos (id_especialidad, nombre, apellido, telefono, correo_electronico, codigo_colegiacion) VALUES (@esp, @nom, @ape, @tel, @mail, @cod)"
+        ' 🚨 Agregamos el parámetro @cod al final
+        Dim query As String = "CALL registrar_medico(@nom, @ape, @esp, @tel, @mail, @cod)"
 
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
                 Using cmd As New NpgsqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@esp", medico.EspecialidadId)
                     cmd.Parameters.AddWithValue("@nom", medico.Nombre)
                     cmd.Parameters.AddWithValue("@ape", medico.Apellido)
+                    cmd.Parameters.AddWithValue("@esp", medico.EspecialidadId)
                     cmd.Parameters.AddWithValue("@tel", medico.Telefono)
                     cmd.Parameters.AddWithValue("@mail", medico.Correo)
+                    ' 🚨 Ahora sí le mandamos el código que generaste en el formulario
                     cmd.Parameters.AddWithValue("@cod", medico.CodigoColegiacion)
 
                     cmd.ExecuteNonQuery()
@@ -46,7 +47,7 @@ Public Class MedicoDAO
         End Using
     End Sub
 
-    ' 3. NUEVO: MÉTODO PARA ELIMINAR (Esto quitará tu tercer error)
+    ' 3. MÉTODO PARA ELIMINAR (Se queda igual, usa SQL directo)
     Public Sub Eliminar(id As Integer)
         Dim query As String = "DELETE FROM medicos WHERE id_medico = @id"
 
@@ -63,20 +64,23 @@ Public Class MedicoDAO
         End Using
     End Sub
 
+    ' 4. MÉTODO PARA EDITAR (Conectado a actualizar_medico)
     Public Sub Editar(medico As Medico)
-        ' Consulta SQL con UPDATE para modificar los datos según el id_medico
-        Dim query As String = "UPDATE medicos SET id_especialidad = @esp, nombre = @nom, apellido = @ape, telefono = @tel, correo_electronico = @mail WHERE id_medico = @id"
+        ' 🚨 Agregamos el parámetro @cod al final
+        Dim query As String = "CALL actualizar_medico(@id, @nom, @ape, @esp, @tel, @mail, @cod)"
 
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
                 Using cmd As New NpgsqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@id", medico.IdMedico)
-                    cmd.Parameters.AddWithValue("@esp", medico.EspecialidadId)
                     cmd.Parameters.AddWithValue("@nom", medico.Nombre)
                     cmd.Parameters.AddWithValue("@ape", medico.Apellido)
+                    cmd.Parameters.AddWithValue("@esp", medico.EspecialidadId)
                     cmd.Parameters.AddWithValue("@tel", medico.Telefono)
                     cmd.Parameters.AddWithValue("@mail", medico.Correo)
+                    ' 🚨 Enviamos el código
+                    cmd.Parameters.AddWithValue("@cod", medico.CodigoColegiacion)
 
                     cmd.ExecuteNonQuery()
                 End Using

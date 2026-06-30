@@ -60,7 +60,9 @@ Partial Class Form1
         btnModuloPacientes.Location = New Point(13, 59)
         btnModuloPacientes.Margin = New Padding(4, 3, 4, 3)
         btnModuloPacientes.Name = "btnModuloPacientes"
-        btnModuloPacientes.Size = New Size(235, 66)
+
+        btnModuloPacientes.Size = New Size(235, 71)
+
         btnModuloPacientes.TabIndex = 2
         btnModuloPacientes.Text = "Módulo de pacientes"
         btnModuloPacientes.UseVisualStyleBackColor = True
@@ -70,7 +72,9 @@ Partial Class Form1
         btnModuloMedicos.Location = New Point(256, 59)
         btnModuloMedicos.Margin = New Padding(4, 3, 4, 3)
         btnModuloMedicos.Name = "btnModuloMedicos"
-        btnModuloMedicos.Size = New Size(235, 66)
+
+        btnModuloMedicos.Size = New Size(235, 71)
+
         btnModuloMedicos.TabIndex = 3
         btnModuloMedicos.Text = "Módulo de médicos"
         btnModuloMedicos.UseVisualStyleBackColor = True
@@ -107,7 +111,9 @@ Partial Class Form1
         ' 
         ' btnModuloRecetas
         ' 
+
         btnModuloRecetas.Location = New Point(256, 208)
+
         btnModuloRecetas.Margin = New Padding(4, 3, 4, 3)
         btnModuloRecetas.Name = "btnModuloRecetas"
         btnModuloRecetas.Size = New Size(235, 71)
@@ -127,10 +133,12 @@ Partial Class Form1
         ' 
         ' btnSalir
         ' 
+
         btnSalir.Location = New Point(256, 285)
         btnSalir.Margin = New Padding(4, 3, 4, 3)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(477, 71)
+
         btnSalir.TabIndex = 9
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -217,26 +225,32 @@ Partial Class Form1
         ' 
         ' btnMedicamentos
         ' 
-        btnMedicamentos.Location = New Point(498, 208)
+
+        btnMedicamentos.Location = New Point(498, 131)
         btnMedicamentos.Name = "btnMedicamentos"
         btnMedicamentos.Size = New Size(235, 71)
+
         btnMedicamentos.TabIndex = 16
         btnMedicamentos.Text = "Módulo de medicamentos"
         btnMedicamentos.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(498, 59)
+
+        Button2.Location = New Point(498, 54)
         Button2.Margin = New Padding(4, 3, 4, 3)
         Button2.Name = "Button2"
-        Button2.Size = New Size(235, 66)
+        Button2.Size = New Size(235, 71)
+
         Button2.TabIndex = 18
         Button2.Text = "Módulo de pagos"
         Button2.UseVisualStyleBackColor = True
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(498, 131)
+
+        Button1.Location = New Point(498, 208)
+
         Button1.Name = "Button1"
         Button1.Size = New Size(235, 71)
         Button1.TabIndex = 19
@@ -245,9 +259,11 @@ Partial Class Form1
         ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(8.0F, 16.0F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(747, 472)
+
+        ClientSize = New Size(745, 461)
+
         Controls.Add(Button1)
         Controls.Add(Button2)
         Controls.Add(btnMedicamentos)
