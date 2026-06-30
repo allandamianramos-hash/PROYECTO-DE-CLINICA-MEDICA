@@ -10,6 +10,7 @@ Public Class Form1
     Private Sub Form1_Activated(sender As Object, e As EventArgs) Handles MyBase.Activated
         lblFechaActual.Text = "Fecha: " & DateTime.Now.ToString("dd/MM/yyyy")
         CargarEstadisticas()
+        ConfigurarPermisos()
     End Sub
 
     ' Llena las tarjetas del Dashboard de forma predeterminada mientras conectamos a la base de datos
@@ -81,7 +82,10 @@ Public Class Form1
 
     ' --- GESTIÓN DE CIERRE ---
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Dim respuesta As DialogResult = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim respuesta As DialogResult
+
+        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
         If respuesta = DialogResult.Yes Then
             Application.Exit()
         End If
@@ -142,4 +146,48 @@ Public Class Form1
         End Using
     End Sub
 
+    ' --- FUNCIÓN PARA BLOQUEAR BOTONES SEGÚN EL ROL ---
+    Private Sub ConfigurarPermisos()
+
+        btnModuloPacientes.Enabled = True
+        btnModuloMedicos.Enabled = True
+        btnModuloEspecialidades.Enabled = True
+        btnModuloCitas.Enabled = True
+        btnModuloConsultas.Enabled = True
+        btnModuloRecetas.Enabled = True
+        btnModuloReportes.Enabled = True
+        btnMedicamentos.Enabled = True
+        Button2.Enabled = True
+        Button1.Enabled = True
+
+        Select Case SesionGlobal.RolActual
+
+            Case "Recepcionista"
+
+                btnModuloConsultas.Enabled = False
+                btnModuloRecetas.Enabled = False
+                btnModuloReportes.Enabled = False
+                btnMedicamentos.Enabled = False
+                btnModuloMedicos.Enabled = False
+
+            Case "Medico"
+                ' El doctor atiende pacientes y da recetas, pero no administra personal ni cobra en caja
+                btnModuloMedicos.Enabled = False
+                btnModuloReportes.Enabled = False
+                Button2.Enabled = False ' Bloqueamos Facturas
+                btnMedicamentos.Enabled = False ' Solo Farmacia toca el inventario de medicinas
+
+            Case "Farmacia"
+                ' El de farmacia solo despacha medicinas viendo las recetas, no toca a los pacientes
+                btnModuloPacientes.Enabled = False
+                btnModuloMedicos.Enabled = False
+                btnModuloEspecialidades.Enabled = False
+                btnModuloCitas.Enabled = False
+                btnModuloConsultas.Enabled = False
+                btnModuloReportes.Enabled = False
+                Button2.Enabled = False
+                Button1.Enabled = False
+
+        End Select
+    End Sub
 End Class
