@@ -6,15 +6,9 @@ Public Class Form6
     ' Cadena de conexión global del formulario
     Dim conexionString As String = "Server=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech; Port=5432; Database=neondb; User Id=neondb_owner; Password=npg_8KIjvXm6uzAi; SSL Mode=Require; Trust Server Certificate=True;"
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     ' --- MÉTODO AUXILIAR PARA CORREGIR EL ERROR DE DATEONLY ---
     ' --- MÉTODO AUXILIAR BLINDADO PARA FECHAS Y HORAS ---
-=======
 
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
     Private Function ConvertirADateTime(valor As Object) As DateTime
         If valor Is Nothing OrElse IsDBNull(valor) Then Return DateTime.Now
 

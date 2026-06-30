@@ -56,11 +56,7 @@ Partial Class Form3
         txtIdMedico.Location = New Point(182, 256)
         txtIdMedico.Name = "txtIdMedico"
         txtIdMedico.ReadOnly = True
-<<<<<<< HEAD
         txtIdMedico.Size = New Size(118, 32)
-=======
-        txtIdMedico.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
         txtIdMedico.TabIndex = 0
         txtIdMedico.TextAlign = HorizontalAlignment.Center
         ' 
@@ -68,11 +64,7 @@ Partial Class Form3
         ' 
         txtNombre.Location = New Point(182, 289)
         txtNombre.Name = "txtNombre"
-<<<<<<< HEAD
-        txtNombre.Size = New Size(118, 32)
-=======
-        txtNombre.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtNombre.Size = New Size(137, 32)
         txtNombre.TabIndex = 1
         txtNombre.TextAlign = HorizontalAlignment.Center
         ' 
@@ -80,11 +72,7 @@ Partial Class Form3
         ' 
         txtApellido.Location = New Point(182, 322)
         txtApellido.Name = "txtApellido"
-<<<<<<< HEAD
-        txtApellido.Size = New Size(118, 32)
-=======
-        txtApellido.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtApellido.Size = New Size(137, 32)
         txtApellido.TabIndex = 2
         txtApellido.TextAlign = HorizontalAlignment.Center
         ' 
@@ -92,11 +80,7 @@ Partial Class Form3
         ' 
         txtTelefono.Location = New Point(182, 385)
         txtTelefono.Name = "txtTelefono"
-<<<<<<< HEAD
-        txtTelefono.Size = New Size(118, 32)
-=======
-        txtTelefono.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtTelefono.Size = New Size(137, 32)
         txtTelefono.TabIndex = 3
         txtTelefono.TextAlign = HorizontalAlignment.Center
         ' 
@@ -104,11 +88,7 @@ Partial Class Form3
         ' 
         txtCorreo.Location = New Point(182, 418)
         txtCorreo.Name = "txtCorreo"
-<<<<<<< HEAD
-        txtCorreo.Size = New Size(118, 32)
-=======
-        txtCorreo.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtCorreo.Size = New Size(137, 32)
         txtCorreo.TabIndex = 4
         txtCorreo.TextAlign = HorizontalAlignment.Center
         ' 
@@ -116,11 +96,7 @@ Partial Class Form3
         ' 
         txtBuscar.Location = New Point(182, 451)
         txtBuscar.Name = "txtBuscar"
-<<<<<<< HEAD
-        txtBuscar.Size = New Size(118, 32)
-=======
-        txtBuscar.Size = New Size(137, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtBuscar.Size = New Size(137, 32)
         txtBuscar.TabIndex = 5
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -291,11 +267,7 @@ Partial Class Form3
         cmbEspecialidad.FormattingEnabled = True
         cmbEspecialidad.Location = New Point(182, 355)
         cmbEspecialidad.Name = "cmbEspecialidad"
-<<<<<<< HEAD
-        cmbEspecialidad.Size = New Size(118, 28)
-=======
-        cmbEspecialidad.Size = New Size(137, 24)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        cmbEspecialidad.Size = New Size(137, 28)
         cmbEspecialidad.TabIndex = 24
         ' 
         ' dgvMedicos
@@ -325,11 +297,7 @@ Partial Class Form3
         ' 
         AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-<<<<<<< HEAD
-        ClientSize = New Size(1046, 376)
-=======
-        ClientSize = New Size(1046, 491)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        ClientSize = New Size(1125, 558)
         Controls.Add(Label8)
         Controls.Add(dgvMedicos)
         Controls.Add(cmbEspecialidad)

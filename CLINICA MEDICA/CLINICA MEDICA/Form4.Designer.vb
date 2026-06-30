@@ -70,11 +70,7 @@ Partial Class Form4
         txtIdEspecialidad.Location = New Point(225, 177)
         txtIdEspecialidad.Name = "txtIdEspecialidad"
         txtIdEspecialidad.ReadOnly = True
-<<<<<<< HEAD
-        txtIdEspecialidad.Size = New Size(114, 32)
-=======
-        txtIdEspecialidad.Size = New Size(150, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtIdEspecialidad.Size = New Size(150, 32)
         txtIdEspecialidad.TabIndex = 17
         txtIdEspecialidad.TextAlign = HorizontalAlignment.Center
         ' 
@@ -82,11 +78,7 @@ Partial Class Form4
         ' 
         txtNombre.Location = New Point(225, 210)
         txtNombre.Name = "txtNombre"
-<<<<<<< HEAD
-        txtNombre.Size = New Size(114, 32)
-=======
-        txtNombre.Size = New Size(150, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtNombre.Size = New Size(150, 32)
         txtNombre.TabIndex = 18
         txtNombre.TextAlign = HorizontalAlignment.Center
         ' 
@@ -103,11 +95,7 @@ Partial Class Form4
         ' 
         txtBuscar.Location = New Point(225, 273)
         txtBuscar.Name = "txtBuscar"
-<<<<<<< HEAD
-        txtBuscar.Size = New Size(114, 32)
-=======
-        txtBuscar.Size = New Size(150, 27)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        txtBuscar.Size = New Size(150, 32)
         txtBuscar.TabIndex = 20
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -246,11 +234,7 @@ Partial Class Form4
         ' 
         AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-<<<<<<< HEAD
-        ClientSize = New Size(973, 296)
-=======
-        ClientSize = New Size(1152, 313)
->>>>>>> f7d02d53c961f177c996d8cfda256c97687f45d8
+        ClientSize = New Size(1152, 403)
         Controls.Add(lblBuscar)
         Controls.Add(lblDescripcion)
         Controls.Add(lblNombre)
