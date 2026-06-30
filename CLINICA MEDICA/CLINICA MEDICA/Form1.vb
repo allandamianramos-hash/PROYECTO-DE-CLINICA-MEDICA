@@ -24,43 +24,43 @@ Public Class Form1
     ' --- SECCIÓN DE NAVEGACIÓN ---
 
     Private Sub btnModuloPacientes_Click(sender As Object, e As EventArgs) Handles btnModuloPacientes.Click
-        MessageBox.Show("Abriendo el Formulario de Pacientes...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de pacientes...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         frm2.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloMedicos_Click(sender As Object, e As EventArgs) Handles btnModuloMedicos.Click
-        MessageBox.Show("Abriendo el Formulario de Médicos...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de médicos...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form3.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloEspecialidades_Click(sender As Object, e As EventArgs) Handles btnModuloEspecialidades.Click
-        MessageBox.Show("Abriendo el Formulario de Especialidades...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de especialidades...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form4.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloCitas_Click(sender As Object, e As EventArgs) Handles btnModuloCitas.Click
-        MessageBox.Show("Abriendo el Formulario de Citas Médicas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de citas médicas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form5.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloConsultas_Click(sender As Object, e As EventArgs) Handles btnModuloConsultas.Click
-        MessageBox.Show("Abriendo el Formulario de Consultas Clínicas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de consultas clínicas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form6.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloRecetas_Click(sender As Object, e As EventArgs) Handles btnModuloRecetas.Click
-        MessageBox.Show("Abriendo el Formulario de Recetas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de recetas...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form7.Show()
         Me.Hide()
     End Sub
 
     Private Sub btnModuloReportes_Click(sender As Object, e As EventArgs) Handles btnModuloReportes.Click
-        MessageBox.Show("Abriendo el Módulo de Reportes Consolidados...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show("Abriendo el módulo de reportes consolidados...", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Form8.Show()
         Me.Hide()
     End Sub
