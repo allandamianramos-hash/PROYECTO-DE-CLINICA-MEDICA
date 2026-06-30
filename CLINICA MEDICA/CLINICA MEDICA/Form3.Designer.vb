@@ -53,139 +53,139 @@ Partial Class Form3
         ' 
         ' txtIdMedico
         ' 
-        txtIdMedico.Location = New Point(182, 47)
+        txtIdMedico.Location = New Point(182, 256)
         txtIdMedico.Name = "txtIdMedico"
         txtIdMedico.ReadOnly = True
-        txtIdMedico.Size = New Size(118, 27)
+        txtIdMedico.Size = New Size(137, 27)
         txtIdMedico.TabIndex = 0
         txtIdMedico.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtNombre
         ' 
-        txtNombre.Location = New Point(182, 80)
+        txtNombre.Location = New Point(182, 289)
         txtNombre.Name = "txtNombre"
-        txtNombre.Size = New Size(118, 27)
+        txtNombre.Size = New Size(137, 27)
         txtNombre.TabIndex = 1
         txtNombre.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtApellido
         ' 
-        txtApellido.Location = New Point(182, 113)
+        txtApellido.Location = New Point(182, 322)
         txtApellido.Name = "txtApellido"
-        txtApellido.Size = New Size(118, 27)
+        txtApellido.Size = New Size(137, 27)
         txtApellido.TabIndex = 2
         txtApellido.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtTelefono
         ' 
-        txtTelefono.Location = New Point(182, 176)
+        txtTelefono.Location = New Point(182, 385)
         txtTelefono.Name = "txtTelefono"
-        txtTelefono.Size = New Size(118, 27)
+        txtTelefono.Size = New Size(137, 27)
         txtTelefono.TabIndex = 3
         txtTelefono.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtCorreo
         ' 
-        txtCorreo.Location = New Point(182, 209)
+        txtCorreo.Location = New Point(182, 418)
         txtCorreo.Name = "txtCorreo"
-        txtCorreo.Size = New Size(118, 27)
+        txtCorreo.Size = New Size(137, 27)
         txtCorreo.TabIndex = 4
         txtCorreo.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(182, 242)
+        txtBuscar.Location = New Point(182, 451)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(118, 27)
+        txtBuscar.Size = New Size(137, 27)
         txtBuscar.TabIndex = 5
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(12, 275)
+        btnGuardar.Location = New Point(325, 256)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(108, 25)
+        btnGuardar.Size = New Size(108, 60)
         btnGuardar.TabIndex = 7
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(126, 275)
+        btnEditar.Location = New Point(439, 256)
         btnEditar.Name = "btnEditar"
-        btnEditar.Size = New Size(108, 25)
+        btnEditar.Size = New Size(108, 60)
         btnEditar.TabIndex = 8
         btnEditar.Text = "Editar"
         btnEditar.UseVisualStyleBackColor = True
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(240, 275)
+        btnEliminar.Location = New Point(553, 256)
         btnEliminar.Name = "btnEliminar"
-        btnEliminar.Size = New Size(108, 25)
+        btnEliminar.Size = New Size(108, 60)
         btnEliminar.TabIndex = 9
         btnEliminar.Text = "Eliminar"
         btnEliminar.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(354, 275)
+        btnLimpiar.Location = New Point(667, 256)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(108, 25)
+        btnLimpiar.Size = New Size(108, 60)
         btnLimpiar.TabIndex = 10
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(812, 306)
+        btnPrimero.Location = New Point(812, 322)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(108, 25)
+        btnPrimero.Size = New Size(108, 60)
         btnPrimero.TabIndex = 11
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(812, 275)
+        btnAnterior.Location = New Point(812, 256)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(108, 25)
+        btnAnterior.Size = New Size(108, 60)
         btnAnterior.TabIndex = 12
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(926, 275)
+        btnSiguiente.Location = New Point(926, 256)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(108, 25)
+        btnSiguiente.Size = New Size(108, 60)
         btnSiguiente.TabIndex = 13
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(926, 306)
+        btnUltimo.Location = New Point(926, 321)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(108, 25)
+        btnUltimo.Size = New Size(108, 61)
         btnUltimo.TabIndex = 14
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 306)
+        btnRegresar.Location = New Point(325, 322)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(336, 25)
+        btnRegresar.Size = New Size(222, 60)
         btnRegresar.TabIndex = 15
         btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(468, 275)
+        btnSalir.Location = New Point(553, 322)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(108, 25)
+        btnSalir.Size = New Size(222, 60)
         btnSalir.TabIndex = 16
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -193,7 +193,7 @@ Partial Class Form3
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(12, 50)
+        Label1.Location = New Point(12, 259)
         Label1.Name = "Label1"
         Label1.Size = New Size(164, 16)
         Label1.TabIndex = 17
@@ -203,7 +203,7 @@ Partial Class Form3
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(12, 83)
+        Label2.Location = New Point(12, 292)
         Label2.Name = "Label2"
         Label2.Size = New Size(61, 16)
         Label2.TabIndex = 18
@@ -213,7 +213,7 @@ Partial Class Form3
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(12, 116)
+        Label3.Location = New Point(12, 325)
         Label3.Name = "Label3"
         Label3.Size = New Size(63, 16)
         Label3.TabIndex = 19
@@ -223,7 +223,7 @@ Partial Class Form3
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(12, 179)
+        Label4.Location = New Point(12, 388)
         Label4.Name = "Label4"
         Label4.Size = New Size(66, 16)
         Label4.TabIndex = 20
@@ -233,7 +233,7 @@ Partial Class Form3
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(12, 212)
+        Label5.Location = New Point(12, 421)
         Label5.Name = "Label5"
         Label5.Size = New Size(53, 16)
         Label5.TabIndex = 21
@@ -243,7 +243,7 @@ Partial Class Form3
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(12, 245)
+        Label6.Location = New Point(12, 454)
         Label6.Name = "Label6"
         Label6.Size = New Size(71, 16)
         Label6.TabIndex = 22
@@ -265,28 +265,28 @@ Partial Class Form3
         ' 
         cmbEspecialidad.DropDownStyle = ComboBoxStyle.DropDownList
         cmbEspecialidad.FormattingEnabled = True
-        cmbEspecialidad.Location = New Point(182, 146)
+        cmbEspecialidad.Location = New Point(182, 355)
         cmbEspecialidad.Name = "cmbEspecialidad"
-        cmbEspecialidad.Size = New Size(118, 24)
+        cmbEspecialidad.Size = New Size(137, 24)
         cmbEspecialidad.TabIndex = 24
         ' 
         ' dgvMedicos
         ' 
         dgvMedicos.AllowUserToAddRows = False
         dgvMedicos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvMedicos.Location = New Point(306, 47)
+        dgvMedicos.Location = New Point(12, 28)
         dgvMedicos.MultiSelect = False
         dgvMedicos.Name = "dgvMedicos"
         dgvMedicos.ReadOnly = True
         dgvMedicos.RowHeadersWidth = 51
         dgvMedicos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvMedicos.Size = New Size(728, 222)
+        dgvMedicos.Size = New Size(1022, 222)
         dgvMedicos.TabIndex = 25
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(12, 149)
+        Label8.Location = New Point(12, 358)
         Label8.Name = "Label8"
         Label8.Size = New Size(89, 16)
         Label8.TabIndex = 26
@@ -297,7 +297,7 @@ Partial Class Form3
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1046, 341)
+        ClientSize = New Size(1046, 491)
         Controls.Add(Label8)
         Controls.Add(dgvMedicos)
         Controls.Add(cmbEspecialidad)
