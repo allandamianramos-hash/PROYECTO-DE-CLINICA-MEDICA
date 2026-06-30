@@ -51,7 +51,7 @@ Partial Class Form4
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
         Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(193, 16)
+        Label1.Size = New Size(251, 21)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de especialidades"
         Label1.TextAlign = ContentAlignment.MiddleCenter
@@ -70,7 +70,7 @@ Partial Class Form4
         txtIdEspecialidad.Location = New Point(225, 47)
         txtIdEspecialidad.Name = "txtIdEspecialidad"
         txtIdEspecialidad.ReadOnly = True
-        txtIdEspecialidad.Size = New Size(114, 27)
+        txtIdEspecialidad.Size = New Size(114, 32)
         txtIdEspecialidad.TabIndex = 17
         txtIdEspecialidad.TextAlign = HorizontalAlignment.Center
         ' 
@@ -78,7 +78,7 @@ Partial Class Form4
         ' 
         txtNombre.Location = New Point(225, 80)
         txtNombre.Name = "txtNombre"
-        txtNombre.Size = New Size(114, 27)
+        txtNombre.Size = New Size(114, 32)
         txtNombre.TabIndex = 18
         txtNombre.TextAlign = HorizontalAlignment.Center
         ' 
@@ -95,7 +95,7 @@ Partial Class Form4
         ' 
         txtBuscar.Location = New Point(225, 143)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(114, 27)
+        txtBuscar.Size = New Size(114, 32)
         txtBuscar.TabIndex = 20
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -195,7 +195,7 @@ Partial Class Form4
         lblBuscar.AutoSize = True
         lblBuscar.Location = New Point(12, 146)
         lblBuscar.Name = "lblBuscar"
-        lblBuscar.Size = New Size(71, 16)
+        lblBuscar.Size = New Size(95, 21)
         lblBuscar.TabIndex = 38
         lblBuscar.Text = "Búsqueda:"
         lblBuscar.TextAlign = ContentAlignment.MiddleCenter
@@ -205,7 +205,7 @@ Partial Class Form4
         lblDescripcion.AutoSize = True
         lblDescripcion.Location = New Point(12, 116)
         lblDescripcion.Name = "lblDescripcion"
-        lblDescripcion.Size = New Size(86, 16)
+        lblDescripcion.Size = New Size(113, 21)
         lblDescripcion.TabIndex = 37
         lblDescripcion.Text = "Descripción:"
         lblDescripcion.TextAlign = ContentAlignment.MiddleCenter
@@ -215,7 +215,7 @@ Partial Class Form4
         lblNombre.AutoSize = True
         lblNombre.Location = New Point(12, 83)
         lblNombre.Name = "lblNombre"
-        lblNombre.Size = New Size(61, 16)
+        lblNombre.Size = New Size(83, 21)
         lblNombre.TabIndex = 36
         lblNombre.Text = "Nombre:"
         lblNombre.TextAlign = ContentAlignment.MiddleCenter
@@ -225,16 +225,16 @@ Partial Class Form4
         lblIdEspecialidad.AutoSize = True
         lblIdEspecialidad.Location = New Point(12, 50)
         lblIdEspecialidad.Name = "lblIdEspecialidad"
-        lblIdEspecialidad.Size = New Size(207, 16)
+        lblIdEspecialidad.Size = New Size(277, 21)
         lblIdEspecialidad.TabIndex = 35
         lblIdEspecialidad.Text = "Identificador de la especialidad:"
         lblIdEspecialidad.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form4
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(973, 242)
+        ClientSize = New Size(973, 296)
         Controls.Add(lblBuscar)
         Controls.Add(lblDescripcion)
         Controls.Add(lblNombre)

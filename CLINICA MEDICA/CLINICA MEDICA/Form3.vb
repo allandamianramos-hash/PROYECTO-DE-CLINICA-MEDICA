@@ -1,8 +1,7 @@
 ﻿Public Class Form3
 
-
     Dim tablaMedicos As New DataTable
-        Dim posicion As Integer = 0
+    Dim posicion As Integer = 0
 
     Private Sub FrmMedicos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' ID no editable
@@ -30,10 +29,10 @@
         dgvMedicos.MultiSelect = False
         dgvMedicos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-        ' --- NUEVO: LLAMAR A LA BASE DE DATOS EN LUGAR DE CREAR COLUMNAS A MANO ---
+        ' Llamar a la base de datos
         CargarTabla()
 
-        ' Cambiar títulos del DataGridView (Asegúrate de que coincidan con los nombres de tu BD)
+        ' Cambiar títulos del DataGridView
         If dgvMedicos.Columns.Contains("id_medico") Then dgvMedicos.Columns("id_medico").HeaderText = "ID Médico"
         If dgvMedicos.Columns.Contains("id_especialidad") Then dgvMedicos.Columns("id_especialidad").HeaderText = "ID Especialidad"
         If dgvMedicos.Columns.Contains("nombre") Then dgvMedicos.Columns("nombre").HeaderText = "Nombre"
@@ -49,133 +48,98 @@
     Private Sub CargarTabla()
         Try
             Dim dao As New MedicoDAO()
-            ' Guardamos los registros en tu variable global para que el buscador y los botones sigan funcionando
             tablaMedicos = dao.Mostrar()
             dgvMedicos.DataSource = tablaMedicos
         Catch ex As Exception
             MessageBox.Show("Error al cargar los datos desde la base de datos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
     Private Sub GenerarId()
+        Dim nuevoId As Integer = tablaMedicos.Rows.Count + 1
+        txtIdMedico.Text = nuevoId.ToString()
+    End Sub
 
-            Dim nuevoId As Integer = tablaMedicos.Rows.Count + 1
-            txtIdMedico.Text = nuevoId.ToString()
+    Private Function GenerarCodigo() As String
+        Return "MED-" & CInt(txtIdMedico.Text).ToString("000")
+    End Function
 
-        End Sub
-
-        Private Function GenerarCodigo() As String
-
-            Return "MED-" & CInt(txtIdMedico.Text).ToString("000")
-
-        End Function
-
-        Private Function ValidarCampos() As Boolean
-
-            If txtNombre.Text.Trim() = "" Then
-                MessageBox.Show("Ingrese el nombre del médico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                txtNombre.Focus()
-                Return False
-            End If
-
-            If txtApellido.Text.Trim() = "" Then
-                MessageBox.Show("Ingrese el apellido del médico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                txtApellido.Focus()
-                Return False
-            End If
-
-            If cmbEspecialidad.SelectedIndex = -1 Then
-                MessageBox.Show("Seleccione una especialidad.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                cmbEspecialidad.Focus()
-                Return False
-            End If
-
-            If txtTelefono.Text.Trim() = "" Then
-                MessageBox.Show("Ingrese el teléfono.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                txtTelefono.Focus()
-                Return False
-            End If
-
-            If txtCorreo.Text.Trim() = "" Then
-                MessageBox.Show("Ingrese el correo electrónico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                txtCorreo.Focus()
-                Return False
-            End If
-
-            If Not txtCorreo.Text.Contains("@") Then
-                MessageBox.Show("Ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                txtCorreo.Focus()
-                Return False
-            End If
-
-            Return True
-
-        End Function
+    Private Function ValidarCampos() As Boolean
+        If txtNombre.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese el nombre del médico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtNombre.Focus()
+            Return False
+        End If
+        If txtApellido.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese el apellido del médico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtApellido.Focus()
+            Return False
+        End If
+        If cmbEspecialidad.SelectedIndex = -1 Then
+            MessageBox.Show("Seleccione una especialidad.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbEspecialidad.Focus()
+            Return False
+        End If
+        If txtTelefono.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese el teléfono.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtTelefono.Focus()
+            Return False
+        End If
+        If txtCorreo.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese el correo electrónico.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtCorreo.Focus()
+            Return False
+        End If
+        If Not txtCorreo.Text.Contains("@") Then
+            MessageBox.Show("Ingrese un correo electrónico válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtCorreo.Focus()
+            Return False
+        End If
+        Return True
+    End Function
 
     Private Sub LimpiarCampos()
-
         txtIdMedico.Clear()
         txtNombre.Clear()
         txtApellido.Clear()
         txtTelefono.Clear()
         txtCorreo.Clear()
         txtBuscar.Clear()
-
         cmbEspecialidad.SelectedIndex = -1
-
         GenerarId()
         txtNombre.Focus()
-
     End Sub
+
+    ' --- BOTONES PRINCIPALES CRUD ---
+
     Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
         If ValidarCampos() = False Then Exit Sub
-
         Try
-            ' 1. Empaquetamos los datos en el objeto Medico
             Dim m As New Medico()
             m.Nombre = txtNombre.Text.Trim()
             m.Apellido = txtApellido.Text.Trim()
-            m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1 ' ID numérico de la especialidad
+            m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1
             m.Telefono = txtTelefono.Text.Trim()
             m.Correo = txtCorreo.Text.Trim()
             m.CodigoColegiacion = GenerarCodigo()
 
-            ' 2. Lo mandamos a guardar en Postgres
             Dim dao As New MedicoDAO()
             dao.Insertar(m)
 
             MessageBox.Show("Médico guardado correctamente en la base de datos.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-            ' 3. Refrescamos la tabla directamente desde Neon
             CargarTabla()
             LimpiarCampos()
+
+            ' 🚨 Actualiza el menú principal
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al guardar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
-    Private Sub dgvMedicos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMedicos.CellClick
-
-            If e.RowIndex >= 0 Then
-
-                posicion = e.RowIndex
-
-                txtIdMedico.Text = dgvMedicos.Rows(posicion).Cells("id_medico").Value.ToString()
-
-                Dim idEspecialidad As Integer = CInt(dgvMedicos.Rows(posicion).Cells("id_especialidad").Value)
-                cmbEspecialidad.SelectedIndex = idEspecialidad - 1
-
-                txtNombre.Text = dgvMedicos.Rows(posicion).Cells("nombre").Value.ToString()
-                txtApellido.Text = dgvMedicos.Rows(posicion).Cells("apellido").Value.ToString()
-                txtTelefono.Text = dgvMedicos.Rows(posicion).Cells("telefono").Value.ToString()
-                txtCorreo.Text = dgvMedicos.Rows(posicion).Cells("correo_electronico").Value.ToString()
-
-            End If
-
-        End Sub
-
     Private Sub btnEditar_Click(sender As Object, e As EventArgs) Handles btnEditar.Click
-
         If dgvMedicos.CurrentRow Is Nothing Then
             MessageBox.Show("Seleccione un médico para editar.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -184,24 +148,28 @@
         If ValidarCampos() = False Then Exit Sub
 
         Try
-            ' 1. Empaquetamos los datos modificados incluyendo el ID existente
-            Dim m As New Medico()
-            m.IdMedico = Convert.ToInt32(txtIdMedico.Text)
-            m.Nombre = txtNombre.Text.Trim()
-            m.Apellido = txtApellido.Text.Trim()
-            m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1
-            m.Telefono = txtTelefono.Text.Trim()
-            m.Correo = txtCorreo.Text.Trim()
+                ' 1. Empaquetamos los datos modificados incluyendo el ID existente
+                Dim m As New Medico()
+                m.IdMedico = Convert.ToInt32(txtIdMedico.Text)
+                m.Nombre = txtNombre.Text.Trim()
+                m.Apellido = txtApellido.Text.Trim()
+                m.EspecialidadId = cmbEspecialidad.SelectedIndex + 1
+                m.Telefono = txtTelefono.Text.Trim()
+                m.Correo = txtCorreo.Text.Trim()
 
-            ' 2. Enviamos la actualización a PostgreSQL
-            Dim dao As New MedicoDAO()
-            dao.Editar(m)
+            m.CodigoColegiacion = GenerarCodigo()
 
-            MessageBox.Show("Médico editado correctamente en la base de datos.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                ' 2. Enviamos la actualización a PostgreSQL
+                Dim dao As New MedicoDAO()
+                dao.Editar(m)
 
-            ' 3. Refrescamos la tabla desde Neon y limpiamos
+                MessageBox.Show("Médico editado correctamente en la base de datos.", "Editar", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
             CargarTabla()
             LimpiarCampos()
+
+            ' 🚨 Actualiza el menú principal
+            Form1.CargarEstadisticas()
 
         Catch ex As Exception
             MessageBox.Show("Error al editar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -218,98 +186,108 @@
 
         If respuesta = DialogResult.Yes Then
             Try
-                ' Obtenemos el ID de la fila seleccionada
                 Dim idEliminar As Integer = Convert.ToInt32(dgvMedicos.CurrentRow.Cells("id_medico").Value)
-
-                ' Lo borramos mediante el DAO
                 Dim dao As New MedicoDAO()
                 dao.Eliminar(idEliminar)
 
                 MessageBox.Show("Médico eliminado correctamente.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' Refrescamos la interfaz
                 CargarTabla()
                 LimpiarCampos()
 
+                ' 🚨 Actualiza el menú principal
+                Form1.CargarEstadisticas()
+
             Catch ex As Exception
-                MessageBox.Show("Error al eliminar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ' 🚨 Mensaje amigable si Postgres bloquea el borrado por llave foránea
+                If ex.Message.Contains("violates foreign key constraint") Or ex.Message.Contains("violación de llave foránea") Then
+                    MessageBox.Show("No puedes eliminar a este médico porque ya tiene citas, consultas o horarios asignados en el sistema.", "Acción Denegada", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    MessageBox.Show("Error al eliminar: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End Try
         End If
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
+        LimpiarCampos()
+    End Sub
 
-            LimpiarCampos()
+    ' --- BUSCADOR Y NAVEGACIÓN ---
 
-        End Sub
-
-        Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
-
-            Dim vista As New DataView(tablaMedicos)
-
-            vista.RowFilter = String.Format(
-            "nombre LIKE '%{0}%' OR apellido LIKE '%{0}%' OR telefono LIKE '%{0}%' OR correo_electronico LIKE '%{0}%' OR codigo_colegiacion LIKE '%{0}%'",
-            txtBuscar.Text.Trim()
+    Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
+        Dim vista As New DataView(tablaMedicos)
+        vista.RowFilter = String.Format(
+        "nombre LIKE '%{0}%' OR apellido LIKE '%{0}%' OR telefono LIKE '%{0}%' OR correo_electronico LIKE '%{0}%' OR codigo_colegiacion LIKE '%{0}%'",
+        txtBuscar.Text.Trim()
         )
+        dgvMedicos.DataSource = vista
+    End Sub
 
-            dgvMedicos.DataSource = vista
+    ' 🚨 El evento CellClick ahora sincroniza correctamente y reutiliza MostrarRegistro
+    Private Sub dgvMedicos_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMedicos.CellClick
+        If e.RowIndex >= 0 Then
+            posicion = e.RowIndex
+            MostrarRegistro()
+        End If
+    End Sub
 
-        End Sub
+    Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
+        If dgvMedicos.Rows.Count > 0 Then
+            posicion = 0
+            MostrarRegistro()
+        End If
+    End Sub
 
-        Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
+    Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+        If posicion > 0 Then
+            posicion -= 1
+            MostrarRegistro()
+        End If
+    End Sub
 
-            If dgvMedicos.Rows.Count > 0 Then
-                posicion = 0
-                MostrarRegistro()
-            End If
+    Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
+        If posicion < dgvMedicos.Rows.Count - 1 Then
+            posicion += 1
+            MostrarRegistro()
+        End If
+    End Sub
 
-        End Sub
+    Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
+        If dgvMedicos.Rows.Count > 0 Then
+            posicion = dgvMedicos.Rows.Count - 1
+            MostrarRegistro()
+        End If
+    End Sub
 
-        Private Sub btnAnterior_Click(sender As Object, e As EventArgs) Handles btnAnterior.Click
+    Private Sub MostrarRegistro()
+        If dgvMedicos.Rows.Count = 0 Then Exit Sub
 
-            If posicion > 0 Then
-                posicion -= 1
-                MostrarRegistro()
-            End If
-
-        End Sub
-
-        Private Sub btnSiguiente_Click(sender As Object, e As EventArgs) Handles btnSiguiente.Click
-
-            If posicion < dgvMedicos.Rows.Count - 1 Then
-                posicion += 1
-                MostrarRegistro()
-            End If
-
-        End Sub
-
-        Private Sub btnUltimo_Click(sender As Object, e As EventArgs) Handles btnUltimo.Click
-
-            If dgvMedicos.Rows.Count > 0 Then
-                posicion = dgvMedicos.Rows.Count - 1
-                MostrarRegistro()
-            End If
-
-        End Sub
-
-        Private Sub MostrarRegistro()
-
-            If dgvMedicos.Rows.Count = 0 Then Exit Sub
-
+        Try
             dgvMedicos.ClearSelection()
             dgvMedicos.Rows(posicion).Selected = True
 
             txtIdMedico.Text = dgvMedicos.Rows(posicion).Cells("id_medico").Value.ToString()
 
+            ' Pasamos la especialidad con una pequeña validación extra para evitar crasheos visuales
             Dim idEspecialidad As Integer = CInt(dgvMedicos.Rows(posicion).Cells("id_especialidad").Value)
-            cmbEspecialidad.SelectedIndex = idEspecialidad - 1
+            If idEspecialidad > 0 AndAlso idEspecialidad <= cmbEspecialidad.Items.Count Then
+                cmbEspecialidad.SelectedIndex = idEspecialidad - 1
+            Else
+                cmbEspecialidad.SelectedIndex = -1
+            End If
 
             txtNombre.Text = dgvMedicos.Rows(posicion).Cells("nombre").Value.ToString()
             txtApellido.Text = dgvMedicos.Rows(posicion).Cells("apellido").Value.ToString()
             txtTelefono.Text = dgvMedicos.Rows(posicion).Cells("telefono").Value.ToString()
             txtCorreo.Text = dgvMedicos.Rows(posicion).Cells("correo_electronico").Value.ToString()
 
-        End Sub
+        Catch ex As Exception
+            ' Mantenemos esto silencioso para evitar molestar al usuario si hace clics muy rápidos
+        End Try
+    End Sub
+
+    ' --- NAVEGACIÓN Y CIERRE ---
 
     Private Sub btnRegresar_Click(sender As Object, e As EventArgs) Handles btnRegresar.Click
         Form1.Show()

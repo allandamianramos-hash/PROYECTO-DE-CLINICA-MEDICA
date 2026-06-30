@@ -3,33 +3,32 @@ Imports System.Data
 
 Public Class PacienteDAO
 
-    ' Método para GUARDAR un paciente en la base de datos
+
     Public Sub Insertar(paciente As Paciente)
-        ' ⚡ AQUÍ SE DECLARA "conn"
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
-
-                ' ⚡ AQUÍ SE DECLARA "query"
-                Dim query As String = "INSERT INTO pacientes (nombre, apellido, fecha_nacimiento, sexo, direccion, telefono, correo_electronico) VALUES (@nom, @ape, @fec, @sex, @dir, @tel, @mail)"
+                ' Invocamos el procedimiento almacenado creado en la DB
+                Dim query As String = "CALL registrar_paciente(@nom, @ape, @fec::date, @sex::char, @dir, @tel, @mail)"
 
                 Using cmd As New NpgsqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@nom", SanitizarTexto(paciente.Nombre))
                     cmd.Parameters.AddWithValue("@ape", SanitizarTexto(paciente.Apellido))
                     cmd.Parameters.AddWithValue("@fec", If(paciente.FechaNacimiento = Nothing OrElse paciente.FechaNacimiento = DateTime.MinValue, DBNull.Value, paciente.FechaNacimiento))
                     cmd.Parameters.AddWithValue("@sex", SanitizarTexto(paciente.Sexo))
+                    cmd.Parameters.AddWithValue("@dir", SanitizarTexto(paciente.Direccion))
                     cmd.Parameters.AddWithValue("@tel", SanitizarTexto(paciente.Telefono))
                     cmd.Parameters.AddWithValue("@mail", SanitizarTexto(paciente.Correo))
-                    cmd.Parameters.AddWithValue("@dir", SanitizarTexto(paciente.Direccion))
 
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
-                Throw New Exception("Error al insertar el registro de prueba: " & ex.Message)
+                Throw New Exception("Error al insertar paciente: " & ex.Message)
             End Try
         End Using
     End Sub
-    ' Método para MOSTRAR los registros en tu DataGridView
+
+
     Public Function Mostrar() As DataTable
         Dim dt As New DataTable()
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
@@ -49,12 +48,12 @@ Public Class PacienteDAO
         Return dt
     End Function
 
-    ' Método para ELIMINAR un registro físicamente
     Public Sub Eliminar(id As Integer)
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
-                Dim query As String = "DELETE FROM pacientes WHERE id_paciente = @id"
+                ' Invocamos el procedimiento de eliminación
+                Dim query As String = "CALL eliminar_paciente(@id)"
                 Using cmd As New NpgsqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@id", id)
                     cmd.ExecuteNonQuery()
@@ -65,34 +64,33 @@ Public Class PacienteDAO
         End Using
     End Sub
 
-    ' Método para ACTUALIZAR un paciente existente
+
     Public Sub Actualizar(paciente As Paciente)
-        ' ⚡ AQUÍ SE DECLARA "conn"
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
                 conn.Open()
-
-                ' ⚡ AQUÍ SE DECLARA "query"
-                Dim query As String = "UPDATE pacientes SET nombre=@nom, apellido=@ape, fecha_nacimiento=@fec, sexo=@sex, telefono=@tel, correo_electronico=@mail, direccion=@dir WHERE id_paciente=@id"
+                ' Invocamos el procedimiento con el ID por delante
+                Dim query As String = "CALL actualizar_paciente(@id, @nom, @ape, @fec::date, @sex::char, @dir, @tel, @mail)"
 
                 Using cmd As New NpgsqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@id", paciente.IdPaciente)
                     cmd.Parameters.AddWithValue("@nom", SanitizarTexto(paciente.Nombre))
                     cmd.Parameters.AddWithValue("@ape", SanitizarTexto(paciente.Apellido))
                     cmd.Parameters.AddWithValue("@fec", If(paciente.FechaNacimiento = Nothing OrElse paciente.FechaNacimiento = DateTime.MinValue, DBNull.Value, paciente.FechaNacimiento))
                     cmd.Parameters.AddWithValue("@sex", SanitizarTexto(paciente.Sexo))
+                    cmd.Parameters.AddWithValue("@dir", SanitizarTexto(paciente.Direccion))
                     cmd.Parameters.AddWithValue("@tel", SanitizarTexto(paciente.Telefono))
                     cmd.Parameters.AddWithValue("@mail", SanitizarTexto(paciente.Correo))
-                    cmd.Parameters.AddWithValue("@dir", SanitizarTexto(paciente.Direccion))
-                    cmd.Parameters.AddWithValue("@id", paciente.IdPaciente)
+
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As Exception
-                Throw New Exception("Error al actualizar el registro: " & ex.Message)
+                Throw New Exception("Error al actualizar paciente: " & ex.Message)
             End Try
         End Using
     End Sub
 
-    ' Método para BUSCAR pacientes por filtro de texto
+
     Public Function Buscar(filtro As String) As DataTable
         Dim dt As New DataTable()
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()

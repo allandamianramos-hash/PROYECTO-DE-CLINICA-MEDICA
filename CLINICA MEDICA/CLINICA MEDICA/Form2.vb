@@ -203,16 +203,24 @@ Public Class frm2
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
         If String.IsNullOrEmpty(txtIdPaciente.Text) Then
-            MessageBox.Show("Selecciona un paciente de la tabla primero.")
+            MessageBox.Show("Selecciona un paciente de la tabla primero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
 
-        If MessageBox.Show("¿Seguro que quieres borrar a este paciente?", "Confirmar", MessageBoxButtons.YesNo) = DialogResult.Yes Then
-            Dim dao As New PacienteDAO()
-            dao.Eliminar(Convert.ToInt32(txtIdPaciente.Text))
-            CargarTabla()
-            LimpiarCampos()
-            Form1.CargarEstadisticas() 'Llama a esta funcion del form1
+        If MessageBox.Show("¿Seguro que quieres borrar a este paciente?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+
+            Try
+                Dim dao As New PacienteDAO()
+                dao.Eliminar(Convert.ToInt32(txtIdPaciente.Text))
+
+                MessageBox.Show("Paciente eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                CargarTabla()
+                LimpiarCampos()
+                Form1.CargarEstadisticas()
+            Catch ex As Exception
+                ' Aquí saltará la alerta inteligente desde Neon si el paciente tiene historial
+                MessageBox.Show(ex.Message, "Acción denegada", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
         End If
     End Sub
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
@@ -359,17 +367,9 @@ Public Class frm2
 
     Private Sub dgvPacientes_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPacientes.CellClick
         If e.RowIndex >= 0 Then
-            Dim fila As DataGridViewRow = dgvPacientes.Rows(e.RowIndex)
+            posicion = e.RowIndex
 
-            ' Pasamos los datos del Grid a los campos 
-            txtIdPaciente.Text = fila.Cells("id_paciente").Value.ToString()
-            txtNombre.Text = fila.Cells("nombre").Value.ToString()
-            txtApellido.Text = fila.Cells("apellido").Value.ToString()
-            txtTelefono.Text = fila.Cells("telefono").Value.ToString()
-            txtCorreo.Text = fila.Cells("correo_electronico").Value.ToString()
-            txtDireccion.Text = fila.Cells("direccion").Value.ToString()
-            cmbSexo.Text = fila.Cells("sexo").Value.ToString()
-            dtpFechaNac.Value = DateTime.Parse(fila.Cells("fecha_nacimiento").Value.ToString())
+            MostrarRegistro()
         End If
     End Sub
 
@@ -377,5 +377,26 @@ Public Class frm2
         Form1.Show()
         Me.Hide()
     End Sub
+
+    Private Function ConvertirADateTime(valor As Object) As DateTime
+        If valor Is Nothing OrElse IsDBNull(valor) Then Return DateTime.Now
+        Dim tipoDato As String = valor.GetType().Name
+
+        If tipoDato = "TimeOnly" Then
+            Dim soloHora As TimeOnly = DirectCast(valor, TimeOnly)
+            Return DateTime.Today.Add(soloHora.ToTimeSpan())
+        ElseIf tipoDato = "DateOnly" Then
+            Dim soloFecha As DateOnly = DirectCast(valor, DateOnly)
+            Return soloFecha.ToDateTime(TimeOnly.MinValue)
+        ElseIf tipoDato = "TimeSpan" Then
+            Return DateTime.Today.Add(DirectCast(valor, TimeSpan))
+        End If
+
+        Try
+            Return Convert.ToDateTime(valor)
+        Catch ex As Exception
+            Return DateTime.Now
+        End Try
+    End Function
 
 End Class
