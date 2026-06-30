@@ -32,7 +32,6 @@ Partial Class Form6
         btnEliminar = New Button()
         btnEditar = New Button()
         btnGuardar = New Button()
-        btnNuevo = New Button()
         btnSalir = New Button()
         txtIdConsulta = New TextBox()
         txtDiagnostico = New TextBox()
@@ -61,120 +60,100 @@ Partial Class Form6
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(446, 9)
+        Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(243, 26)
+        Label1.Size = New Size(157, 16)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de consultas"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(15, 585)
-        btnRegresar.Margin = New Padding(3, 4, 3, 4)
+        btnRegresar.Location = New Point(369, 366)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(123, 67)
+        btnRegresar.Size = New Size(188, 54)
         btnRegresar.TabIndex = 16
         btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(935, 455)
-        btnUltimo.Margin = New Padding(3, 4, 3, 4)
+        btnUltimo.Location = New Point(1025, 366)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(86, 31)
+        btnUltimo.Size = New Size(86, 53)
         btnUltimo.TabIndex = 41
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(843, 455)
-        btnSiguiente.Margin = New Padding(3, 4, 3, 4)
+        btnSiguiente.Location = New Point(1025, 300)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(86, 31)
+        btnSiguiente.Size = New Size(86, 60)
         btnSiguiente.TabIndex = 40
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(751, 455)
-        btnAnterior.Margin = New Padding(3, 4, 3, 4)
+        btnAnterior.Location = New Point(933, 300)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(86, 31)
+        btnAnterior.Size = New Size(86, 60)
         btnAnterior.TabIndex = 39
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(659, 455)
-        btnPrimero.Margin = New Padding(3, 4, 3, 4)
+        btnPrimero.Location = New Point(933, 366)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(86, 31)
+        btnPrimero.Size = New Size(86, 53)
         btnPrimero.TabIndex = 38
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(413, 502)
-        btnLimpiar.Margin = New Padding(3, 4, 3, 4)
+        btnLimpiar.Location = New Point(655, 300)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(86, 31)
+        btnLimpiar.Size = New Size(86, 60)
         btnLimpiar.TabIndex = 37
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(505, 502)
-        btnEliminar.Margin = New Padding(3, 4, 3, 4)
+        btnEliminar.Location = New Point(563, 300)
         btnEliminar.Name = "btnEliminar"
-        btnEliminar.Size = New Size(86, 31)
+        btnEliminar.Size = New Size(86, 60)
         btnEliminar.TabIndex = 36
         btnEliminar.Text = "Eliminar"
         btnEliminar.UseVisualStyleBackColor = True
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(526, 456)
-        btnEditar.Margin = New Padding(3, 4, 3, 4)
+        btnEditar.Location = New Point(466, 300)
         btnEditar.Name = "btnEditar"
-        btnEditar.Size = New Size(91, 29)
+        btnEditar.Size = New Size(91, 60)
         btnEditar.TabIndex = 35
         btnEditar.Text = "Editar"
         btnEditar.UseVisualStyleBackColor = True
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(429, 456)
-        btnGuardar.Margin = New Padding(3, 4, 3, 4)
+        btnGuardar.Location = New Point(369, 300)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(91, 31)
+        btnGuardar.Size = New Size(91, 60)
         btnGuardar.TabIndex = 34
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
         ' 
-        ' btnNuevo
-        ' 
-        btnNuevo.Location = New Point(337, 456)
-        btnNuevo.Margin = New Padding(3, 4, 3, 4)
-        btnNuevo.Name = "btnNuevo"
-        btnNuevo.Size = New Size(86, 31)
-        btnNuevo.TabIndex = 33
-        btnNuevo.Text = "Nuevo"
-        btnNuevo.UseVisualStyleBackColor = True
-        ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(622, 585)
-        btnSalir.Margin = New Padding(3, 4, 3, 4)
+        btnSalir.Location = New Point(563, 366)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(123, 67)
+        btnSalir.Size = New Size(178, 53)
         btnSalir.TabIndex = 42
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -182,53 +161,49 @@ Partial Class Form6
         ' txtIdConsulta
         ' 
         txtIdConsulta.Enabled = False
-        txtIdConsulta.Location = New Point(23, 50)
-        txtIdConsulta.Margin = New Padding(3, 4, 3, 4)
+        txtIdConsulta.Location = New Point(201, 300)
         txtIdConsulta.Name = "txtIdConsulta"
-        txtIdConsulta.Size = New Size(114, 27)
+        txtIdConsulta.Size = New Size(162, 27)
         txtIdConsulta.TabIndex = 43
         txtIdConsulta.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtDiagnostico
         ' 
-        txtDiagnostico.Location = New Point(20, 109)
-        txtDiagnostico.Margin = New Padding(3, 4, 3, 4)
+        txtDiagnostico.Location = New Point(201, 366)
         txtDiagnostico.Multiline = True
         txtDiagnostico.Name = "txtDiagnostico"
         txtDiagnostico.ScrollBars = ScrollBars.Vertical
-        txtDiagnostico.Size = New Size(114, 29)
+        txtDiagnostico.Size = New Size(162, 24)
         txtDiagnostico.TabIndex = 44
         ' 
         ' txtObservaciones
         ' 
-        txtObservaciones.Location = New Point(20, 177)
-        txtObservaciones.Margin = New Padding(3, 4, 3, 4)
+        txtObservaciones.Location = New Point(201, 396)
         txtObservaciones.Multiline = True
         txtObservaciones.Name = "txtObservaciones"
         txtObservaciones.ScrollBars = ScrollBars.Vertical
-        txtObservaciones.Size = New Size(114, 29)
+        txtObservaciones.Size = New Size(162, 24)
         txtObservaciones.TabIndex = 45
         ' 
         ' dgvConsultas
         ' 
         dgvConsultas.AllowUserToAddRows = False
         dgvConsultas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvConsultas.Location = New Point(303, 75)
-        dgvConsultas.Margin = New Padding(3, 4, 3, 4)
+        dgvConsultas.Location = New Point(12, 28)
         dgvConsultas.MultiSelect = False
         dgvConsultas.Name = "dgvConsultas"
         dgvConsultas.ReadOnly = True
         dgvConsultas.RowHeadersWidth = 51
         dgvConsultas.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvConsultas.Size = New Size(1050, 332)
+        dgvConsultas.Size = New Size(1099, 266)
         dgvConsultas.TabIndex = 47
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(7, 27)
+        Label2.Location = New Point(12, 303)
         Label2.Name = "Label2"
-        Label2.Size = New Size(193, 20)
+        Label2.Size = New Size(183, 16)
         Label2.TabIndex = 48
         Label2.Text = "Identificador de la consulta:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -236,9 +211,9 @@ Partial Class Form6
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(31, 85)
+        Label3.Location = New Point(12, 369)
         Label3.Name = "Label3"
-        Label3.Size = New Size(92, 20)
+        Label3.Size = New Size(87, 16)
         Label3.TabIndex = 49
         Label3.Text = "Diagnóstico:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -246,9 +221,9 @@ Partial Class Form6
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(20, 153)
+        Label4.Location = New Point(12, 399)
         Label4.Name = "Label4"
-        Label4.Size = New Size(108, 20)
+        Label4.Size = New Size(103, 16)
         Label4.TabIndex = 50
         Label4.Text = "Observaciones:"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -256,9 +231,9 @@ Partial Class Form6
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(143, 57)
+        Label5.Location = New Point(12, 336)
         Label5.Name = "Label5"
-        Label5.Size = New Size(162, 20)
+        Label5.Size = New Size(152, 16)
         Label5.TabIndex = 51
         Label5.Text = "Identificador de la cita:"
         Label5.TextAlign = ContentAlignment.MiddleCenter
@@ -266,122 +241,124 @@ Partial Class Form6
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(48, 446)
+        Label6.Location = New Point(12, 523)
         Label6.Name = "Label6"
-        Label6.Size = New Size(77, 20)
+        Label6.Size = New Size(71, 16)
         Label6.TabIndex = 52
         Label6.Text = "Búsqueda:"
         Label6.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(23, 470)
-        txtBuscar.Margin = New Padding(3, 4, 3, 4)
+        txtBuscar.Location = New Point(201, 520)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(114, 27)
+        txtBuscar.Size = New Size(162, 27)
         txtBuscar.TabIndex = 53
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtPeso
         ' 
-        txtPeso.Location = New Point(20, 246)
-        txtPeso.Margin = New Padding(3, 4, 3, 4)
+        txtPeso.Location = New Point(201, 426)
         txtPeso.Name = "txtPeso"
-        txtPeso.Size = New Size(114, 27)
+        txtPeso.Size = New Size(162, 27)
         txtPeso.TabIndex = 54
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(31, 222)
+        Label7.Location = New Point(12, 429)
         Label7.Name = "Label7"
-        Label7.Size = New Size(69, 20)
+        Label7.Size = New Size(68, 16)
         Label7.TabIndex = 55
-        Label7.Text = "Peso (kg)"
+        Label7.Text = "Peso (kg):"
+        Label7.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(23, 289)
+        Label8.Location = New Point(12, 462)
         Label8.Name = "Label8"
-        Label8.Size = New Size(89, 20)
+        Label8.Size = New Size(86, 16)
         Label8.TabIndex = 56
-        Label8.Text = "Estatura (m)"
+        Label8.Text = "Estatura (m):"
+        Label8.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' txtEstatura
         ' 
-        txtEstatura.Location = New Point(20, 313)
-        txtEstatura.Margin = New Padding(3, 4, 3, 4)
+        txtEstatura.Location = New Point(201, 459)
         txtEstatura.Name = "txtEstatura"
-        txtEstatura.Size = New Size(114, 27)
+        txtEstatura.Size = New Size(162, 27)
         txtEstatura.TabIndex = 57
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(30, 359)
+        Label9.Location = New Point(12, 495)
         Label9.Name = "Label9"
-        Label9.Size = New Size(70, 20)
+        Label9.Size = New Size(69, 16)
         Label9.TabIndex = 58
-        Label9.Text = "Sintomas"
+        Label9.Text = "Síntomas:"
+        Label9.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' txtSintomas
         ' 
-        txtSintomas.Location = New Point(20, 395)
-        txtSintomas.Margin = New Padding(3, 4, 3, 4)
+        txtSintomas.Location = New Point(201, 492)
         txtSintomas.Multiline = True
         txtSintomas.Name = "txtSintomas"
-        txtSintomas.Size = New Size(114, 27)
+        txtSintomas.Size = New Size(162, 22)
         txtSintomas.TabIndex = 59
         ' 
         ' dtpFechaConsulta
         ' 
         dtpFechaConsulta.Format = DateTimePickerFormat.Short
-        dtpFechaConsulta.Location = New Point(159, 330)
+        dtpFechaConsulta.Location = New Point(201, 552)
+        dtpFechaConsulta.Margin = New Padding(3, 2, 3, 2)
         dtpFechaConsulta.Name = "dtpFechaConsulta"
-        dtpFechaConsulta.Size = New Size(124, 27)
+        dtpFechaConsulta.Size = New Size(162, 27)
         dtpFechaConsulta.TabIndex = 60
         ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(159, 306)
+        Label10.Location = New Point(12, 559)
         Label10.Name = "Label10"
-        Label10.Size = New Size(127, 20)
+        Label10.Size = New Size(124, 16)
         Label10.TabIndex = 61
-        Label10.Text = "Fecha de consulta"
+        Label10.Text = "Fecha de consulta:"
+        Label10.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Location = New Point(164, 386)
+        Label11.Location = New Point(12, 590)
         Label11.Name = "Label11"
-        Label11.Size = New Size(122, 20)
+        Label11.Size = New Size(118, 16)
         Label11.TabIndex = 62
-        Label11.Text = "Hora de consulta"
+        Label11.Text = "Hora de consulta:"
+        Label11.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' dtpHoraConsulta
         ' 
         dtpHoraConsulta.Format = DateTimePickerFormat.Time
-        dtpHoraConsulta.Location = New Point(159, 409)
+        dtpHoraConsulta.Location = New Point(201, 583)
+        dtpHoraConsulta.Margin = New Padding(3, 2, 3, 2)
         dtpHoraConsulta.Name = "dtpHoraConsulta"
         dtpHoraConsulta.ShowUpDown = True
-        dtpHoraConsulta.Size = New Size(124, 27)
+        dtpHoraConsulta.Size = New Size(162, 27)
         dtpHoraConsulta.TabIndex = 63
         ' 
         ' txtCita
         ' 
-        txtCita.Location = New Point(172, 78)
-        txtCita.Margin = New Padding(3, 4, 3, 4)
+        txtCita.Location = New Point(201, 333)
         txtCita.Name = "txtCita"
-        txtCita.Size = New Size(114, 27)
+        txtCita.Size = New Size(162, 27)
         txtCita.TabIndex = 64
         ' 
         ' Form6
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1357, 668)
+        ClientSize = New Size(1123, 623)
         Controls.Add(txtCita)
         Controls.Add(dtpHoraConsulta)
         Controls.Add(Label11)
@@ -412,10 +389,9 @@ Partial Class Form6
         Controls.Add(btnEliminar)
         Controls.Add(btnEditar)
         Controls.Add(btnGuardar)
-        Controls.Add(btnNuevo)
         Controls.Add(btnRegresar)
         Controls.Add(Label1)
-        Margin = New Padding(3, 4, 3, 4)
+        Font = New Font("Lucida Sans Unicode", 9.75F)
         Name = "Form6"
         Text = "Consultas"
         CType(dgvConsultas, ComponentModel.ISupportInitialize).EndInit()
@@ -434,7 +410,6 @@ Partial Class Form6
     Friend WithEvents btnEliminar As Button
     Friend WithEvents btnEditar As Button
     Friend WithEvents btnGuardar As Button
-    Friend WithEvents btnNuevo As Button
     Friend WithEvents btnSalir As Button
     Friend WithEvents txtIdConsulta As TextBox
     Friend WithEvents txtDiagnostico As TextBox

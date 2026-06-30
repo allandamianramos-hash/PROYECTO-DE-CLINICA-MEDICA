@@ -57,33 +57,33 @@ Partial Class Form5
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
         Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(239, 21)
+        Label1.Size = New Size(186, 16)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de citas médicas"
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(12, 298)
+        btnRegresar.Location = New Point(343, 362)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(270, 25)
+        btnRegresar.Size = New Size(178, 57)
         btnRegresar.TabIndex = 16
         btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' txtIdCita
         ' 
-        txtIdCita.Location = New Point(172, 44)
+        txtIdCita.Location = New Point(170, 299)
         txtIdCita.Name = "txtIdCita"
         txtIdCita.ReadOnly = True
-        txtIdCita.Size = New Size(124, 32)
+        txtIdCita.Size = New Size(167, 27)
         txtIdCita.TabIndex = 17
         txtIdCita.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(172, 233)
+        txtBuscar.Location = New Point(170, 488)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(124, 32)
+        txtBuscar.Size = New Size(167, 27)
         txtBuscar.TabIndex = 18
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -92,162 +92,134 @@ Partial Class Form5
         cmbPaciente.AutoCompleteMode = AutoCompleteMode.SuggestAppend
         cmbPaciente.AutoCompleteSource = AutoCompleteSource.ListItems
         cmbPaciente.FormattingEnabled = True
-        cmbPaciente.Location = New Point(172, 77)
+        cmbPaciente.Location = New Point(170, 332)
         cmbPaciente.Name = "cmbPaciente"
-        cmbPaciente.Size = New Size(124, 28)
+        cmbPaciente.Size = New Size(167, 24)
         cmbPaciente.TabIndex = 19
         ' 
         ' cmbMedico
         ' 
         cmbMedico.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMedico.FormattingEnabled = True
-        cmbMedico.Location = New Point(172, 107)
+        cmbMedico.Location = New Point(170, 362)
         cmbMedico.Name = "cmbMedico"
-        cmbMedico.Size = New Size(124, 28)
+        cmbMedico.Size = New Size(167, 24)
         cmbMedico.TabIndex = 20
         ' 
         ' cmbEstado
         ' 
         cmbEstado.FormattingEnabled = True
         cmbEstado.Items.AddRange(New Object() {"Programada", "Completada", "Cancelada"})
-        cmbEstado.Location = New Point(172, 203)
+        cmbEstado.Location = New Point(170, 458)
         cmbEstado.Name = "cmbEstado"
-        cmbEstado.Size = New Size(124, 28)
+        cmbEstado.Size = New Size(167, 24)
         cmbEstado.TabIndex = 21
         ' 
         ' dtpFecha
         ' 
         dtpFecha.Format = DateTimePickerFormat.Short
-        dtpFecha.Location = New Point(172, 137)
+        dtpFecha.Location = New Point(170, 392)
         dtpFecha.Name = "dtpFecha"
-        dtpFecha.Size = New Size(124, 32)
+        dtpFecha.Size = New Size(167, 27)
         dtpFecha.TabIndex = 22
         ' 
         ' dtpHora
         ' 
         dtpHora.Format = DateTimePickerFormat.Time
-        dtpHora.Location = New Point(172, 170)
+        dtpHora.Location = New Point(170, 425)
         dtpHora.Name = "dtpHora"
         dtpHora.ShowUpDown = True
-        dtpHora.Size = New Size(124, 32)
+        dtpHora.Size = New Size(167, 27)
         dtpHora.TabIndex = 23
         ' 
         ' dgvCitas
         ' 
         dgvCitas.AllowUserToAddRows = False
         dgvCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-
-        dgvCitas.Location = New Point(302, 44)
+        dgvCitas.Location = New Point(12, 29)
         dgvCitas.Margin = New Padding(3, 4, 3, 4)
         dgvCitas.Name = "dgvCitas"
         dgvCitas.RowHeadersWidth = 51
-        dgvCitas.Size = New Size(725, 216)
-
-        dgvCitas.Location = New Point(472, 47)
-        dgvCitas.Margin = New Padding(3, 4, 3, 4)
-        dgvCitas.Name = "dgvCitas"
-        dgvCitas.RowHeadersWidth = 51
-        dgvCitas.Size = New Size(722, 263)
-
+        dgvCitas.Size = New Size(1182, 263)
         dgvCitas.TabIndex = 24
         ' 
         ' btnSalir
         ' 
-
-        btnSalir.Location = New Point(288, 298)
-
-        btnSalir.Location = New Point(288, 297)
-
+        btnSalir.Location = New Point(527, 362)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(86, 25)
+        btnSalir.Size = New Size(178, 57)
         btnSalir.TabIndex = 34
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-
-        btnUltimo.Location = New Point(958, 298)
-
-        btnUltimo.Location = New Point(898, 423)
-
+        btnUltimo.Location = New Point(1108, 362)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(69, 25)
+        btnUltimo.Size = New Size(86, 57)
         btnUltimo.TabIndex = 33
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-
-        btnSiguiente.Location = New Point(958, 267)
-
-        btnSiguiente.Location = New Point(898, 392)
-
+        btnSiguiente.Location = New Point(1108, 299)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(69, 25)
+        btnSiguiente.Size = New Size(86, 57)
         btnSiguiente.TabIndex = 32
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-
-        btnAnterior.Location = New Point(883, 267)
-
-        btnAnterior.Location = New Point(823, 392)
-
+        btnAnterior.Location = New Point(1016, 299)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(69, 25)
+        btnAnterior.Size = New Size(86, 57)
         btnAnterior.TabIndex = 31
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-
-        btnPrimero.Location = New Point(883, 298)
-
-        btnPrimero.Location = New Point(823, 423)
-
+        btnPrimero.Location = New Point(1016, 362)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(69, 25)
+        btnPrimero.Size = New Size(86, 57)
         btnPrimero.TabIndex = 30
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(288, 267)
+        btnLimpiar.Location = New Point(619, 299)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(86, 25)
+        btnLimpiar.Size = New Size(86, 57)
         btnLimpiar.TabIndex = 29
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(196, 267)
+        btnEliminar.Location = New Point(527, 299)
         btnEliminar.Name = "btnEliminar"
-        btnEliminar.Size = New Size(86, 25)
+        btnEliminar.Size = New Size(86, 57)
         btnEliminar.TabIndex = 28
         btnEliminar.Text = "Eliminar"
         btnEliminar.UseVisualStyleBackColor = True
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(104, 267)
+        btnEditar.Location = New Point(435, 299)
         btnEditar.Name = "btnEditar"
-        btnEditar.Size = New Size(86, 25)
+        btnEditar.Size = New Size(86, 57)
         btnEditar.TabIndex = 27
         btnEditar.Text = "Editar"
         btnEditar.UseVisualStyleBackColor = True
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(12, 267)
+        btnGuardar.Location = New Point(343, 299)
         btnGuardar.Name = "btnGuardar"
-        btnGuardar.Size = New Size(86, 25)
+        btnGuardar.Size = New Size(86, 57)
         btnGuardar.TabIndex = 26
         btnGuardar.Text = "Guardar"
         btnGuardar.UseVisualStyleBackColor = True
@@ -255,9 +227,9 @@ Partial Class Form5
         ' lblIdCita
         ' 
         lblIdCita.AutoSize = True
-        lblIdCita.Location = New Point(12, 47)
+        lblIdCita.Location = New Point(12, 302)
         lblIdCita.Name = "lblIdCita"
-        lblIdCita.Size = New Size(202, 21)
+        lblIdCita.Size = New Size(152, 16)
         lblIdCita.TabIndex = 35
         lblIdCita.Text = "Identificador de la cita:"
         lblIdCita.TextAlign = ContentAlignment.MiddleCenter
@@ -265,9 +237,9 @@ Partial Class Form5
         ' lblPaciente
         ' 
         lblPaciente.AutoSize = True
-        lblPaciente.Location = New Point(12, 80)
+        lblPaciente.Location = New Point(12, 335)
         lblPaciente.Name = "lblPaciente"
-        lblPaciente.Size = New Size(84, 21)
+        lblPaciente.Size = New Size(63, 16)
         lblPaciente.TabIndex = 36
         lblPaciente.Text = "Paciente:"
         lblPaciente.TextAlign = ContentAlignment.MiddleCenter
@@ -275,9 +247,9 @@ Partial Class Form5
         ' lblMedico
         ' 
         lblMedico.AutoSize = True
-        lblMedico.Location = New Point(12, 110)
+        lblMedico.Location = New Point(12, 365)
         lblMedico.Name = "lblMedico"
-        lblMedico.Size = New Size(76, 21)
+        lblMedico.Size = New Size(56, 16)
         lblMedico.TabIndex = 37
         lblMedico.Text = "Médico:"
         lblMedico.TextAlign = ContentAlignment.MiddleCenter
@@ -285,9 +257,9 @@ Partial Class Form5
         ' lblFecha
         ' 
         lblFecha.AutoSize = True
-        lblFecha.Location = New Point(12, 144)
+        lblFecha.Location = New Point(12, 396)
         lblFecha.Name = "lblFecha"
-        lblFecha.Size = New Size(144, 21)
+        lblFecha.Size = New Size(108, 16)
         lblFecha.TabIndex = 38
         lblFecha.Text = "Fecha de la cita:"
         lblFecha.TextAlign = ContentAlignment.MiddleCenter
@@ -295,9 +267,9 @@ Partial Class Form5
         ' lblHora
         ' 
         lblHora.AutoSize = True
-        lblHora.Location = New Point(12, 177)
+        lblHora.Location = New Point(12, 427)
         lblHora.Name = "lblHora"
-        lblHora.Size = New Size(137, 21)
+        lblHora.Size = New Size(102, 16)
         lblHora.TabIndex = 39
         lblHora.Text = "Hora de la cita:"
         lblHora.TextAlign = ContentAlignment.MiddleCenter
@@ -305,9 +277,9 @@ Partial Class Form5
         ' lblEstado
         ' 
         lblEstado.AutoSize = True
-        lblEstado.Location = New Point(12, 206)
+        lblEstado.Location = New Point(12, 461)
         lblEstado.Name = "lblEstado"
-        lblEstado.Size = New Size(151, 21)
+        lblEstado.Size = New Size(114, 16)
         lblEstado.TabIndex = 40
         lblEstado.Text = "Estado de la cita:"
         lblEstado.TextAlign = ContentAlignment.MiddleCenter
@@ -315,22 +287,18 @@ Partial Class Form5
         ' lblBuscar
         ' 
         lblBuscar.AutoSize = True
-        lblBuscar.Location = New Point(12, 236)
+        lblBuscar.Location = New Point(12, 491)
         lblBuscar.Name = "lblBuscar"
-        lblBuscar.Size = New Size(95, 21)
+        lblBuscar.Size = New Size(71, 16)
         lblBuscar.TabIndex = 41
         lblBuscar.Text = "Búsqueda:"
         lblBuscar.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form5
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 20.0F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-
-        ClientSize = New Size(1039, 334)
-
-        ClientSize = New Size(1206, 600)
-
+        ClientSize = New Size(1206, 528)
         Controls.Add(lblBuscar)
         Controls.Add(lblEstado)
         Controls.Add(lblHora)

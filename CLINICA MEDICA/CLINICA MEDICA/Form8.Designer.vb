@@ -53,9 +53,9 @@ Partial Class Form8
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(140, 181)
+        btnRegresar.Location = New Point(272, 295)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(124, 23)
+        btnRegresar.Size = New Size(124, 47)
         btnRegresar.TabIndex = 16
         btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
@@ -63,7 +63,7 @@ Partial Class Form8
         ' rdbCitasDia
         ' 
         rdbCitasDia.AutoSize = True
-        rdbCitasDia.Location = New Point(12, 43)
+        rdbCitasDia.Location = New Point(12, 246)
         rdbCitasDia.Margin = New Padding(3, 2, 3, 2)
         rdbCitasDia.Name = "rdbCitasDia"
         rdbCitasDia.Size = New Size(227, 20)
@@ -76,7 +76,7 @@ Partial Class Form8
         ' rdbHistorial
         ' 
         rdbHistorial.AutoSize = True
-        rdbHistorial.Location = New Point(12, 67)
+        rdbHistorial.Location = New Point(12, 270)
         rdbHistorial.Margin = New Padding(3, 2, 3, 2)
         rdbHistorial.Name = "rdbHistorial"
         rdbHistorial.Size = New Size(207, 20)
@@ -89,7 +89,7 @@ Partial Class Form8
         ' rdbMedicos
         ' 
         rdbMedicos.AutoSize = True
-        rdbMedicos.Location = New Point(12, 91)
+        rdbMedicos.Location = New Point(12, 294)
         rdbMedicos.Margin = New Padding(3, 2, 3, 2)
         rdbMedicos.Name = "rdbMedicos"
         rdbMedicos.Size = New Size(187, 20)
@@ -102,7 +102,7 @@ Partial Class Form8
         ' cmbFiltroSeleccion
         ' 
         cmbFiltroSeleccion.FormattingEnabled = True
-        cmbFiltroSeleccion.Location = New Point(142, 115)
+        cmbFiltroSeleccion.Location = New Point(142, 318)
         cmbFiltroSeleccion.Margin = New Padding(3, 2, 3, 2)
         cmbFiltroSeleccion.Name = "cmbFiltroSeleccion"
         cmbFiltroSeleccion.Size = New Size(122, 24)
@@ -111,79 +111,79 @@ Partial Class Form8
         ' dgvResultados
         ' 
         dgvResultados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvResultados.Location = New Point(270, 43)
+        dgvResultados.Location = New Point(12, 27)
         dgvResultados.Margin = New Padding(3, 2, 3, 2)
         dgvResultados.Name = "dgvResultados"
         dgvResultados.RowHeadersWidth = 51
-        dgvResultados.Size = New Size(678, 215)
+        dgvResultados.Size = New Size(936, 215)
         dgvResultados.TabIndex = 21
         ' 
         ' btnGenerar
         ' 
-        btnGenerar.Location = New Point(12, 154)
+        btnGenerar.Location = New Point(272, 246)
         btnGenerar.Margin = New Padding(3, 2, 3, 2)
         btnGenerar.Name = "btnGenerar"
-        btnGenerar.Size = New Size(124, 23)
+        btnGenerar.Size = New Size(124, 44)
         btnGenerar.TabIndex = 22
         btnGenerar.Text = "Generar reporte"
         btnGenerar.UseVisualStyleBackColor = True
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(140, 154)
+        btnLimpiar.Location = New Point(402, 246)
         btnLimpiar.Margin = New Padding(3, 2, 3, 2)
         btnLimpiar.Name = "btnLimpiar"
-        btnLimpiar.Size = New Size(124, 23)
+        btnLimpiar.Size = New Size(124, 44)
         btnLimpiar.TabIndex = 23
         btnLimpiar.Text = "Limpiar"
         btnLimpiar.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(12, 235)
+        btnPrimero.Location = New Point(694, 294)
         btnPrimero.Margin = New Padding(3, 2, 3, 2)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(124, 23)
+        btnPrimero.Size = New Size(124, 48)
         btnPrimero.TabIndex = 24
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(12, 208)
+        btnAnterior.Location = New Point(694, 246)
         btnAnterior.Margin = New Padding(3, 2, 3, 2)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(124, 23)
+        btnAnterior.Size = New Size(124, 44)
         btnAnterior.TabIndex = 25
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(140, 208)
+        btnSiguiente.Location = New Point(824, 246)
         btnSiguiente.Margin = New Padding(3, 2, 3, 2)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(124, 23)
+        btnSiguiente.Size = New Size(124, 44)
         btnSiguiente.TabIndex = 26
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(140, 235)
+        btnUltimo.Location = New Point(824, 294)
         btnUltimo.Margin = New Padding(3, 2, 3, 2)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(124, 23)
+        btnUltimo.Size = New Size(124, 48)
         btnUltimo.TabIndex = 27
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(12, 181)
+        btnSalir.Location = New Point(402, 294)
         btnSalir.Margin = New Padding(3, 2, 3, 2)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(124, 23)
+        btnSalir.Size = New Size(124, 48)
         btnSalir.TabIndex = 28
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -191,7 +191,7 @@ Partial Class Form8
         ' lblFiltro
         ' 
         lblFiltro.AutoSize = True
-        lblFiltro.Location = New Point(12, 118)
+        lblFiltro.Location = New Point(12, 321)
         lblFiltro.Name = "lblFiltro"
         lblFiltro.Size = New Size(124, 16)
         lblFiltro.TabIndex = 29
@@ -202,7 +202,7 @@ Partial Class Form8
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(960, 269)
+        ClientSize = New Size(960, 353)
         Controls.Add(lblFiltro)
         Controls.Add(btnSalir)
         Controls.Add(btnUltimo)

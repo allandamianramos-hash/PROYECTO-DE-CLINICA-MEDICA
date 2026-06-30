@@ -60,11 +60,7 @@ Partial Class Form1
         btnModuloPacientes.Location = New Point(13, 59)
         btnModuloPacientes.Margin = New Padding(4, 3, 4, 3)
         btnModuloPacientes.Name = "btnModuloPacientes"
-<<<<<<< HEAD
-        btnModuloPacientes.Size = New Size(235, 71)
-=======
-        btnModuloPacientes.Size = New Size(235, 49)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
+        btnModuloPacientes.Size = New Size(235, 66)
         btnModuloPacientes.TabIndex = 2
         btnModuloPacientes.Text = "Módulo de pacientes"
         btnModuloPacientes.UseVisualStyleBackColor = True
@@ -74,11 +70,7 @@ Partial Class Form1
         btnModuloMedicos.Location = New Point(256, 59)
         btnModuloMedicos.Margin = New Padding(4, 3, 4, 3)
         btnModuloMedicos.Name = "btnModuloMedicos"
-<<<<<<< HEAD
-        btnModuloMedicos.Size = New Size(235, 71)
-=======
-        btnModuloMedicos.Size = New Size(235, 49)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
+        btnModuloMedicos.Size = New Size(235, 66)
         btnModuloMedicos.TabIndex = 3
         btnModuloMedicos.Text = "Módulo de médicos"
         btnModuloMedicos.UseVisualStyleBackColor = True
@@ -115,11 +107,7 @@ Partial Class Form1
         ' 
         ' btnModuloRecetas
         ' 
-<<<<<<< HEAD
         btnModuloRecetas.Location = New Point(256, 208)
-=======
-        btnModuloRecetas.Location = New Point(257, 174)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
         btnModuloRecetas.Margin = New Padding(4, 3, 4, 3)
         btnModuloRecetas.Name = "btnModuloRecetas"
         btnModuloRecetas.Size = New Size(235, 71)
@@ -139,17 +127,10 @@ Partial Class Form1
         ' 
         ' btnSalir
         ' 
-<<<<<<< HEAD
         btnSalir.Location = New Point(256, 285)
         btnSalir.Margin = New Padding(4, 3, 4, 3)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(477, 71)
-=======
-        btnSalir.Location = New Point(787, 395)
-        btnSalir.Margin = New Padding(4, 3, 4, 3)
-        btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(130, 44)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
         btnSalir.TabIndex = 9
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
@@ -236,43 +217,26 @@ Partial Class Form1
         ' 
         ' btnMedicamentos
         ' 
-<<<<<<< HEAD
-        btnMedicamentos.Location = New Point(498, 131)
+        btnMedicamentos.Location = New Point(498, 208)
         btnMedicamentos.Name = "btnMedicamentos"
         btnMedicamentos.Size = New Size(235, 71)
-=======
-        btnMedicamentos.Location = New Point(257, 234)
-        btnMedicamentos.Name = "btnMedicamentos"
-        btnMedicamentos.Size = New Size(235, 54)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
         btnMedicamentos.TabIndex = 16
         btnMedicamentos.Text = "Módulo de medicamentos"
         btnMedicamentos.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-<<<<<<< HEAD
-        Button2.Location = New Point(498, 54)
+        Button2.Location = New Point(498, 59)
         Button2.Margin = New Padding(4, 3, 4, 3)
         Button2.Name = "Button2"
-        Button2.Size = New Size(235, 71)
-=======
-        Button2.Location = New Point(524, 59)
-        Button2.Margin = New Padding(4, 3, 4, 3)
-        Button2.Name = "Button2"
-        Button2.Size = New Size(235, 49)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
+        Button2.Size = New Size(235, 66)
         Button2.TabIndex = 18
         Button2.Text = "Módulo de pagos"
         Button2.UseVisualStyleBackColor = True
         ' 
         ' Button1
         ' 
-<<<<<<< HEAD
-        Button1.Location = New Point(498, 208)
-=======
-        Button1.Location = New Point(498, 127)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
+        Button1.Location = New Point(498, 131)
         Button1.Name = "Button1"
         Button1.Size = New Size(235, 71)
         Button1.TabIndex = 19
@@ -283,11 +247,7 @@ Partial Class Form1
         ' 
         AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-<<<<<<< HEAD
-        ClientSize = New Size(745, 461)
-=======
-        ClientSize = New Size(930, 454)
->>>>>>> 0661dd2ba34f72a4b14594b1f4c91675353b8c41
+        ClientSize = New Size(747, 472)
         Controls.Add(Button1)
         Controls.Add(Button2)
         Controls.Add(btnMedicamentos)

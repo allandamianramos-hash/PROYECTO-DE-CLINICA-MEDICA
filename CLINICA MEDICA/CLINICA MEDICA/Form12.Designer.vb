@@ -28,71 +28,95 @@ Partial Class Form12
         Label2 = New Label()
         Button1 = New Button()
         Button2 = New Button()
+        Label7 = New Label()
         SuspendLayout()
         ' 
         ' txtUsuario
         ' 
-        txtUsuario.Location = New Point(225, 153)
+        txtUsuario.Location = New Point(167, 27)
+        txtUsuario.Margin = New Padding(3, 2, 3, 2)
         txtUsuario.Name = "txtUsuario"
-        txtUsuario.Size = New Size(168, 27)
+        txtUsuario.Size = New Size(169, 27)
         txtUsuario.TabIndex = 0
+        txtUsuario.TextAlign = HorizontalAlignment.Center
         ' 
         ' txtPassword
         ' 
-        txtPassword.Location = New Point(225, 221)
+        txtPassword.Location = New Point(167, 58)
+        txtPassword.Margin = New Padding(3, 2, 3, 2)
         txtPassword.Name = "txtPassword"
-        txtPassword.Size = New Size(168, 27)
+        txtPassword.Size = New Size(169, 27)
         txtPassword.TabIndex = 1
+        txtPassword.TextAlign = HorizontalAlignment.Center
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(89, 153)
+        Label1.Location = New Point(12, 30)
         Label1.Name = "Label1"
-        Label1.Size = New Size(130, 20)
+        Label1.Size = New Size(127, 16)
         Label1.TabIndex = 2
         Label1.Text = "Ingrese su usuario:"
+        Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(65, 221)
+        Label2.Location = New Point(12, 61)
         Label2.Name = "Label2"
-        Label2.Size = New Size(154, 20)
+        Label2.Size = New Size(149, 16)
         Label2.TabIndex = 3
         Label2.Text = "Ingrese su contraseña:"
+        Label2.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(299, 287)
+        Button1.Location = New Point(12, 89)
+        Button1.Margin = New Padding(3, 2, 3, 2)
         Button1.Name = "Button1"
-        Button1.Size = New Size(94, 29)
+        Button1.Size = New Size(149, 58)
         Button1.TabIndex = 4
         Button1.Text = "Siguiente"
         Button1.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(190, 287)
+        Button2.Location = New Point(167, 89)
+        Button2.Margin = New Padding(3, 2, 3, 2)
         Button2.Name = "Button2"
-        Button2.Size = New Size(94, 29)
+        Button2.Size = New Size(169, 58)
         Button2.TabIndex = 5
         Button2.Text = "Salir"
         Button2.UseVisualStyleBackColor = True
         ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
+        Label7.Location = New Point(14, 9)
+        Label7.Margin = New Padding(5, 0, 5, 0)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(140, 16)
+        Label7.TabIndex = 57
+        Label7.Text = "Ingreso al sistema"
+        Label7.TextAlign = ContentAlignment.MiddleCenter
+        ' 
         ' Form12
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(345, 159)
+        Controls.Add(Label7)
         Controls.Add(Button2)
         Controls.Add(Button1)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(txtPassword)
         Controls.Add(txtUsuario)
+        Font = New Font("Lucida Sans Unicode", 9.75F)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Form12"
-        Text = "Form12"
+        Text = "Ingreso"
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -103,4 +127,5 @@ Partial Class Form12
     Friend WithEvents Label2 As Label
     Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
+    Friend WithEvents Label7 As Label
 End Class
