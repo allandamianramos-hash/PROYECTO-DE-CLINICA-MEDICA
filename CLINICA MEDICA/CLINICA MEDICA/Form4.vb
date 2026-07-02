@@ -14,8 +14,7 @@
         CargarTabla()
     End Sub
 
-    ' --- MÉTODO NUEVO PARA CARGAR DESDE LA BASE DE DATOS ---
-    ' --- MÉTODO NUEVO PARA CARGAR DESDE LA BASE DE DATOS ---
+    ' --- MÉTODO PARA CARGAR DESDE LA BASE DE DATOS ---
     Private Sub CargarTabla()
         Try
             Dim dao As New EspecialidadDAO()
@@ -34,7 +33,7 @@
                 dgvEspecialidades.Columns("nombre_especialidad").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             End If
 
-            ' 3. Columna Descripción: LA MAGIA AQUÍ. Que robe todo el espacio a la derecha (Fill)
+            ' 3. Columna Descripción: Que robe todo el espacio a la derecha (Fill)
             If dgvEspecialidades.Columns.Contains("descripcion") Then
                 dgvEspecialidades.Columns("descripcion").HeaderText = "Descripción"
                 dgvEspecialidades.Columns("descripcion").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
@@ -56,6 +55,7 @@
         txtBuscar.Clear()
         txtNombre.Focus()
     End Sub
+
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
         LimpiarCampos()
     End Sub
@@ -91,8 +91,17 @@
             MessageBox.Show("Especialidad guardada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
             CargarTabla()
             LimpiarCampos()
+
+            ' Sincronizamos el menú principal
+            Try : Form1.CargarEstadisticas() : Catch : End Try
+
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ' 🚨 FIX: Mensaje amigable si la especialidad ya existe (regla de PostgreSQL)
+            If ex.Message.Contains("ya se encuentra registrada") Then
+                MessageBox.Show(ex.Message, "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Else
+                MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End Try
     End Sub
 
@@ -138,8 +147,17 @@
                 MessageBox.Show("Especialidad eliminada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 CargarTabla()
                 LimpiarCampos()
+
+                ' Sincronizamos el menú principal
+                Try : Form1.CargarEstadisticas() : Catch : End Try
+
             Catch ex As Exception
-                MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                ' 🚨 FIX: Mensaje amigable si Postgres bloquea el borrado por llave foránea
+                If ex.Message.Contains("médicos o citas asociadas") Or ex.Message.Contains("violates foreign key") Then
+                    MessageBox.Show("No se puede eliminar esta especialidad porque ya hay médicos asignados a ella.", "Acción Denegada", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    MessageBox.Show(ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End Try
         End If
     End Sub
@@ -154,10 +172,15 @@
 
     ' --- BUSCADOR EN TIEMPO REAL ---
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
-        Dim vista As New DataView(tablaEspecialidades)
-        ' Filtramos usando el nombre exacto de tu columna en la base de datos
-        vista.RowFilter = String.Format("nombre_especialidad LIKE '%{0}%' OR descripcion LIKE '%{0}%'", txtBuscar.Text.Trim())
-        dgvEspecialidades.DataSource = vista
+        Try
+            If tablaEspecialidades Is Nothing OrElse tablaEspecialidades.Rows.Count = 0 Then Exit Sub
+            Dim vista As New DataView(tablaEspecialidades)
+            Dim texto As String = txtBuscar.Text.Trim().Replace("'", "''")
+
+            vista.RowFilter = String.Format("nombre_especialidad LIKE '%{0}%' OR descripcion LIKE '%{0}%'", texto)
+            dgvEspecialidades.DataSource = vista
+        Catch ex As Exception
+        End Try
     End Sub
 
     Private Sub txtNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtNombre.KeyPress
@@ -169,13 +192,18 @@
     ' --- NAVEGACIÓN DE REGISTROS ---
     Private Sub MostrarRegistro()
         If dgvEspecialidades.Rows.Count = 0 Then Exit Sub
-        dgvEspecialidades.ClearSelection()
-        dgvEspecialidades.Rows(indiceActual).Selected = True
 
-        Dim fila As DataGridViewRow = dgvEspecialidades.Rows(indiceActual)
-        txtIdEspecialidad.Text = fila.Cells("id_especialidad").Value.ToString()
-        txtNombre.Text = fila.Cells("nombre_especialidad").Value.ToString() ' Ojo aquí
-        txtDescripcion.Text = fila.Cells("descripcion").Value.ToString()
+        Try
+            dgvEspecialidades.ClearSelection()
+            dgvEspecialidades.Rows(indiceActual).Selected = True
+
+            Dim fila As DataGridViewRow = dgvEspecialidades.Rows(indiceActual)
+            txtIdEspecialidad.Text = fila.Cells("id_especialidad").Value.ToString()
+            txtNombre.Text = fila.Cells("nombre_especialidad").Value.ToString()
+            txtDescripcion.Text = fila.Cells("descripcion").Value.ToString()
+        Catch ex As Exception
+            ' Silencioso para evitar molestias durante clics rápidos
+        End Try
     End Sub
 
     Private Sub btnPrimero_Click(sender As Object, e As EventArgs) Handles btnPrimero.Click
@@ -212,14 +240,10 @@
     End Sub
 
     Private Sub btnSalir_Click(sender As Object, e As EventArgs) Handles btnSalir.Click
-        Dim respuesta As DialogResult
-        respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        Dim respuesta As DialogResult = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If respuesta = DialogResult.Yes Then
             Application.Exit()
         End If
     End Sub
 
-    Private Sub dgvEspecialidades_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEspecialidades.CellContentClick
-
-    End Sub
 End Class

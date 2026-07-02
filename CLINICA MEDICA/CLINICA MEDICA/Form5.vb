@@ -335,14 +335,19 @@ Public Class Form5
     End Sub
 
     ' --- FUNCIÓN DE DISPONIBILIDAD ---
+
     Private Function MedicoEstaDisponible(idMedico As Integer, horaCita As TimeSpan) As Boolean
         Dim estaDisponible As Boolean = False
+
         Dim query As String = "
             SELECT COUNT(*) 
             FROM disponibilidad_medico 
             WHERE id_medico = @idMedico 
-            AND @horaCita >= hora_inicio 
-            AND @horaCita <= hora_fin"
+            AND (
+                (hora_inicio <= hora_fin AND @horaCita >= hora_inicio AND @horaCita <= hora_fin)
+                OR 
+                (hora_inicio > hora_fin AND (@horaCita >= hora_inicio OR @horaCita <= hora_fin))
+            )"
 
         Using conn As New NpgsqlConnection(cadenaConexion)
             Try
@@ -350,14 +355,14 @@ Public Class Form5
                 Using cmd As New NpgsqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("idMedico", idMedico)
                     cmd.Parameters.AddWithValue("horaCita", horaCita)
+
                     Dim coincidencias As Integer = Convert.ToInt32(cmd.ExecuteScalar())
                     If coincidencias > 0 Then estaDisponible = True
                 End Using
             Catch ex As Exception
-                MessageBox.Show("Error al verificar disponibilidad: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show("Error al verificar disponibilidad: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End Using
         Return estaDisponible
     End Function
-
 End Class
