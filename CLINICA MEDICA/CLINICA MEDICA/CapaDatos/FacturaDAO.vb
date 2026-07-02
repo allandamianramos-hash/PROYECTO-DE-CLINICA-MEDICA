@@ -106,7 +106,9 @@ Public Class FacturaDAO
 
     End Function
 
-    Public Sub Guardar(factura As Factura)
+    Public Function ObtenerDetalleFactura(idFactura As Integer) As DataTable
+
+        Dim tabla As New DataTable
 
         Try
             Using conexion As New NpgsqlConnection(cadenaConexion)
@@ -114,21 +116,107 @@ Public Class FacturaDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    INSERT INTO pagos_facturas
-                    (id_consulta, monto_total, fecha_pago, metodo_pago, estado_pago)
-                    VALUES
-                    (@id_consulta, @monto_total, @fecha_pago, @metodo_pago, @estado_pago);
+                    SELECT
+                        id_medicamento,
+                        cantidad,
+                        precio_unitario,
+                        subtotal
+                    FROM obtener_detalle_factura(@id_factura);
                 "
 
                 Using comando As New NpgsqlCommand(sql, conexion)
 
-                    comando.Parameters.AddWithValue("@id_consulta", factura.IdConsulta)
-                    comando.Parameters.AddWithValue("@monto_total", factura.MontoTotal)
-                    comando.Parameters.AddWithValue("@fecha_pago", factura.FechaPago)
-                    comando.Parameters.AddWithValue("@metodo_pago", factura.MetodoPago)
-                    comando.Parameters.AddWithValue("@estado_pago", factura.EstadoPago)
+                    comando.Parameters.AddWithValue("@id_factura", idFactura)
 
-                    comando.ExecuteNonQuery()
+                    Using adaptador As New NpgsqlDataAdapter(comando)
+                        adaptador.Fill(tabla)
+                    End Using
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al obtener detalle de factura: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
+    Public Sub Guardar(factura As Factura)
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Using transaccion = conexion.BeginTransaction()
+
+                    Try
+                        Dim idFacturaGenerada As Integer = 0
+
+                        Dim sqlFactura As String = "
+                            CALL registrar_factura(
+                                @id_consulta,
+                                @monto_total,
+                                @fecha_pago,
+                                @metodo_pago,
+                                @estado_pago,
+                                NULL
+                            );
+                        "
+
+                        Using comando As New NpgsqlCommand(sqlFactura, conexion, transaccion)
+
+                            comando.Parameters.AddWithValue("@id_consulta", factura.IdConsulta)
+                            comando.Parameters.AddWithValue("@monto_total", factura.MontoTotal)
+                            comando.Parameters.AddWithValue("@fecha_pago", factura.FechaPago)
+                            comando.Parameters.AddWithValue("@metodo_pago", factura.MetodoPago)
+                            comando.Parameters.AddWithValue("@estado_pago", factura.EstadoPago)
+
+                            Using lector As NpgsqlDataReader = comando.ExecuteReader()
+
+                                If lector.Read() Then
+                                    idFacturaGenerada = CInt(lector("p_id_factura"))
+                                End If
+
+                            End Using
+
+                        End Using
+
+                        For Each detalle As DetalleFactura In factura.Detalles
+
+                            Dim sqlDetalle As String = "
+                                CALL registrar_detalle_factura(
+                                    @id_factura,
+                                    @id_medicamento,
+                                    @cantidad,
+                                    @precio_unitario,
+                                    @subtotal
+                                );
+                            "
+
+                            Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
+
+                                comandoDetalle.Parameters.AddWithValue("@id_factura", idFacturaGenerada)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", detalle.IdMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@cantidad", detalle.Cantidad)
+                                comandoDetalle.Parameters.AddWithValue("@precio_unitario", detalle.PrecioUnitario)
+                                comandoDetalle.Parameters.AddWithValue("@subtotal", detalle.Subtotal)
+
+                                comandoDetalle.ExecuteNonQuery()
+
+                            End Using
+
+                        Next
+
+                        transaccion.Commit()
+
+                    Catch
+                        transaccion.Rollback()
+                        Throw
+                    End Try
 
                 End Using
 
@@ -147,26 +235,76 @@ Public Class FacturaDAO
 
                 conexion.Open()
 
-                Dim sql As String = "
-                    UPDATE pagos_facturas SET
-                        id_consulta = @id_consulta,
-                        monto_total = @monto_total,
-                        fecha_pago = @fecha_pago,
-                        metodo_pago = @metodo_pago,
-                        estado_pago = @estado_pago
-                    WHERE id_factura = @id_factura;
-                "
+                Using transaccion = conexion.BeginTransaction()
 
-                Using comando As New NpgsqlCommand(sql, conexion)
+                    Try
+                        Dim sqlFactura As String = "
+                            CALL actualizar_factura(
+                                @id_factura,
+                                @id_consulta,
+                                @monto_total,
+                                @fecha_pago,
+                                @metodo_pago,
+                                @estado_pago
+                            );
+                        "
 
-                    comando.Parameters.AddWithValue("@id_factura", factura.IdFactura)
-                    comando.Parameters.AddWithValue("@id_consulta", factura.IdConsulta)
-                    comando.Parameters.AddWithValue("@monto_total", factura.MontoTotal)
-                    comando.Parameters.AddWithValue("@fecha_pago", factura.FechaPago)
-                    comando.Parameters.AddWithValue("@metodo_pago", factura.MetodoPago)
-                    comando.Parameters.AddWithValue("@estado_pago", factura.EstadoPago)
+                        Using comando As New NpgsqlCommand(sqlFactura, conexion, transaccion)
 
-                    comando.ExecuteNonQuery()
+                            comando.Parameters.AddWithValue("@id_factura", factura.IdFactura)
+                            comando.Parameters.AddWithValue("@id_consulta", factura.IdConsulta)
+                            comando.Parameters.AddWithValue("@monto_total", factura.MontoTotal)
+                            comando.Parameters.AddWithValue("@fecha_pago", factura.FechaPago)
+                            comando.Parameters.AddWithValue("@metodo_pago", factura.MetodoPago)
+                            comando.Parameters.AddWithValue("@estado_pago", factura.EstadoPago)
+
+                            comando.ExecuteNonQuery()
+
+                        End Using
+
+                        Dim sqlEliminarDetalle As String = "
+                            CALL eliminar_detalle_factura_por_factura(@id_factura);
+                        "
+
+                        Using comandoEliminar As New NpgsqlCommand(sqlEliminarDetalle, conexion, transaccion)
+
+                            comandoEliminar.Parameters.AddWithValue("@id_factura", factura.IdFactura)
+                            comandoEliminar.ExecuteNonQuery()
+
+                        End Using
+
+                        For Each detalle As DetalleFactura In factura.Detalles
+
+                            Dim sqlDetalle As String = "
+                                CALL registrar_detalle_factura(
+                                    @id_factura,
+                                    @id_medicamento,
+                                    @cantidad,
+                                    @precio_unitario,
+                                    @subtotal
+                                );
+                            "
+
+                            Using comandoDetalle As New NpgsqlCommand(sqlDetalle, conexion, transaccion)
+
+                                comandoDetalle.Parameters.AddWithValue("@id_factura", factura.IdFactura)
+                                comandoDetalle.Parameters.AddWithValue("@id_medicamento", detalle.IdMedicamento)
+                                comandoDetalle.Parameters.AddWithValue("@cantidad", detalle.Cantidad)
+                                comandoDetalle.Parameters.AddWithValue("@precio_unitario", detalle.PrecioUnitario)
+                                comandoDetalle.Parameters.AddWithValue("@subtotal", detalle.Subtotal)
+
+                                comandoDetalle.ExecuteNonQuery()
+
+                            End Using
+
+                        Next
+
+                        transaccion.Commit()
+
+                    Catch
+                        transaccion.Rollback()
+                        Throw
+                    End Try
 
                 End Using
 
@@ -186,8 +324,7 @@ Public Class FacturaDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    DELETE FROM pagos_facturas
-                    WHERE id_factura = @id_factura;
+                    CALL eliminar_factura_completa(@id_factura);
                 "
 
                 Using comando As New NpgsqlCommand(sql, conexion)

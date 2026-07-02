@@ -68,10 +68,14 @@ Public Class Form7
 
     Private Sub MostrarTodosLosMedicamentos()
 
+        cargandoDatos = True
+
         clbMedicamentos.DataSource = Nothing
         clbMedicamentos.DataSource = tablaMedicamentosCompleta
         clbMedicamentos.DisplayMember = "medicamento"
         clbMedicamentos.ValueMember = "id_medicamento"
+
+        cargandoDatos = False
 
     End Sub
 
@@ -101,21 +105,25 @@ Public Class Form7
             Return False
         End If
 
-        If clbMedicamentos.CheckedItems.Count = 0 Then
-            MessageBox.Show("Seleccione al menos un medicamento.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        If detallesMedicamentos.Count = 0 Then
+            MessageBox.Show("Seleccione al menos un medicamento e ingrese su dosis e indicaciones.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             clbMedicamentos.Focus()
             Return False
         End If
 
-        If detallesMedicamentos.Count = 0 Then
-            MessageBox.Show("Debe ingresar dosis e indicaciones para los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
-        End If
+        For Each item As KeyValuePair(Of Integer, DetalleReceta) In detallesMedicamentos
 
-        If detallesMedicamentos.Count <> clbMedicamentos.CheckedItems.Count Then
-            MessageBox.Show("Debe ingresar dosis e indicaciones para todos los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return False
-        End If
+            If item.Value.Dosis Is Nothing OrElse item.Value.Dosis.Trim() = "" Then
+                MessageBox.Show("Debe ingresar dosis para todos los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+
+            If item.Value.Indicaciones Is Nothing OrElse item.Value.Indicaciones.Trim() = "" Then
+                MessageBox.Show("Debe ingresar indicaciones para todos los medicamentos seleccionados.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return False
+            End If
+
+        Next
 
         Return True
 
@@ -295,9 +303,14 @@ Public Class Form7
 
             Dim texto As String = txtBuscar.Text.Trim().Replace("'", "''")
 
+            cargandoDatos = True
+
             If texto = "" Then
 
-                MostrarTodosLosMedicamentos()
+                clbMedicamentos.DataSource = Nothing
+                clbMedicamentos.DataSource = tablaMedicamentosCompleta
+                clbMedicamentos.DisplayMember = "medicamento"
+                clbMedicamentos.ValueMember = "id_medicamento"
 
             Else
 
@@ -311,9 +324,12 @@ Public Class Form7
 
             End If
 
+            cargandoDatos = False
+
             MarcarMedicamentosGuardados()
 
         Catch ex As Exception
+            cargandoDatos = False
             MessageBox.Show("Error al buscar medicamento: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
@@ -330,6 +346,8 @@ Public Class Form7
 
             If detallesMedicamentos.ContainsKey(idMedicamento) Then
                 clbMedicamentos.SetItemChecked(i, True)
+            Else
+                clbMedicamentos.SetItemChecked(i, False)
             End If
 
         Next

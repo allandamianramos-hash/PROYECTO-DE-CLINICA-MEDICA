@@ -52,6 +52,12 @@ Public Class Form9
         tablaMedicamentos = dao.ListarMedicamentos()
         dgvMedicamentos.DataSource = tablaMedicamentos
 
+        FormatearColumnas()
+
+    End Sub
+
+    Private Sub FormatearColumnas()
+
         If dgvMedicamentos.Columns.Contains("id_medicamento") Then dgvMedicamentos.Columns("id_medicamento").HeaderText = "ID Medicamento"
         If dgvMedicamentos.Columns.Contains("nombre_comercial") Then dgvMedicamentos.Columns("nombre_comercial").HeaderText = "Nombre Comercial"
         If dgvMedicamentos.Columns.Contains("nombre_generico") Then dgvMedicamentos.Columns("nombre_generico").HeaderText = "Nombre Genérico"
@@ -102,6 +108,12 @@ Public Class Form9
             txtPrecio.Focus()
             Return False
 
+        End If
+
+        If precio < 0 Then
+            MessageBox.Show("El precio no puede ser negativo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtPrecio.Focus()
+            Return False
         End If
 
         Return True
@@ -220,18 +232,17 @@ Public Class Form9
     Private Sub txtBuscar_TextChanged(sender As Object, e As EventArgs) Handles txtBuscar.TextChanged
 
         Try
-            If tablaMedicamentos Is Nothing OrElse tablaMedicamentos.Rows.Count = 0 Then Exit Sub
-
-            Dim texto As String = txtBuscar.Text.Trim().Replace("'", "''")
+            Dim dao As New MedicamentoDAO()
+            Dim texto As String = txtBuscar.Text.Trim()
 
             If texto = "" Then
-                tablaMedicamentos.DefaultView.RowFilter = ""
+                tablaMedicamentos = dao.ListarMedicamentos()
             Else
-                tablaMedicamentos.DefaultView.RowFilter =
-                    "nombre_comercial LIKE '%" & texto & "%'"
+                tablaMedicamentos = dao.BuscarMedicamentos(texto)
             End If
 
             dgvMedicamentos.DataSource = tablaMedicamentos
+            FormatearColumnas()
 
         Catch ex As Exception
             MessageBox.Show("Error al buscar: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)

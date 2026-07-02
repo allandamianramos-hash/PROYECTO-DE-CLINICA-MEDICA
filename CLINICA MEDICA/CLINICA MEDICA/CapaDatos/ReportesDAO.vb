@@ -108,18 +108,12 @@ Public Class ReportesDAO
 
                 Dim consulta As String = "
                     SELECT
-                        c.id_cita,
-                        p.nombre || ' ' || p.apellido AS paciente,
-                        m.nombre || ' ' || m.apellido AS medico,
-                        e.nombre_estado AS estado,
-                        c.fecha::text AS fecha,
-                        to_char(c.hora, 'HH24:MI:SS') AS hora
-                    FROM citas c
-                    INNER JOIN pacientes p ON c.id_paciente = p.id_paciente
-                    INNER JOIN medicos m ON c.id_medico = m.id_medico
-                    INNER JOIN estados_cita e ON c.id_estado = e.id_estado
-                    WHERE c.fecha = @fecha::date
-                    ORDER BY c.hora;
+                        id AS id_cita,
+                        paciente,
+                        medico,
+                        hora,
+                        estado
+                    FROM consultar_citas_por_fecha(@fecha::date);
                 "
 
                 Using comando As New NpgsqlCommand(consulta, conexion)
@@ -153,22 +147,12 @@ Public Class ReportesDAO
 
                 Dim consulta As String = "
                     SELECT
-                        q.id_consulta,
-                        p.nombre || ' ' || p.apellido AS paciente,
-                        m.nombre || ' ' || m.apellido AS medico,
-                        q.peso_kg,
-                        q.estatura_m,
-                        q.sintomas,
-                        q.diagnostico,
-                        q.observaciones,
-                        q.fecha_consulta::text AS fecha_consulta,
-                        to_char(q.hora_consulta, 'HH24:MI:SS') AS hora_consulta
-                    FROM consultas q
-                    INNER JOIN citas c ON q.id_cita = c.id_cita
-                    INNER JOIN pacientes p ON c.id_paciente = p.id_paciente
-                    INNER JOIN medicos m ON c.id_medico = m.id_medico
-                    WHERE p.id_paciente = @id_paciente
-                    ORDER BY q.fecha_consulta, q.hora_consulta;
+                        fecha,
+                        medico,
+                        diagnostico,
+                        observaciones,
+                        medicamentos
+                    FROM consultar_historial_medico(@id_paciente);
                 "
 
                 Using comando As New NpgsqlCommand(consulta, conexion)
@@ -202,15 +186,11 @@ Public Class ReportesDAO
 
                 Dim consulta As String = "
                     SELECT
-                        m.id_medico,
-                        m.nombre || ' ' || m.apellido AS medico,
-                        COUNT(DISTINCT c.id_cita) AS total_citas,
-                        COUNT(DISTINCT q.id_consulta) AS total_consultas
-                    FROM medicos m
-                    LEFT JOIN citas c ON m.id_medico = c.id_medico
-                    LEFT JOIN consultas q ON c.id_cita = q.id_cita
-                    GROUP BY m.id_medico, m.nombre, m.apellido
-                    ORDER BY total_consultas DESC, total_citas DESC;
+                        id_medico,
+                        medico,
+                        total_citas,
+                        total_consultas
+                    FROM productividad_medicos();
                 "
 
                 Using adaptador As New NpgsqlDataAdapter(consulta, conexion)
@@ -221,6 +201,74 @@ Public Class ReportesDAO
 
         Catch ex As Exception
             MessageBox.Show("Error al generar productividad de médicos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
+    Public Function ProductividadMedicoPorId(idMedico As Integer) As DataTable
+
+        Dim tabla As New DataTable
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Dim consulta As String = "
+                    SELECT
+                        id_medico,
+                        medico,
+                        total_citas,
+                        total_consultas
+                    FROM productividad_medico_por_id(@id_medico);
+                "
+
+                Using comando As New NpgsqlCommand(consulta, conexion)
+
+                    comando.Parameters.AddWithValue("@id_medico", idMedico)
+
+                    Using adaptador As New NpgsqlDataAdapter(comando)
+                        adaptador.Fill(tabla)
+                    End Using
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al generar productividad del médico: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
+    Public Function EstadisticasGenerales() As DataTable
+
+        Dim tabla As New DataTable
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Dim consulta As String = "
+                    SELECT
+                        metrica,
+                        valor
+                    FROM estadisticas_generales();
+                "
+
+                Using adaptador As New NpgsqlDataAdapter(consulta, conexion)
+                    adaptador.Fill(tabla)
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al generar estadísticas generales: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         Return tabla

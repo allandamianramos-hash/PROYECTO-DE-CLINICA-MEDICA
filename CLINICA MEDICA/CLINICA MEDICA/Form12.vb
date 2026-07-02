@@ -1,59 +1,64 @@
-﻿Imports Npgsql
+﻿Public Class Form12
 
-Public Class Form12
+    Private Sub Form12_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    Dim conexionString As String = "Server=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech; Port=5432; Database=neondb; User Id=neondb_owner; Password=npg_8KIjvXm6uzAi; SSL Mode=Require; Trust Server Certificate=True;"
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles txtUsuario.TextChanged
+        txtPassword.UseSystemPasswordChar = True
+        txtUsuario.Focus()
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If txtUsuario.Text.Trim() = "" Or txtPassword.Text.Trim() = "" Then
-            MessageBox.Show("Por favor, ingrese su usuario y contraseña.", "Acceso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Exit Sub
+    Private Function ValidarCampos() As Boolean
+
+        If txtUsuario.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese su usuario.", "Acceso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtUsuario.Focus()
+            Return False
         End If
 
-        Dim query As String = "SELECT rol FROM usuarios WHERE username = @user AND password_hash = @pass AND estado = 'Activo'"
+        If txtPassword.Text.Trim() = "" Then
+            MessageBox.Show("Ingrese su contraseña.", "Acceso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            txtPassword.Focus()
+            Return False
+        End If
 
-        Using conn As New NpgsqlConnection(conexionString)
-            Try
-                conn.Open()
-                Using cmd As New NpgsqlCommand(query, conn)
+        Return True
 
-                    cmd.Parameters.AddWithValue("user", txtUsuario.Text.Trim())
-                    cmd.Parameters.AddWithValue("pass", txtPassword.Text.Trim())
+    End Function
 
-                    Using reader As NpgsqlDataReader = cmd.ExecuteReader()
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-                        If reader.Read() Then
+        If ValidarCampos() = False Then Exit Sub
 
-                            SesionGlobal.UsuarioActual = txtUsuario.Text.Trim()
-                            SesionGlobal.RolActual = reader("rol").ToString()
+        Dim dao As New IngresoDAO()
 
-                            ' Le damos la bienvenida y abrimos el Menú Principal (Form1)
-                            MessageBox.Show("¡Bienvenido al sistema, " & SesionGlobal.UsuarioActual & "!", "Acceso Concedido", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim ingreso As Ingreso = dao.ValidarIngreso(
+            txtUsuario.Text.Trim(),
+            txtPassword.Text.Trim()
+        )
 
-                            Form1.Show()
-                            Me.Hide()
-                        Else
-                            ' Si el reader no leyó nada, el usuario, la contraseña, o el estado están mal
-                            MessageBox.Show("Usuario o contraseña incorrectos, o el usuario está inactivo.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                            txtPassword.Clear()
-                            txtPassword.Focus()
-                        End If
-                    End Using ' Aquí muere el reader
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error de conexión al verificar usuario: " & ex.Message, "Error Crítico", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End Using
+        If ingreso IsNot Nothing Then
+
+            SesionGlobal.UsuarioActual = ingreso.Username
+            SesionGlobal.RolActual = ingreso.Rol
+
+            MessageBox.Show("¡Bienvenido al sistema, " & SesionGlobal.UsuarioActual & "!", "Acceso Concedido", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            Form1.Show()
+            Me.Hide()
+
+        Else
+
+            MessageBox.Show("Usuario o contraseña incorrectos, o el usuario está inactivo.", "Acceso Denegado", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            txtPassword.Clear()
+            txtPassword.Focus()
+
+        End If
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
         Dim respuesta As DialogResult
 
         respuesta = MessageBox.Show("¿Desea salir del sistema?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -61,7 +66,23 @@ Public Class Form12
         If respuesta = DialogResult.Yes Then
             Application.Exit()
         End If
+
     End Sub
 
+    Private Sub txtUsuario_KeyDown(sender As Object, e As KeyEventArgs) Handles txtUsuario.KeyDown
+
+        If e.KeyCode = Keys.Enter Then
+            txtPassword.Focus()
+        End If
+
+    End Sub
+
+    Private Sub txtPassword_KeyDown(sender As Object, e As KeyEventArgs) Handles txtPassword.KeyDown
+
+        If e.KeyCode = Keys.Enter Then
+            Button1.PerformClick()
+        End If
+
+    End Sub
 
 End Class

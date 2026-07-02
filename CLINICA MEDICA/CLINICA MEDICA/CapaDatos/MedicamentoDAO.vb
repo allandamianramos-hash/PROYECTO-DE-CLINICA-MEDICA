@@ -40,6 +40,46 @@ Public Class MedicamentoDAO
 
     End Function
 
+    Public Function BuscarMedicamentos(nombre As String) As DataTable
+
+        Dim tabla As New DataTable
+
+        Try
+            Using conexion As New NpgsqlConnection(cadenaConexion)
+
+                conexion.Open()
+
+                Dim sql As String = "
+                    SELECT
+                        id_medicamento,
+                        nombre_comercial,
+                        nombre_generico,
+                        concentracion,
+                        forma_farmaceutica,
+                        precio
+                    FROM buscar_medicamentos_por_nombre(@nombre);
+                "
+
+                Using comando As New NpgsqlCommand(sql, conexion)
+
+                    comando.Parameters.AddWithValue("@nombre", nombre)
+
+                    Using adaptador As New NpgsqlDataAdapter(comando)
+                        adaptador.Fill(tabla)
+                    End Using
+
+                End Using
+
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al buscar medicamentos: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+        Return tabla
+
+    End Function
+
     Public Sub Guardar(medicamento As Medicamento)
 
         Try
@@ -48,10 +88,13 @@ Public Class MedicamentoDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    INSERT INTO medicamentos
-                    (nombre_comercial, nombre_generico, concentracion, forma_farmaceutica, precio)
-                    VALUES
-                    (@nombre_comercial, @nombre_generico, @concentracion, @forma_farmaceutica, @precio);
+                    CALL registrar_medicamento(
+                        @nombre_comercial,
+                        @nombre_generico,
+                        @concentracion,
+                        @forma_farmaceutica,
+                        @precio
+                    );
                 "
 
                 Using comando As New NpgsqlCommand(sql, conexion)
@@ -82,13 +125,14 @@ Public Class MedicamentoDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    UPDATE medicamentos SET
-                        nombre_comercial = @nombre_comercial,
-                        nombre_generico = @nombre_generico,
-                        concentracion = @concentracion,
-                        forma_farmaceutica = @forma_farmaceutica,
-                        precio = @precio
-                    WHERE id_medicamento = @id_medicamento;
+                    CALL actualizar_medicamento(
+                        @id_medicamento,
+                        @nombre_comercial,
+                        @nombre_generico,
+                        @concentracion,
+                        @forma_farmaceutica,
+                        @precio
+                    );
                 "
 
                 Using comando As New NpgsqlCommand(sql, conexion)
@@ -120,8 +164,7 @@ Public Class MedicamentoDAO
                 conexion.Open()
 
                 Dim sql As String = "
-                    DELETE FROM medicamentos
-                    WHERE id_medicamento = @id_medicamento;
+                    CALL eliminar_medicamento(@id_medicamento);
                 "
 
                 Using comando As New NpgsqlCommand(sql, conexion)

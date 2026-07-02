@@ -6,5 +6,15 @@
     Public Property FechaPago As DateTime
     Public Property MetodoPago As String
     Public Property EstadoPago As String
+    Public Property Detalles As New List(Of DetalleFactura)
+
+End Class
+
+Public Class DetalleFactura
+
+    Public Property IdMedicamento As Integer
+    Public Property Cantidad As Integer
+    Public Property PrecioUnitario As Decimal
+    Public Property Subtotal As Decimal
 
 End Class

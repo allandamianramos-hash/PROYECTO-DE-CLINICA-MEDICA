@@ -24,6 +24,8 @@ Public Class Form8
 
         If rdbCitasDia.Checked Then
             CargarFechasCitas()
+            dgvResultados.DataSource = Nothing
+            posicion = 0
         End If
 
     End Sub
@@ -32,6 +34,8 @@ Public Class Form8
 
         If rdbHistorial.Checked Then
             CargarPacientes()
+            dgvResultados.DataSource = Nothing
+            posicion = 0
         End If
 
     End Sub
@@ -40,6 +44,8 @@ Public Class Form8
 
         If rdbMedicos.Checked Then
             CargarMedicos()
+            dgvResultados.DataSource = Nothing
+            posicion = 0
         End If
 
     End Sub
@@ -49,6 +55,7 @@ Public Class Form8
         Dim dao As New ReportesDAO()
         Dim tabla As DataTable = dao.ObtenerFechasCitas()
 
+        cmbFiltroSeleccion.DataSource = Nothing
         cmbFiltroSeleccion.DataSource = tabla
         cmbFiltroSeleccion.DisplayMember = "fecha_texto"
         cmbFiltroSeleccion.ValueMember = "fecha_texto"
@@ -61,6 +68,7 @@ Public Class Form8
         Dim dao As New ReportesDAO()
         Dim tabla As DataTable = dao.ObtenerPacientes()
 
+        cmbFiltroSeleccion.DataSource = Nothing
         cmbFiltroSeleccion.DataSource = tabla
         cmbFiltroSeleccion.DisplayMember = "paciente"
         cmbFiltroSeleccion.ValueMember = "id_paciente"
@@ -73,6 +81,7 @@ Public Class Form8
         Dim dao As New ReportesDAO()
         Dim tabla As DataTable = dao.ObtenerMedicos()
 
+        cmbFiltroSeleccion.DataSource = Nothing
         cmbFiltroSeleccion.DataSource = tabla
         cmbFiltroSeleccion.DisplayMember = "medico"
         cmbFiltroSeleccion.ValueMember = "id_medico"
@@ -83,24 +92,30 @@ Public Class Form8
     Private Sub btnGenerar_Click(sender As Object, e As EventArgs) Handles btnGenerar.Click
 
         If rdbCitasDia.Checked Then
+
             GenerarReporteCitasDia()
 
         ElseIf rdbHistorial.Checked Then
+
             GenerarHistorialPaciente()
 
         ElseIf rdbMedicos.Checked Then
+
             GenerarProductividadMedicos()
 
         Else
+
             MessageBox.Show("Seleccione un tipo de reporte.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
         End If
 
     End Sub
 
     Private Sub GenerarReporteCitasDia()
 
-        If cmbFiltroSeleccion.SelectedIndex = -1 Then
+        If cmbFiltroSeleccion.SelectedIndex = -1 OrElse cmbFiltroSeleccion.SelectedValue Is Nothing Then
             MessageBox.Show("Seleccione una fecha para generar el reporte.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbFiltroSeleccion.Focus()
             Exit Sub
         End If
 
@@ -109,14 +124,22 @@ Public Class Form8
         tablaReportes = dao.ReporteCitasPorDia(cmbFiltroSeleccion.SelectedValue.ToString())
         dgvResultados.DataSource = tablaReportes
 
+        FormatearColumnas()
         posicion = 0
+
+        If dgvResultados.Rows.Count > 0 Then
+            SeleccionarFila()
+        Else
+            MessageBox.Show("No se encontraron citas para la fecha seleccionada.", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
     End Sub
 
     Private Sub GenerarHistorialPaciente()
 
-        If cmbFiltroSeleccion.SelectedIndex = -1 Then
+        If cmbFiltroSeleccion.SelectedIndex = -1 OrElse cmbFiltroSeleccion.SelectedValue Is Nothing Then
             MessageBox.Show("Seleccione un paciente para generar el historial.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbFiltroSeleccion.Focus()
             Exit Sub
         End If
 
@@ -125,25 +148,67 @@ Public Class Form8
         tablaReportes = dao.HistorialClinicoPaciente(CInt(cmbFiltroSeleccion.SelectedValue))
         dgvResultados.DataSource = tablaReportes
 
+        FormatearColumnas()
         posicion = 0
+
+        If dgvResultados.Rows.Count > 0 Then
+            SeleccionarFila()
+        Else
+            MessageBox.Show("No se encontró historial clínico para el paciente seleccionado.", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
     End Sub
 
     Private Sub GenerarProductividadMedicos()
 
+        If cmbFiltroSeleccion.SelectedIndex = -1 OrElse cmbFiltroSeleccion.SelectedValue Is Nothing Then
+            MessageBox.Show("Seleccione un médico para generar el reporte.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbFiltroSeleccion.Focus()
+            Exit Sub
+        End If
+
         Dim dao As New ReportesDAO()
 
-        tablaReportes = dao.ProductividadMedicos()
+        tablaReportes = dao.ProductividadMedicoPorId(CInt(cmbFiltroSeleccion.SelectedValue))
         dgvResultados.DataSource = tablaReportes
 
+        FormatearColumnas()
         posicion = 0
+
+        If dgvResultados.Rows.Count > 0 Then
+            SeleccionarFila()
+        Else
+            MessageBox.Show("No se encontraron datos de productividad para el médico seleccionado.", "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+
+    End Sub
+
+    Private Sub FormatearColumnas()
+
+        If dgvResultados.Columns.Contains("id_cita") Then dgvResultados.Columns("id_cita").HeaderText = "ID Cita"
+        If dgvResultados.Columns.Contains("paciente") Then dgvResultados.Columns("paciente").HeaderText = "Paciente"
+        If dgvResultados.Columns.Contains("medico") Then dgvResultados.Columns("medico").HeaderText = "Médico"
+        If dgvResultados.Columns.Contains("hora") Then dgvResultados.Columns("hora").HeaderText = "Hora"
+        If dgvResultados.Columns.Contains("estado") Then dgvResultados.Columns("estado").HeaderText = "Estado"
+
+        If dgvResultados.Columns.Contains("fecha") Then dgvResultados.Columns("fecha").HeaderText = "Fecha"
+        If dgvResultados.Columns.Contains("diagnostico") Then dgvResultados.Columns("diagnostico").HeaderText = "Diagnóstico"
+        If dgvResultados.Columns.Contains("observaciones") Then dgvResultados.Columns("observaciones").HeaderText = "Observaciones"
+        If dgvResultados.Columns.Contains("medicamentos") Then dgvResultados.Columns("medicamentos").HeaderText = "Medicamentos"
+
+        If dgvResultados.Columns.Contains("id_medico") Then dgvResultados.Columns("id_medico").HeaderText = "ID Médico"
+        If dgvResultados.Columns.Contains("total_citas") Then dgvResultados.Columns("total_citas").HeaderText = "Total Citas"
+        If dgvResultados.Columns.Contains("total_consultas") Then dgvResultados.Columns("total_consultas").HeaderText = "Total Consultas"
 
     End Sub
 
     Private Sub btnLimpiar_Click(sender As Object, e As EventArgs) Handles btnLimpiar.Click
 
         dgvResultados.DataSource = Nothing
-        tablaReportes.Clear()
+
+        If tablaReportes IsNot Nothing Then
+            tablaReportes.Clear()
+        End If
 
         If cmbFiltroSeleccion.DataSource IsNot Nothing Then
             cmbFiltroSeleccion.SelectedIndex = -1
