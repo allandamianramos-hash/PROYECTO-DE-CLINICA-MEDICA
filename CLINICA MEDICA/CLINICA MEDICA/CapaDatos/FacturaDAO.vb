@@ -5,35 +5,37 @@ Public Class FacturaDAO
 
     Private ReadOnly cadenaConexion As String = "Host=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech;Port=5432;Database=neondb;Username=neondb_owner;Password=npg_8KIjvXm6uzAi;SSL Mode=Require;Trust Server Certificate=true"
 
+    ' 🌟 MÉTODO PARA OBTENER SOLO CONSULTAS SIN PAGAR
+
     Public Function ObtenerConsultas() As DataTable
-
         Dim tabla As New DataTable
-
         Try
             Using conexion As New NpgsqlConnection(cadenaConexion)
-
                 conexion.Open()
 
+                ' 🛠️ FIX: Ahora viajamos a través de la tabla citas (ci) para llegar al paciente (p)
                 Dim sql As String = "
                     SELECT 
-                        id_consulta,
-                        'Consulta ' || id_consulta || ' - ' || diagnostico AS descripcion_consulta
-                    FROM consultas
-                    ORDER BY id_consulta;
+                        co.id_consulta, 
+                        'Consulta #' || co.id_consulta || ' - ' || p.nombre || ' ' || p.apellido AS descripcion_consulta
+                    FROM consultas co
+                    JOIN citas ci ON co.id_cita = ci.id_cita
+                    JOIN pacientes p ON ci.id_paciente = p.id_paciente
+                    WHERE co.id_consulta NOT IN (
+                        SELECT id_consulta FROM pagos_facturas
+                    )
+                    ORDER BY co.fecha_consulta ASC;
                 "
 
                 Using adaptador As New NpgsqlDataAdapter(sql, conexion)
                     adaptador.Fill(tabla)
                 End Using
-
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error al cargar consultas: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error al cargar las consultas pendientes: " & ex.Message, "Error DAO", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-
         Return tabla
-
     End Function
 
     Public Function ObtenerMedicamentos() As DataTable
@@ -185,7 +187,7 @@ Public Class FacturaDAO
 
                         End Using
 
-                        For Each detalle As DetalleFactura In factura.Detalles
+                        For Each detalle As Detalle In factura.Detalles
 
                             Dim sqlDetalle As String = "
                                 CALL registrar_detalle_factura(
@@ -273,7 +275,7 @@ Public Class FacturaDAO
 
                         End Using
 
-                        For Each detalle As DetalleFactura In factura.Detalles
+                        For Each detalle As Detalle In factura.Detalles
 
                             Dim sqlDetalle As String = "
                                 CALL registrar_detalle_factura(

@@ -25,7 +25,8 @@ Public Class CitaDAO
 
     ' 2. MÉTODO PARA INSERTAR
     Public Sub Insertar(cita As Cita)
-        Dim query As String = "CALL registrar_cita(@idPac, @idMed, @idEsp, @fec::date, @hor::time, @idEst)"
+        ' Quitamos el @idEsp de la consulta
+        Dim query As String = "CALL registrar_cita(@idPac, @idMed, @fec::date, @hor::time, @idEst)"
 
         Using conn As NpgsqlConnection = Conexion.ObtenerConexion()
             Try
@@ -33,7 +34,9 @@ Public Class CitaDAO
                 Using cmd As New NpgsqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@idPac", cita.IdPaciente)
                     cmd.Parameters.AddWithValue("@idMed", cita.IdMedico)
-                    cmd.Parameters.AddWithValue("@idEsp", cita.IdEspecialidad)
+
+                    ' Aquí eliminamos la línea de cita.IdEspecialidad
+
                     cmd.Parameters.AddWithValue("@fec", cita.Fecha)
                     cmd.Parameters.AddWithValue("@hor", cita.Hora)
                     ' Convertimos el valor a número entero para la base de datos

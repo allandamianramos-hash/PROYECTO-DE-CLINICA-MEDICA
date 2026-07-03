@@ -41,6 +41,7 @@ Partial Class Form1
         btnMedicamentos = New Button()
         Button2 = New Button()
         Button1 = New Button()
+        Button4 = New Button()
         SuspendLayout()
         ' 
         ' lblMenu
@@ -50,7 +51,7 @@ Partial Class Form1
         lblMenu.Location = New Point(13, 9)
         lblMenu.Margin = New Padding(4, 0, 4, 0)
         lblMenu.Name = "lblMenu"
-        lblMenu.Size = New Size(140, 16)
+        lblMenu.Size = New Size(180, 21)
         lblMenu.TabIndex = 1
         lblMenu.Text = "Menú de selección"
         lblMenu.TextAlign = ContentAlignment.MiddleCenter
@@ -60,9 +61,7 @@ Partial Class Form1
         btnModuloPacientes.Location = New Point(13, 59)
         btnModuloPacientes.Margin = New Padding(4, 3, 4, 3)
         btnModuloPacientes.Name = "btnModuloPacientes"
-
         btnModuloPacientes.Size = New Size(235, 71)
-
         btnModuloPacientes.TabIndex = 2
         btnModuloPacientes.Text = "Módulo de pacientes"
         btnModuloPacientes.UseVisualStyleBackColor = True
@@ -72,9 +71,7 @@ Partial Class Form1
         btnModuloMedicos.Location = New Point(256, 59)
         btnModuloMedicos.Margin = New Padding(4, 3, 4, 3)
         btnModuloMedicos.Name = "btnModuloMedicos"
-
         btnModuloMedicos.Size = New Size(235, 71)
-
         btnModuloMedicos.TabIndex = 3
         btnModuloMedicos.Text = "Módulo de médicos"
         btnModuloMedicos.UseVisualStyleBackColor = True
@@ -111,9 +108,7 @@ Partial Class Form1
         ' 
         ' btnModuloRecetas
         ' 
-
         btnModuloRecetas.Location = New Point(256, 208)
-
         btnModuloRecetas.Margin = New Padding(4, 3, 4, 3)
         btnModuloRecetas.Name = "btnModuloRecetas"
         btnModuloRecetas.Size = New Size(235, 71)
@@ -133,15 +128,14 @@ Partial Class Form1
         ' 
         ' btnSalir
         ' 
-
-        btnSalir.Location = New Point(256, 285)
+        btnSalir.BackColor = Color.IndianRed
+        btnSalir.Location = New Point(500, 289)
         btnSalir.Margin = New Padding(4, 3, 4, 3)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(477, 71)
-
+        btnSalir.Size = New Size(233, 71)
         btnSalir.TabIndex = 9
         btnSalir.Text = "Salir"
-        btnSalir.UseVisualStyleBackColor = True
+        btnSalir.UseVisualStyleBackColor = False
         ' 
         ' lblFechaActual
         ' 
@@ -150,7 +144,7 @@ Partial Class Form1
         lblFechaActual.Location = New Point(12, 375)
         lblFechaActual.Margin = New Padding(4, 0, 4, 0)
         lblFechaActual.Name = "lblFechaActual"
-        lblFechaActual.Size = New Size(16, 16)
+        lblFechaActual.Size = New Size(22, 21)
         lblFechaActual.TabIndex = 10
         lblFechaActual.Text = "1"
         lblFechaActual.TextAlign = ContentAlignment.MiddleCenter
@@ -159,10 +153,10 @@ Partial Class Form1
         ' 
         lblNumPacientes.AutoSize = True
         lblNumPacientes.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        lblNumPacientes.Location = New Point(12, 391)
+        lblNumPacientes.Location = New Point(12, 396)
         lblNumPacientes.Margin = New Padding(4, 0, 4, 0)
         lblNumPacientes.Name = "lblNumPacientes"
-        lblNumPacientes.Size = New Size(16, 16)
+        lblNumPacientes.Size = New Size(22, 21)
         lblNumPacientes.TabIndex = 11
         lblNumPacientes.Text = "2"
         lblNumPacientes.TextAlign = ContentAlignment.MiddleCenter
@@ -171,10 +165,10 @@ Partial Class Form1
         ' 
         lblNumMedicos.AutoSize = True
         lblNumMedicos.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        lblNumMedicos.Location = New Point(12, 407)
+        lblNumMedicos.Location = New Point(12, 417)
         lblNumMedicos.Margin = New Padding(4, 0, 4, 0)
         lblNumMedicos.Name = "lblNumMedicos"
-        lblNumMedicos.Size = New Size(16, 16)
+        lblNumMedicos.Size = New Size(22, 21)
         lblNumMedicos.TabIndex = 12
         lblNumMedicos.Text = "3"
         lblNumMedicos.TextAlign = ContentAlignment.MiddleCenter
@@ -183,10 +177,10 @@ Partial Class Form1
         ' 
         lblNumCitas.AutoSize = True
         lblNumCitas.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        lblNumCitas.Location = New Point(12, 423)
+        lblNumCitas.Location = New Point(12, 438)
         lblNumCitas.Margin = New Padding(4, 0, 4, 0)
         lblNumCitas.Name = "lblNumCitas"
-        lblNumCitas.Size = New Size(16, 16)
+        lblNumCitas.Size = New Size(22, 21)
         lblNumCitas.TabIndex = 13
         lblNumCitas.Text = "4"
         lblNumCitas.TextAlign = ContentAlignment.MiddleCenter
@@ -195,10 +189,10 @@ Partial Class Form1
         ' 
         lblNumConsultas.AutoSize = True
         lblNumConsultas.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        lblNumConsultas.Location = New Point(12, 439)
+        lblNumConsultas.Location = New Point(12, 459)
         lblNumConsultas.Margin = New Padding(4, 0, 4, 0)
         lblNumConsultas.Name = "lblNumConsultas"
-        lblNumConsultas.Size = New Size(16, 16)
+        lblNumConsultas.Size = New Size(22, 21)
         lblNumConsultas.TabIndex = 14
         lblNumConsultas.Text = "5"
         lblNumConsultas.TextAlign = ContentAlignment.MiddleCenter
@@ -208,7 +202,7 @@ Partial Class Form1
         lblInstrucciones.AutoSize = True
         lblInstrucciones.Location = New Point(12, 35)
         lblInstrucciones.Name = "lblInstrucciones"
-        lblInstrucciones.Size = New Size(318, 16)
+        lblInstrucciones.Size = New Size(421, 21)
         lblInstrucciones.TabIndex = 15
         lblInstrucciones.Text = "Por favor, ingrese al módulo que desee consultar:"
         lblInstrucciones.TextAlign = ContentAlignment.MiddleCenter
@@ -218,52 +212,55 @@ Partial Class Form1
         Label1.AutoSize = True
         Label1.Location = New Point(12, 359)
         Label1.Name = "Label1"
-        Label1.Size = New Size(48, 16)
+        Label1.Size = New Size(63, 21)
         Label1.TabIndex = 15
         Label1.Text = "Datos:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnMedicamentos
         ' 
-
         btnMedicamentos.Location = New Point(498, 131)
         btnMedicamentos.Name = "btnMedicamentos"
         btnMedicamentos.Size = New Size(235, 71)
-
         btnMedicamentos.TabIndex = 16
         btnMedicamentos.Text = "Módulo de medicamentos"
         btnMedicamentos.UseVisualStyleBackColor = True
         ' 
         ' Button2
         ' 
-
         Button2.Location = New Point(498, 54)
         Button2.Margin = New Padding(4, 3, 4, 3)
         Button2.Name = "Button2"
         Button2.Size = New Size(235, 71)
-
         Button2.TabIndex = 18
         Button2.Text = "Módulo de pagos"
         Button2.UseVisualStyleBackColor = True
         ' 
         ' Button1
         ' 
-
         Button1.Location = New Point(498, 208)
-
         Button1.Name = "Button1"
         Button1.Size = New Size(235, 71)
         Button1.TabIndex = 19
         Button1.Text = "Módulo de disponibilidad de médicos"
         Button1.UseVisualStyleBackColor = True
         ' 
+        ' Button4
+        ' 
+        Button4.Location = New Point(256, 289)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(235, 71)
+        Button4.TabIndex = 21
+        Button4.Text = "Módulo de detalles de facturas"
+        Button4.UseVisualStyleBackColor = True
+        ' 
         ' Form1
         ' 
-        AutoScaleDimensions = New SizeF(8.0F, 16.0F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-
-        ClientSize = New Size(745, 461)
-
+        BackColor = Color.White
+        ClientSize = New Size(745, 519)
+        Controls.Add(Button4)
         Controls.Add(Button1)
         Controls.Add(Button2)
         Controls.Add(btnMedicamentos)
@@ -309,5 +306,6 @@ Partial Class Form1
     Friend WithEvents btnMedicamentos As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents Button1 As Button
+    Friend WithEvents Button4 As Button
 
 End Class

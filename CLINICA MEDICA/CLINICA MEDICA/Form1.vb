@@ -76,8 +76,8 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Form11.Show()
-        Me.Hide()
+        Form11.Show
+        Hide
     End Sub
 
     ' --- GESTIÓN DE CIERRE ---
@@ -189,5 +189,10 @@ Public Class Form1
                 Button1.Enabled = False
 
         End Select
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Form13.Show()
+        Me.Hide()
     End Sub
 End Class

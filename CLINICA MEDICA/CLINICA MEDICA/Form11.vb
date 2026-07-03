@@ -27,6 +27,13 @@ Public Class Form11
         LimpiarCampos()
     End Sub
 
+    Private Sub Form11_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+        If Me.Visible Then
+            CargarMedicos()
+            CargarTabla() ' Aprovechamos para refrescar la tabla por si acaso
+        End If
+    End Sub
+
     Private Function ConvertirADateTime(valor As Object) As DateTime
         If valor Is Nothing OrElse IsDBNull(valor) Then Return DateTime.Now
 
@@ -50,6 +57,7 @@ Public Class Form11
     Private Sub CargarMedicos()
         Dim dao As New DisponibilidadDAO()
         Dim tabla As DataTable = dao.ObtenerMedicos()
+        cmbMedico.DataSource = Nothing
 
         cmbMedico.DataSource = tabla
         cmbMedico.DisplayMember = "descripcion_medico"
@@ -79,8 +87,7 @@ Public Class Form11
             Return False
         End If
 
-        ' 🚨 FIX: Eliminamos el bloqueo absurdo. Ahora soporta turnos de madrugada.
-        ' Solo bloqueamos si intentan guardar un turno donde la entrada y salida sean EXACTAMENTE iguales.
+
         If dtpHoraFin.Value.TimeOfDay = dtpHoraInicio.Value.TimeOfDay Then
             MessageBox.Show("La hora de inicio y fin no pueden ser exactamente iguales.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             dtpHoraFin.Focus()

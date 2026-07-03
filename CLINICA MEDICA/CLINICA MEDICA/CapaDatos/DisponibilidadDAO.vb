@@ -4,7 +4,6 @@ Imports System.Data
 
 Public Class DisponibilidadDAO
 
-    ' Tu cadena de conexión intacta
     Private ReadOnly cadenaConexion As String = "Host=ep-holy-sea-atf4gaz7-pooler.c-9.us-east-1.aws.neon.tech;Port=5432;Database=neondb;Username=neondb_owner;Password=npg_8KIjvXm6uzAi;SSL Mode=Require;Trust Server Certificate=true"
 
     Public Function ObtenerMedicos() As DataTable
@@ -57,7 +56,7 @@ Public Class DisponibilidadDAO
         Try
             Using conexion As New NpgsqlConnection(cadenaConexion)
                 conexion.Open()
-                ' 🚨 Conectado al nuevo procedimiento que SÍ acepta madrugadas
+
                 Dim consulta As String = "CALL registrar_disponibilidad_medico(@id_medico, @hora_inicio, @hora_fin);"
 
                 Using comando As New NpgsqlCommand(consulta, conexion)
@@ -77,7 +76,7 @@ Public Class DisponibilidadDAO
         Try
             Using conexion As New NpgsqlConnection(cadenaConexion)
                 conexion.Open()
-                ' 🚨 Conectado al nuevo procedimiento
+
                 Dim consulta As String = "CALL actualizar_disponibilidad_medico(@id_disponibilidad, @id_medico, @hora_inicio, @hora_fin);"
 
                 Using comando As New NpgsqlCommand(consulta, conexion)

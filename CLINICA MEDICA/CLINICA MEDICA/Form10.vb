@@ -12,7 +12,6 @@ Public Class Form10
     Dim tablaMedicamentosGlobal As DataTable
 
     Private Sub Form10_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         txtIdFactura.ReadOnly = True
         txtMontoTotal.ReadOnly = True
 
@@ -130,9 +129,9 @@ Public Class Form10
 
     End Function
 
-    Private Function ObtenerDetallesFactura() As List(Of DetalleFactura)
+    Private Function ObtenerDetallesFactura() As List(Of Detalle)
 
-        Dim lista As New List(Of DetalleFactura)
+        Dim lista As New List(Of Detalle)
 
         If tablaMedicamentosGlobal Is Nothing Then Return lista
 
@@ -147,7 +146,7 @@ Public Class Form10
 
                 Dim precio As Decimal = CDec(filas(0)("precio"))
 
-                Dim detalle As New DetalleFactura()
+                Dim detalle As New Detalle()
                 detalle.IdMedicamento = idMed
                 detalle.Cantidad = cantidad
                 detalle.PrecioUnitario = precio
