@@ -36,82 +36,89 @@ Partial Class Form13
         ' dgvDetalles
         ' 
         dgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvDetalles.Location = New Point(100, 58)
+        dgvDetalles.Location = New Point(12, 27)
+        dgvDetalles.Margin = New Padding(3, 2, 3, 2)
         dgvDetalles.Name = "dgvDetalles"
         dgvDetalles.RowHeadersWidth = 51
-        dgvDetalles.Size = New Size(772, 188)
+        dgvDetalles.Size = New Size(909, 150)
         dgvDetalles.TabIndex = 0
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(322, 9)
+        Label2.Location = New Point(12, 9)
         Label2.Name = "Label2"
-        Label2.Size = New Size(301, 21)
+        Label2.Size = New Size(230, 16)
         Label2.TabIndex = 3
-        Label2.Text = "Módulo de Detalles de Facturas"
+        Label2.Text = "Módulo de detalles de facturas"
         Label2.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(333, 340)
+        btnSalir.Location = New Point(248, 181)
+        btnSalir.Margin = New Padding(3, 2, 3, 2)
         btnSalir.Name = "btnSalir"
-        btnSalir.Size = New Size(230, 53)
+        btnSalir.Size = New Size(230, 43)
         btnSalir.TabIndex = 34
         btnSalir.Text = "Salir"
         btnSalir.UseVisualStyleBackColor = True
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(97, 340)
+        btnRegresar.Location = New Point(12, 181)
+        btnRegresar.Margin = New Padding(3, 2, 3, 2)
         btnRegresar.Name = "btnRegresar"
-        btnRegresar.Size = New Size(230, 53)
+        btnRegresar.Size = New Size(230, 43)
         btnRegresar.TabIndex = 33
         btnRegresar.Text = "Menú principal"
         btnRegresar.UseVisualStyleBackColor = True
         ' 
         ' btnUltimo
         ' 
-        btnUltimo.Location = New Point(776, 340)
+        btnUltimo.Location = New Point(809, 228)
+        btnUltimo.Margin = New Padding(3, 2, 3, 2)
         btnUltimo.Name = "btnUltimo"
-        btnUltimo.Size = New Size(112, 53)
+        btnUltimo.Size = New Size(112, 43)
         btnUltimo.TabIndex = 32
         btnUltimo.Text = ">>"
         btnUltimo.UseVisualStyleBackColor = True
         ' 
         ' btnSiguiente
         ' 
-        btnSiguiente.Location = New Point(776, 281)
+        btnSiguiente.Location = New Point(809, 181)
+        btnSiguiente.Margin = New Padding(3, 2, 3, 2)
         btnSiguiente.Name = "btnSiguiente"
-        btnSiguiente.Size = New Size(112, 53)
+        btnSiguiente.Size = New Size(112, 43)
         btnSiguiente.TabIndex = 31
         btnSiguiente.Text = ">"
         btnSiguiente.UseVisualStyleBackColor = True
         ' 
         ' btnAnterior
         ' 
-        btnAnterior.Location = New Point(658, 281)
+        btnAnterior.Location = New Point(691, 181)
+        btnAnterior.Margin = New Padding(3, 2, 3, 2)
         btnAnterior.Name = "btnAnterior"
-        btnAnterior.Size = New Size(112, 53)
+        btnAnterior.Size = New Size(112, 43)
         btnAnterior.TabIndex = 30
         btnAnterior.Text = "<"
         btnAnterior.UseVisualStyleBackColor = True
         ' 
         ' btnPrimero
         ' 
-        btnPrimero.Location = New Point(658, 340)
+        btnPrimero.Location = New Point(691, 228)
+        btnPrimero.Margin = New Padding(3, 2, 3, 2)
         btnPrimero.Name = "btnPrimero"
-        btnPrimero.Size = New Size(112, 53)
+        btnPrimero.Size = New Size(112, 43)
         btnPrimero.TabIndex = 29
         btnPrimero.Text = "<<"
         btnPrimero.UseVisualStyleBackColor = True
         ' 
         ' Form13
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8F, 16F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(932, 450)
+        ClientSize = New Size(933, 283)
         Controls.Add(btnSalir)
         Controls.Add(btnRegresar)
         Controls.Add(btnUltimo)
@@ -120,8 +127,10 @@ Partial Class Form13
         Controls.Add(btnPrimero)
         Controls.Add(Label2)
         Controls.Add(dgvDetalles)
+        Font = New Font("Lucida Sans Unicode", 9.75F)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "Form13"
-        Text = "Form13"
+        Text = "Detalles de facturas"
         CType(dgvDetalles, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
