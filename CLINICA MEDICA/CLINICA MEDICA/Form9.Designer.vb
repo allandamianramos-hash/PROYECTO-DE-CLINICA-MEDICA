@@ -56,7 +56,7 @@ Partial Class Form9
         txtIdMedicamento.Location = New Point(221, 280)
         txtIdMedicamento.Name = "txtIdMedicamento"
         txtIdMedicamento.ReadOnly = True
-        txtIdMedicamento.Size = New Size(138, 27)
+        txtIdMedicamento.Size = New Size(138, 32)
         txtIdMedicamento.TabIndex = 0
         txtIdMedicamento.TextAlign = HorizontalAlignment.Center
         ' 
@@ -64,7 +64,7 @@ Partial Class Form9
         ' 
         txtNombreComercial.Location = New Point(221, 313)
         txtNombreComercial.Name = "txtNombreComercial"
-        txtNombreComercial.Size = New Size(138, 27)
+        txtNombreComercial.Size = New Size(138, 32)
         txtNombreComercial.TabIndex = 1
         txtNombreComercial.TextAlign = HorizontalAlignment.Center
         ' 
@@ -72,7 +72,7 @@ Partial Class Form9
         ' 
         txtNombreGenerico.Location = New Point(221, 346)
         txtNombreGenerico.Name = "txtNombreGenerico"
-        txtNombreGenerico.Size = New Size(138, 27)
+        txtNombreGenerico.Size = New Size(138, 32)
         txtNombreGenerico.TabIndex = 2
         txtNombreGenerico.TextAlign = HorizontalAlignment.Center
         ' 
@@ -80,7 +80,7 @@ Partial Class Form9
         ' 
         txtPrecio.Location = New Point(221, 412)
         txtPrecio.Name = "txtPrecio"
-        txtPrecio.Size = New Size(138, 27)
+        txtPrecio.Size = New Size(138, 32)
         txtPrecio.TabIndex = 3
         txtPrecio.TextAlign = HorizontalAlignment.Center
         ' 
@@ -88,7 +88,7 @@ Partial Class Form9
         ' 
         txtConcentracion.Location = New Point(221, 379)
         txtConcentracion.Name = "txtConcentracion"
-        txtConcentracion.Size = New Size(138, 27)
+        txtConcentracion.Size = New Size(138, 32)
         txtConcentracion.TabIndex = 4
         txtConcentracion.TextAlign = HorizontalAlignment.Center
         ' 
@@ -96,7 +96,7 @@ Partial Class Form9
         ' 
         txtBuscar.Location = New Point(221, 475)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(138, 27)
+        txtBuscar.Size = New Size(138, 32)
         txtBuscar.TabIndex = 5
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -198,6 +198,7 @@ Partial Class Form9
         dgvMedicamentos.MultiSelect = False
         dgvMedicamentos.Name = "dgvMedicamentos"
         dgvMedicamentos.ReadOnly = True
+        dgvMedicamentos.RowHeadersWidth = 51
         dgvMedicamentos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvMedicamentos.Size = New Size(1071, 246)
         dgvMedicamentos.TabIndex = 45
@@ -206,9 +207,9 @@ Partial Class Form9
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        Label1.Location = New Point(12, 9)
+        Label1.Location = New Point(12, 4)
         Label1.Name = "Label1"
-        Label1.Size = New Size(191, 16)
+        Label1.Size = New Size(248, 21)
         Label1.TabIndex = 46
         Label1.Text = "Módulo de medicamentos"
         Label1.TextAlign = ContentAlignment.MiddleCenter
@@ -219,7 +220,7 @@ Partial Class Form9
         cmbFormaFarmaceutica.FormattingEnabled = True
         cmbFormaFarmaceutica.Location = New Point(221, 445)
         cmbFormaFarmaceutica.Name = "cmbFormaFarmaceutica"
-        cmbFormaFarmaceutica.Size = New Size(138, 24)
+        cmbFormaFarmaceutica.Size = New Size(138, 28)
         cmbFormaFarmaceutica.TabIndex = 47
         ' 
         ' Label2
@@ -227,7 +228,7 @@ Partial Class Form9
         Label2.AutoSize = True
         Label2.Location = New Point(12, 448)
         Label2.Name = "Label2"
-        Label2.Size = New Size(135, 16)
+        Label2.Size = New Size(181, 21)
         Label2.TabIndex = 48
         Label2.Text = "Forma farmacéutica:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -237,7 +238,7 @@ Partial Class Form9
         Label3.AutoSize = True
         Label3.Location = New Point(12, 382)
         Label3.Name = "Label3"
-        Label3.Size = New Size(102, 16)
+        Label3.Size = New Size(135, 21)
         Label3.TabIndex = 49
         Label3.Text = "Concentración:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -247,7 +248,7 @@ Partial Class Form9
         Label4.AutoSize = True
         Label4.Location = New Point(12, 316)
         Label4.Name = "Label4"
-        Label4.Size = New Size(126, 16)
+        Label4.Size = New Size(170, 21)
         Label4.TabIndex = 50
         Label4.Text = "Nombre comercial:"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -257,7 +258,7 @@ Partial Class Form9
         Label5.AutoSize = True
         Label5.Location = New Point(12, 349)
         Label5.Name = "Label5"
-        Label5.Size = New Size(119, 16)
+        Label5.Size = New Size(161, 21)
         Label5.TabIndex = 51
         Label5.Text = "Nombre genérico:"
         Label5.TextAlign = ContentAlignment.MiddleCenter
@@ -267,9 +268,9 @@ Partial Class Form9
         Label6.AutoSize = True
         Label6.Location = New Point(12, 283)
         Label6.Name = "Label6"
-        Label6.Size = New Size(203, 16)
+        Label6.Size = New Size(181, 21)
         Label6.TabIndex = 52
-        Label6.Text = "Identificador del medicamento:"
+        Label6.Text = "Id del medicamento:"
         Label6.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label7
@@ -277,7 +278,7 @@ Partial Class Form9
         Label7.AutoSize = True
         Label7.Location = New Point(12, 415)
         Label7.Name = "Label7"
-        Label7.Size = New Size(49, 16)
+        Label7.Size = New Size(66, 21)
         Label7.TabIndex = 53
         Label7.Text = "Precio:"
         Label7.TextAlign = ContentAlignment.MiddleCenter
@@ -287,14 +288,14 @@ Partial Class Form9
         Label8.AutoSize = True
         Label8.Location = New Point(12, 478)
         Label8.Name = "Label8"
-        Label8.Size = New Size(71, 16)
+        Label8.Size = New Size(95, 21)
         Label8.TabIndex = 54
         Label8.Text = "Busqueda:"
         Label8.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form9
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1095, 522)
         Controls.Add(Label8)

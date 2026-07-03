@@ -50,7 +50,7 @@ Partial Class Form11
         txtIdDisponibilidad.Location = New Point(237, 206)
         txtIdDisponibilidad.Margin = New Padding(3, 2, 3, 2)
         txtIdDisponibilidad.Name = "txtIdDisponibilidad"
-        txtIdDisponibilidad.Size = New Size(151, 27)
+        txtIdDisponibilidad.Size = New Size(151, 32)
         txtIdDisponibilidad.TabIndex = 0
         txtIdDisponibilidad.TextAlign = HorizontalAlignment.Center
         ' 
@@ -60,7 +60,7 @@ Partial Class Form11
         cmbMedico.Location = New Point(237, 237)
         cmbMedico.Margin = New Padding(3, 2, 3, 2)
         cmbMedico.Name = "cmbMedico"
-        cmbMedico.Size = New Size(151, 24)
+        cmbMedico.Size = New Size(151, 28)
         cmbMedico.TabIndex = 1
         ' 
         ' dtpHoraInicio
@@ -70,7 +70,7 @@ Partial Class Form11
         dtpHoraInicio.Margin = New Padding(3, 2, 3, 2)
         dtpHoraInicio.Name = "dtpHoraInicio"
         dtpHoraInicio.ShowUpDown = True
-        dtpHoraInicio.Size = New Size(151, 27)
+        dtpHoraInicio.Size = New Size(151, 32)
         dtpHoraInicio.TabIndex = 2
         ' 
         ' dtpHoraFin
@@ -80,7 +80,7 @@ Partial Class Form11
         dtpHoraFin.Margin = New Padding(3, 2, 3, 2)
         dtpHoraFin.Name = "dtpHoraFin"
         dtpHoraFin.ShowUpDown = True
-        dtpHoraFin.Size = New Size(151, 27)
+        dtpHoraFin.Size = New Size(151, 32)
         dtpHoraFin.TabIndex = 3
         ' 
         ' dgvDisponibilidad
@@ -98,9 +98,9 @@ Partial Class Form11
         Label1.AutoSize = True
         Label1.Location = New Point(12, 209)
         Label1.Name = "Label1"
-        Label1.Size = New Size(219, 16)
+        Label1.Size = New Size(201, 21)
         Label1.TabIndex = 11
-        Label1.Text = "Identificador de la disponibilidad:"
+        Label1.Text = "Id de la disponibilidad:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnUltimo
@@ -180,7 +180,7 @@ Partial Class Form11
         Label2.AutoSize = True
         Label2.Location = New Point(12, 240)
         Label2.Name = "Label2"
-        Label2.Size = New Size(56, 16)
+        Label2.Size = New Size(76, 21)
         Label2.TabIndex = 51
         Label2.Text = "Médico:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -190,7 +190,7 @@ Partial Class Form11
         Label3.AutoSize = True
         Label3.Location = New Point(12, 303)
         Label3.Name = "Label3"
-        Label3.Size = New Size(81, 16)
+        Label3.Size = New Size(108, 21)
         Label3.TabIndex = 52
         Label3.Text = "Hora de fin:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -200,7 +200,7 @@ Partial Class Form11
         Label4.AutoSize = True
         Label4.Location = New Point(12, 272)
         Label4.Name = "Label4"
-        Label4.Size = New Size(99, 16)
+        Label4.Size = New Size(132, 21)
         Label4.TabIndex = 53
         Label4.Text = "Hora de inicio:"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -230,14 +230,14 @@ Partial Class Form11
         Label7.Location = New Point(14, 9)
         Label7.Margin = New Padding(5, 0, 5, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(278, 16)
+        Label7.Size = New Size(359, 21)
         Label7.TabIndex = 56
         Label7.Text = "Módulo de disponibilidad de médicos"
         Label7.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form11
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1134, 338)
         Controls.Add(Label7)

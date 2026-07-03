@@ -195,9 +195,9 @@ Partial Class Form3
         Label1.AutoSize = True
         Label1.Location = New Point(12, 259)
         Label1.Name = "Label1"
-        Label1.Size = New Size(219, 21)
+        Label1.Size = New Size(129, 21)
         Label1.TabIndex = 17
-        Label1.Text = "Identificador del médico:"
+        Label1.Text = "Id del médico:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label2

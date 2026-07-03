@@ -225,9 +225,9 @@ Partial Class Form4
         lblIdEspecialidad.AutoSize = True
         lblIdEspecialidad.Location = New Point(12, 180)
         lblIdEspecialidad.Name = "lblIdEspecialidad"
-        lblIdEspecialidad.Size = New Size(277, 21)
+        lblIdEspecialidad.Size = New Size(187, 21)
         lblIdEspecialidad.TabIndex = 35
-        lblIdEspecialidad.Text = "Identificador de la especialidad:"
+        lblIdEspecialidad.Text = "Id de la especialidad:"
         lblIdEspecialidad.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form4

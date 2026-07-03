@@ -61,7 +61,7 @@ Partial Class frm2
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(156, 16)
+        Label1.Size = New Size(202, 21)
         Label1.TabIndex = 2
         Label1.Text = "Módulo de pacientes"
         Label1.TextAlign = ContentAlignment.MiddleCenter
@@ -71,7 +71,7 @@ Partial Class frm2
         txtIdPaciente.Location = New Point(189, 319)
         txtIdPaciente.Name = "txtIdPaciente"
         txtIdPaciente.ReadOnly = True
-        txtIdPaciente.Size = New Size(165, 27)
+        txtIdPaciente.Size = New Size(165, 32)
         txtIdPaciente.TabIndex = 3
         txtIdPaciente.TextAlign = HorizontalAlignment.Center
         ' 
@@ -79,7 +79,7 @@ Partial Class frm2
         ' 
         txtNombre.Location = New Point(189, 352)
         txtNombre.Name = "txtNombre"
-        txtNombre.Size = New Size(165, 27)
+        txtNombre.Size = New Size(165, 32)
         txtNombre.TabIndex = 4
         txtNombre.TextAlign = HorizontalAlignment.Center
         ' 
@@ -87,7 +87,7 @@ Partial Class frm2
         ' 
         txtApellido.Location = New Point(189, 385)
         txtApellido.Name = "txtApellido"
-        txtApellido.Size = New Size(165, 27)
+        txtApellido.Size = New Size(165, 32)
         txtApellido.TabIndex = 5
         txtApellido.TextAlign = HorizontalAlignment.Center
         ' 
@@ -104,7 +104,7 @@ Partial Class frm2
         ' 
         txtTelefono.Location = New Point(189, 511)
         txtTelefono.Name = "txtTelefono"
-        txtTelefono.Size = New Size(165, 27)
+        txtTelefono.Size = New Size(165, 32)
         txtTelefono.TabIndex = 7
         txtTelefono.TextAlign = HorizontalAlignment.Center
         ' 
@@ -112,7 +112,7 @@ Partial Class frm2
         ' 
         txtCorreo.Location = New Point(189, 544)
         txtCorreo.Name = "txtCorreo"
-        txtCorreo.Size = New Size(165, 27)
+        txtCorreo.Size = New Size(165, 32)
         txtCorreo.TabIndex = 8
         txtCorreo.TextAlign = HorizontalAlignment.Center
         ' 
@@ -120,7 +120,7 @@ Partial Class frm2
         ' 
         txtBuscar.Location = New Point(189, 577)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(165, 27)
+        txtBuscar.Size = New Size(165, 32)
         txtBuscar.TabIndex = 9
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -129,7 +129,7 @@ Partial Class frm2
         dtpFechaNac.Format = DateTimePickerFormat.Short
         dtpFechaNac.Location = New Point(189, 418)
         dtpFechaNac.Name = "dtpFechaNac"
-        dtpFechaNac.Size = New Size(165, 27)
+        dtpFechaNac.Size = New Size(165, 32)
         dtpFechaNac.TabIndex = 10
         ' 
         ' cmbSexo
@@ -138,7 +138,7 @@ Partial Class frm2
         cmbSexo.Items.AddRange(New Object() {"M", "F"})
         cmbSexo.Location = New Point(189, 451)
         cmbSexo.Name = "cmbSexo"
-        cmbSexo.Size = New Size(165, 24)
+        cmbSexo.Size = New Size(165, 28)
         cmbSexo.TabIndex = 11
         ' 
         ' dgvPacientes
@@ -246,9 +246,9 @@ Partial Class frm2
         lblIdPaciente.AutoSize = True
         lblIdPaciente.Location = New Point(12, 322)
         lblIdPaciente.Name = "lblIdPaciente"
-        lblIdPaciente.Size = New Size(171, 16)
+        lblIdPaciente.Size = New Size(138, 21)
         lblIdPaciente.TabIndex = 24
-        lblIdPaciente.Text = "Identificador del paciente:"
+        lblIdPaciente.Text = "Id del paciente:"
         lblIdPaciente.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' lblNombre
@@ -256,7 +256,7 @@ Partial Class frm2
         lblNombre.AutoSize = True
         lblNombre.Location = New Point(12, 355)
         lblNombre.Name = "lblNombre"
-        lblNombre.Size = New Size(61, 16)
+        lblNombre.Size = New Size(83, 21)
         lblNombre.TabIndex = 25
         lblNombre.Text = "Nombre:"
         lblNombre.TextAlign = ContentAlignment.MiddleCenter
@@ -266,7 +266,7 @@ Partial Class frm2
         lblApellido.AutoSize = True
         lblApellido.Location = New Point(12, 388)
         lblApellido.Name = "lblApellido"
-        lblApellido.Size = New Size(63, 16)
+        lblApellido.Size = New Size(85, 21)
         lblApellido.TabIndex = 26
         lblApellido.Text = "Apellido:"
         lblApellido.TextAlign = ContentAlignment.MiddleCenter
@@ -274,9 +274,9 @@ Partial Class frm2
         ' lblFechaNac
         ' 
         lblFechaNac.AutoSize = True
-        lblFechaNac.Location = New Point(12, 425)
+        lblFechaNac.Location = New Point(-3, 426)
         lblFechaNac.Name = "lblFechaNac"
-        lblFechaNac.Size = New Size(140, 16)
+        lblFechaNac.Size = New Size(186, 21)
         lblFechaNac.TabIndex = 27
         lblFechaNac.Text = "Fecha de nacimiento:"
         lblFechaNac.TextAlign = ContentAlignment.MiddleCenter
@@ -286,7 +286,7 @@ Partial Class frm2
         lblSexo.AutoSize = True
         lblSexo.Location = New Point(12, 454)
         lblSexo.Name = "lblSexo"
-        lblSexo.Size = New Size(41, 16)
+        lblSexo.Size = New Size(55, 21)
         lblSexo.TabIndex = 28
         lblSexo.Text = "Sexo:"
         lblSexo.TextAlign = ContentAlignment.MiddleCenter
@@ -296,7 +296,7 @@ Partial Class frm2
         lblDireccion.AutoSize = True
         lblDireccion.Location = New Point(12, 484)
         lblDireccion.Name = "lblDireccion"
-        lblDireccion.Size = New Size(71, 16)
+        lblDireccion.Size = New Size(94, 21)
         lblDireccion.TabIndex = 29
         lblDireccion.Text = "Dirección:"
         lblDireccion.TextAlign = ContentAlignment.MiddleCenter
@@ -306,7 +306,7 @@ Partial Class frm2
         lblTelefono.AutoSize = True
         lblTelefono.Location = New Point(12, 514)
         lblTelefono.Name = "lblTelefono"
-        lblTelefono.Size = New Size(66, 16)
+        lblTelefono.Size = New Size(89, 21)
         lblTelefono.TabIndex = 30
         lblTelefono.Text = "Teléfono:"
         lblTelefono.TextAlign = ContentAlignment.MiddleCenter
@@ -316,7 +316,7 @@ Partial Class frm2
         lblCorreo.AutoSize = True
         lblCorreo.Location = New Point(12, 547)
         lblCorreo.Name = "lblCorreo"
-        lblCorreo.Size = New Size(127, 16)
+        lblCorreo.Size = New Size(171, 21)
         lblCorreo.TabIndex = 31
         lblCorreo.Text = "Correo electrónico:"
         lblCorreo.TextAlign = ContentAlignment.MiddleCenter
@@ -326,14 +326,14 @@ Partial Class frm2
         lblBuscar.AutoSize = True
         lblBuscar.Location = New Point(12, 580)
         lblBuscar.Name = "lblBuscar"
-        lblBuscar.Size = New Size(71, 16)
+        lblBuscar.Size = New Size(95, 21)
         lblBuscar.TabIndex = 32
         lblBuscar.Text = "Búsqueda:"
         lblBuscar.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' frm2
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1163, 619)
         Controls.Add(lblBuscar)

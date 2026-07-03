@@ -49,16 +49,16 @@ Partial Class Form7
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        Label1.Location = New Point(12, 9)
+        Label1.Location = New Point(12, 4)
         Label1.Name = "Label1"
-        Label1.Size = New Size(218, 16)
+        Label1.Size = New Size(282, 21)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de control de recetas"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(368, 283)
+        btnRegresar.Location = New Point(482, 287)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(188, 59)
         btnRegresar.TabIndex = 16
@@ -67,15 +67,15 @@ Partial Class Form7
         ' 
         ' txtIdReceta
         ' 
-        txtIdReceta.Location = New Point(201, 220)
+        txtIdReceta.Location = New Point(259, 209)
         txtIdReceta.Name = "txtIdReceta"
-        txtIdReceta.Size = New Size(161, 27)
+        txtIdReceta.Size = New Size(161, 32)
         txtIdReceta.TabIndex = 17
         txtIdReceta.TextAlign = HorizontalAlignment.Center
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(562, 283)
+        btnSalir.Location = New Point(676, 287)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(188, 59)
         btnSalir.TabIndex = 33
@@ -120,7 +120,7 @@ Partial Class Form7
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(659, 220)
+        btnLimpiar.Location = New Point(773, 224)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(91, 57)
         btnLimpiar.TabIndex = 28
@@ -129,7 +129,7 @@ Partial Class Form7
         ' 
         ' btnEliminar
         ' 
-        btnEliminar.Location = New Point(562, 220)
+        btnEliminar.Location = New Point(676, 224)
         btnEliminar.Name = "btnEliminar"
         btnEliminar.Size = New Size(91, 57)
         btnEliminar.TabIndex = 27
@@ -138,7 +138,7 @@ Partial Class Form7
         ' 
         ' btnEditar
         ' 
-        btnEditar.Location = New Point(465, 220)
+        btnEditar.Location = New Point(579, 224)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(91, 57)
         btnEditar.TabIndex = 26
@@ -147,7 +147,7 @@ Partial Class Form7
         ' 
         ' btnGuardar
         ' 
-        btnGuardar.Location = New Point(368, 220)
+        btnGuardar.Location = New Point(482, 224)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(91, 57)
         btnGuardar.TabIndex = 25
@@ -157,9 +157,9 @@ Partial Class Form7
         ' cmbIdConsulta
         ' 
         cmbIdConsulta.FormattingEnabled = True
-        cmbIdConsulta.Location = New Point(201, 253)
+        cmbIdConsulta.Location = New Point(259, 249)
         cmbIdConsulta.Name = "cmbIdConsulta"
-        cmbIdConsulta.Size = New Size(161, 24)
+        cmbIdConsulta.Size = New Size(161, 28)
         cmbIdConsulta.TabIndex = 34
         ' 
         ' dgvRecetas
@@ -167,7 +167,8 @@ Partial Class Form7
         dgvRecetas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvRecetas.Location = New Point(12, 28)
         dgvRecetas.Name = "dgvRecetas"
-        dgvRecetas.Size = New Size(1139, 186)
+        dgvRecetas.RowHeadersWidth = 51
+        dgvRecetas.Size = New Size(1139, 175)
         dgvRecetas.TabIndex = 35
         ' 
         ' Label2
@@ -175,7 +176,7 @@ Partial Class Form7
         Label2.AutoSize = True
         Label2.Location = New Point(12, 283)
         Label2.Name = "Label2"
-        Label2.Size = New Size(102, 16)
+        Label2.Size = New Size(136, 21)
         Label2.TabIndex = 38
         Label2.Text = "Medicamentos:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -183,9 +184,9 @@ Partial Class Form7
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(12, 223)
+        Label3.Location = New Point(12, 212)
         Label3.Name = "Label3"
-        Label3.Size = New Size(167, 16)
+        Label3.Size = New Size(224, 21)
         Label3.TabIndex = 39
         Label3.Text = "Identificador de la receta:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -193,9 +194,9 @@ Partial Class Form7
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(12, 256)
+        Label6.Location = New Point(12, 249)
         Label6.Name = "Label6"
-        Label6.Size = New Size(183, 16)
+        Label6.Size = New Size(241, 21)
         Label6.TabIndex = 42
         Label6.Text = "Identificador de la consulta:"
         Label6.TextAlign = ContentAlignment.MiddleCenter
@@ -203,34 +204,34 @@ Partial Class Form7
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(12, 318)
+        Label7.Location = New Point(12, 320)
         Label7.Name = "Label7"
-        Label7.Size = New Size(71, 16)
+        Label7.Size = New Size(95, 21)
         Label7.TabIndex = 43
         Label7.Text = "Búsqueda:"
         Label7.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' txtBuscar
         ' 
-        txtBuscar.Location = New Point(201, 315)
+        txtBuscar.Location = New Point(259, 320)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(161, 27)
+        txtBuscar.Size = New Size(161, 32)
         txtBuscar.TabIndex = 44
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
         ' clbMedicamentos
         ' 
         clbMedicamentos.FormattingEnabled = True
-        clbMedicamentos.Location = New Point(201, 283)
+        clbMedicamentos.Location = New Point(259, 283)
         clbMedicamentos.Name = "clbMedicamentos"
-        clbMedicamentos.Size = New Size(161, 26)
+        clbMedicamentos.Size = New Size(161, 31)
         clbMedicamentos.TabIndex = 45
         ' 
         ' Form7
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1163, 354)
+        ClientSize = New Size(1163, 374)
         Controls.Add(clbMedicamentos)
         Controls.Add(txtBuscar)
         Controls.Add(Label7)

@@ -477,4 +477,7 @@ Public Class Form7
 
     End Sub
 
+    Private Sub clbMedicamentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clbMedicamentos.SelectedIndexChanged
+
+    End Sub
 End Class

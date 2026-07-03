@@ -63,7 +63,7 @@ Partial Class Form6
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(12, 9)
         Label1.Name = "Label1"
-        Label1.Size = New Size(157, 16)
+        Label1.Size = New Size(200, 21)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de consultas"
         Label1.TextAlign = ContentAlignment.MiddleCenter
@@ -163,7 +163,7 @@ Partial Class Form6
         txtIdConsulta.Enabled = False
         txtIdConsulta.Location = New Point(201, 300)
         txtIdConsulta.Name = "txtIdConsulta"
-        txtIdConsulta.Size = New Size(162, 27)
+        txtIdConsulta.Size = New Size(162, 32)
         txtIdConsulta.TabIndex = 43
         txtIdConsulta.TextAlign = HorizontalAlignment.Center
         ' 
@@ -203,9 +203,9 @@ Partial Class Form6
         Label2.AutoSize = True
         Label2.Location = New Point(12, 303)
         Label2.Name = "Label2"
-        Label2.Size = New Size(183, 16)
+        Label2.Size = New Size(151, 21)
         Label2.TabIndex = 48
-        Label2.Text = "Identificador de la consulta:"
+        Label2.Text = "Id de la consulta:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label3
@@ -213,7 +213,7 @@ Partial Class Form6
         Label3.AutoSize = True
         Label3.Location = New Point(12, 369)
         Label3.Name = "Label3"
-        Label3.Size = New Size(87, 16)
+        Label3.Size = New Size(114, 21)
         Label3.TabIndex = 49
         Label3.Text = "Diagnóstico:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -223,7 +223,7 @@ Partial Class Form6
         Label4.AutoSize = True
         Label4.Location = New Point(12, 399)
         Label4.Name = "Label4"
-        Label4.Size = New Size(103, 16)
+        Label4.Size = New Size(136, 21)
         Label4.TabIndex = 50
         Label4.Text = "Observaciones:"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -233,9 +233,9 @@ Partial Class Form6
         Label5.AutoSize = True
         Label5.Location = New Point(12, 336)
         Label5.Name = "Label5"
-        Label5.Size = New Size(152, 16)
+        Label5.Size = New Size(112, 21)
         Label5.TabIndex = 51
-        Label5.Text = "Identificador de la cita:"
+        Label5.Text = "Id de la cita:"
         Label5.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label6
@@ -243,7 +243,7 @@ Partial Class Form6
         Label6.AutoSize = True
         Label6.Location = New Point(12, 523)
         Label6.Name = "Label6"
-        Label6.Size = New Size(71, 16)
+        Label6.Size = New Size(95, 21)
         Label6.TabIndex = 52
         Label6.Text = "Búsqueda:"
         Label6.TextAlign = ContentAlignment.MiddleCenter
@@ -252,7 +252,7 @@ Partial Class Form6
         ' 
         txtBuscar.Location = New Point(201, 520)
         txtBuscar.Name = "txtBuscar"
-        txtBuscar.Size = New Size(162, 27)
+        txtBuscar.Size = New Size(162, 32)
         txtBuscar.TabIndex = 53
         txtBuscar.TextAlign = HorizontalAlignment.Center
         ' 
@@ -260,7 +260,7 @@ Partial Class Form6
         ' 
         txtPeso.Location = New Point(201, 426)
         txtPeso.Name = "txtPeso"
-        txtPeso.Size = New Size(162, 27)
+        txtPeso.Size = New Size(162, 32)
         txtPeso.TabIndex = 54
         ' 
         ' Label7
@@ -268,7 +268,7 @@ Partial Class Form6
         Label7.AutoSize = True
         Label7.Location = New Point(12, 429)
         Label7.Name = "Label7"
-        Label7.Size = New Size(68, 16)
+        Label7.Size = New Size(91, 21)
         Label7.TabIndex = 55
         Label7.Text = "Peso (kg):"
         Label7.TextAlign = ContentAlignment.MiddleCenter
@@ -278,7 +278,7 @@ Partial Class Form6
         Label8.AutoSize = True
         Label8.Location = New Point(12, 462)
         Label8.Name = "Label8"
-        Label8.Size = New Size(86, 16)
+        Label8.Size = New Size(114, 21)
         Label8.TabIndex = 56
         Label8.Text = "Estatura (m):"
         Label8.TextAlign = ContentAlignment.MiddleCenter
@@ -287,7 +287,7 @@ Partial Class Form6
         ' 
         txtEstatura.Location = New Point(201, 459)
         txtEstatura.Name = "txtEstatura"
-        txtEstatura.Size = New Size(162, 27)
+        txtEstatura.Size = New Size(162, 32)
         txtEstatura.TabIndex = 57
         ' 
         ' Label9
@@ -295,7 +295,7 @@ Partial Class Form6
         Label9.AutoSize = True
         Label9.Location = New Point(12, 495)
         Label9.Name = "Label9"
-        Label9.Size = New Size(69, 16)
+        Label9.Size = New Size(90, 21)
         Label9.TabIndex = 58
         Label9.Text = "Síntomas:"
         Label9.TextAlign = ContentAlignment.MiddleCenter
@@ -314,7 +314,7 @@ Partial Class Form6
         dtpFechaConsulta.Location = New Point(201, 552)
         dtpFechaConsulta.Margin = New Padding(3, 2, 3, 2)
         dtpFechaConsulta.Name = "dtpFechaConsulta"
-        dtpFechaConsulta.Size = New Size(162, 27)
+        dtpFechaConsulta.Size = New Size(162, 32)
         dtpFechaConsulta.TabIndex = 60
         ' 
         ' Label10
@@ -322,7 +322,7 @@ Partial Class Form6
         Label10.AutoSize = True
         Label10.Location = New Point(12, 559)
         Label10.Name = "Label10"
-        Label10.Size = New Size(124, 16)
+        Label10.Size = New Size(163, 21)
         Label10.TabIndex = 61
         Label10.Text = "Fecha de consulta:"
         Label10.TextAlign = ContentAlignment.MiddleCenter
@@ -332,7 +332,7 @@ Partial Class Form6
         Label11.AutoSize = True
         Label11.Location = New Point(12, 590)
         Label11.Name = "Label11"
-        Label11.Size = New Size(118, 16)
+        Label11.Size = New Size(156, 21)
         Label11.TabIndex = 62
         Label11.Text = "Hora de consulta:"
         Label11.TextAlign = ContentAlignment.MiddleCenter
@@ -344,19 +344,19 @@ Partial Class Form6
         dtpHoraConsulta.Margin = New Padding(3, 2, 3, 2)
         dtpHoraConsulta.Name = "dtpHoraConsulta"
         dtpHoraConsulta.ShowUpDown = True
-        dtpHoraConsulta.Size = New Size(162, 27)
+        dtpHoraConsulta.Size = New Size(162, 32)
         dtpHoraConsulta.TabIndex = 63
         ' 
         ' txtCita
         ' 
         txtCita.Location = New Point(201, 333)
         txtCita.Name = "txtCita"
-        txtCita.Size = New Size(162, 27)
+        txtCita.Size = New Size(162, 32)
         txtCita.TabIndex = 64
         ' 
         ' Form6
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1123, 623)
         Controls.Add(txtCita)

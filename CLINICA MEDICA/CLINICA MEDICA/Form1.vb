@@ -164,7 +164,6 @@ Public Class Form1
 
             Case "Recepcionista"
 
-                btnModuloConsultas.Enabled = False
                 btnModuloRecetas.Enabled = False
                 btnModuloReportes.Enabled = False
                 btnMedicamentos.Enabled = False
@@ -194,5 +193,9 @@ Public Class Form1
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Form13.Show()
         Me.Hide()
+    End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
     End Sub
 End Class

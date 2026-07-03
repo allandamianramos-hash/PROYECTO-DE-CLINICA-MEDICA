@@ -49,7 +49,7 @@ Partial Class Form13
         Label2.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.Location = New Point(12, 9)
         Label2.Name = "Label2"
-        Label2.Size = New Size(230, 16)
+        Label2.Size = New Size(296, 21)
         Label2.TabIndex = 3
         Label2.Text = "Módulo de detalles de facturas"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -116,7 +116,7 @@ Partial Class Form13
         ' 
         ' Form13
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(933, 283)
         Controls.Add(btnSalir)

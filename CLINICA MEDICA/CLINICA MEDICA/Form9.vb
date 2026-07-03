@@ -294,7 +294,7 @@ Public Class Form9
 
             If posicion > 0 Then
                 posicion -= 1
-                MostrarMedicamento()
+                MostrarMedicamento
             Else
                 MessageBox.Show("Ya está en el primer registro.", "Navegación", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If

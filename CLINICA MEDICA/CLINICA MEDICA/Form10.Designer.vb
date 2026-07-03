@@ -59,7 +59,7 @@ Partial Class Form10
         txtIdFactura.Margin = New Padding(4, 2, 4, 2)
         txtIdFactura.Name = "txtIdFactura"
         txtIdFactura.ReadOnly = True
-        txtIdFactura.Size = New Size(189, 27)
+        txtIdFactura.Size = New Size(189, 32)
         txtIdFactura.TabIndex = 0
         txtIdFactura.TextAlign = HorizontalAlignment.Center
         ' 
@@ -69,9 +69,9 @@ Partial Class Form10
         Label1.Location = New Point(13, 326)
         Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
-        Label1.Size = New Size(173, 16)
+        Label1.Size = New Size(140, 21)
         Label1.TabIndex = 1
-        Label1.Text = "Identificador de la factura:"
+        Label1.Text = "Id de la factura:"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Label2
@@ -80,7 +80,7 @@ Partial Class Form10
         Label2.Location = New Point(13, 418)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(67, 16)
+        Label2.Size = New Size(87, 21)
         Label2.TabIndex = 2
         Label2.Text = "Consulta:"
         Label2.TextAlign = ContentAlignment.MiddleCenter
@@ -91,7 +91,7 @@ Partial Class Form10
         cmbConsulta.Location = New Point(194, 415)
         cmbConsulta.Margin = New Padding(4, 2, 4, 2)
         cmbConsulta.Name = "cmbConsulta"
-        cmbConsulta.Size = New Size(189, 24)
+        cmbConsulta.Size = New Size(189, 28)
         cmbConsulta.TabIndex = 4
         ' 
         ' dtpFechaPago
@@ -101,7 +101,7 @@ Partial Class Form10
         dtpFechaPago.Location = New Point(194, 499)
         dtpFechaPago.Margin = New Padding(4, 2, 4, 2)
         dtpFechaPago.Name = "dtpFechaPago"
-        dtpFechaPago.Size = New Size(189, 27)
+        dtpFechaPago.Size = New Size(189, 32)
         dtpFechaPago.TabIndex = 5
         ' 
         ' Label3
@@ -110,7 +110,7 @@ Partial Class Form10
         Label3.Location = New Point(13, 506)
         Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
-        Label3.Size = New Size(101, 16)
+        Label3.Size = New Size(137, 21)
         Label3.TabIndex = 6
         Label3.Text = "Fecha de pago:"
         Label3.TextAlign = ContentAlignment.MiddleCenter
@@ -121,7 +121,7 @@ Partial Class Form10
         cmbMetodoPago.Location = New Point(194, 443)
         cmbMetodoPago.Margin = New Padding(4, 2, 4, 2)
         cmbMetodoPago.Name = "cmbMetodoPago"
-        cmbMetodoPago.Size = New Size(189, 24)
+        cmbMetodoPago.Size = New Size(189, 28)
         cmbMetodoPago.TabIndex = 7
         ' 
         ' Label4
@@ -130,7 +130,7 @@ Partial Class Form10
         Label4.Location = New Point(13, 446)
         Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(112, 16)
+        Label4.Size = New Size(153, 21)
         Label4.TabIndex = 8
         Label4.Text = "Método de pago:"
         Label4.TextAlign = ContentAlignment.MiddleCenter
@@ -141,7 +141,7 @@ Partial Class Form10
         Label5.Location = New Point(13, 474)
         Label5.Margin = New Padding(4, 0, 4, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(107, 16)
+        Label5.Size = New Size(144, 21)
         Label5.TabIndex = 9
         Label5.Text = "Estado de pago:"
         Label5.TextAlign = ContentAlignment.MiddleCenter
@@ -152,7 +152,7 @@ Partial Class Form10
         cmbEstadoPago.Location = New Point(194, 471)
         cmbEstadoPago.Margin = New Padding(4, 2, 4, 2)
         cmbEstadoPago.Name = "cmbEstadoPago"
-        cmbEstadoPago.Size = New Size(189, 24)
+        cmbEstadoPago.Size = New Size(189, 28)
         cmbEstadoPago.TabIndex = 10
         ' 
         ' txtMontoTotal
@@ -161,7 +161,7 @@ Partial Class Form10
         txtMontoTotal.Margin = New Padding(4, 2, 4, 2)
         txtMontoTotal.Name = "txtMontoTotal"
         txtMontoTotal.ReadOnly = True
-        txtMontoTotal.Size = New Size(189, 27)
+        txtMontoTotal.Size = New Size(189, 32)
         txtMontoTotal.TabIndex = 12
         txtMontoTotal.TextAlign = HorizontalAlignment.Center
         ' 
@@ -171,7 +171,7 @@ Partial Class Form10
         Label6.Location = New Point(13, 533)
         Label6.Margin = New Padding(4, 0, 4, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(84, 16)
+        Label6.Size = New Size(111, 21)
         Label6.TabIndex = 13
         Label6.Text = "Monto total:"
         Label6.TextAlign = ContentAlignment.MiddleCenter
@@ -179,11 +179,11 @@ Partial Class Form10
         ' dgvFacturas
         ' 
         dgvFacturas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvFacturas.Location = New Point(13, 27)
+        dgvFacturas.Location = New Point(194, 49)
         dgvFacturas.Margin = New Padding(4, 2, 4, 2)
         dgvFacturas.Name = "dgvFacturas"
         dgvFacturas.RowHeadersWidth = 51
-        dgvFacturas.Size = New Size(1161, 292)
+        dgvFacturas.Size = New Size(848, 255)
         dgvFacturas.TabIndex = 14
         ' 
         ' clbMedicamentos
@@ -192,7 +192,7 @@ Partial Class Form10
         clbMedicamentos.Location = New Point(194, 354)
         clbMedicamentos.Margin = New Padding(4, 2, 4, 2)
         clbMedicamentos.Name = "clbMedicamentos"
-        clbMedicamentos.Size = New Size(189, 26)
+        clbMedicamentos.Size = New Size(189, 4)
         clbMedicamentos.TabIndex = 15
         ' 
         ' Label7
@@ -202,7 +202,7 @@ Partial Class Form10
         Label7.Location = New Point(13, 9)
         Label7.Margin = New Padding(4, 0, 4, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(146, 16)
+        Label7.Size = New Size(188, 21)
         Label7.TabIndex = 16
         Label7.Text = "Módulo de facturas"
         Label7.TextAlign = ContentAlignment.MiddleCenter
@@ -213,15 +213,15 @@ Partial Class Form10
         Label8.Location = New Point(13, 359)
         Label8.Margin = New Padding(4, 0, 4, 0)
         Label8.Name = "Label8"
-        Label8.Size = New Size(173, 16)
+        Label8.Size = New Size(136, 21)
         Label8.TabIndex = 17
-        Label8.Text = "Medicamentos adquiridos:"
+        Label8.Text = "Medicamentos:"
         Label8.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnUltimo
         ' 
         btnUltimo.Location = New Point(1075, 388)
-        btnUltimo.Margin = New Padding(4, 4, 4, 4)
+        btnUltimo.Margin = New Padding(4)
         btnUltimo.Name = "btnUltimo"
         btnUltimo.Size = New Size(99, 55)
         btnUltimo.TabIndex = 54
@@ -231,7 +231,7 @@ Partial Class Form10
         ' btnSiguiente
         ' 
         btnSiguiente.Location = New Point(1075, 325)
-        btnSiguiente.Margin = New Padding(4, 4, 4, 4)
+        btnSiguiente.Margin = New Padding(4)
         btnSiguiente.Name = "btnSiguiente"
         btnSiguiente.Size = New Size(99, 55)
         btnSiguiente.TabIndex = 53
@@ -241,7 +241,7 @@ Partial Class Form10
         ' btnAnterior
         ' 
         btnAnterior.Location = New Point(968, 325)
-        btnAnterior.Margin = New Padding(4, 4, 4, 4)
+        btnAnterior.Margin = New Padding(4)
         btnAnterior.Name = "btnAnterior"
         btnAnterior.Size = New Size(99, 55)
         btnAnterior.TabIndex = 52
@@ -251,7 +251,7 @@ Partial Class Form10
         ' btnPrimero
         ' 
         btnPrimero.Location = New Point(968, 388)
-        btnPrimero.Margin = New Padding(4, 4, 4, 4)
+        btnPrimero.Margin = New Padding(4)
         btnPrimero.Name = "btnPrimero"
         btnPrimero.Size = New Size(99, 55)
         btnPrimero.TabIndex = 51
@@ -261,7 +261,7 @@ Partial Class Form10
         ' btnSalir
         ' 
         btnSalir.Location = New Point(605, 388)
-        btnSalir.Margin = New Padding(4, 4, 4, 4)
+        btnSalir.Margin = New Padding(4)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(206, 55)
         btnSalir.TabIndex = 50
@@ -271,7 +271,7 @@ Partial Class Form10
         ' btnLimpiar
         ' 
         btnLimpiar.Location = New Point(712, 325)
-        btnLimpiar.Margin = New Padding(4, 4, 4, 4)
+        btnLimpiar.Margin = New Padding(4)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(99, 55)
         btnLimpiar.TabIndex = 49
@@ -281,7 +281,7 @@ Partial Class Form10
         ' btnEliminar
         ' 
         btnEliminar.Location = New Point(605, 325)
-        btnEliminar.Margin = New Padding(4, 4, 4, 4)
+        btnEliminar.Margin = New Padding(4)
         btnEliminar.Name = "btnEliminar"
         btnEliminar.Size = New Size(99, 55)
         btnEliminar.TabIndex = 48
@@ -291,7 +291,7 @@ Partial Class Form10
         ' btnEditar
         ' 
         btnEditar.Location = New Point(498, 325)
-        btnEditar.Margin = New Padding(4, 4, 4, 4)
+        btnEditar.Margin = New Padding(4)
         btnEditar.Name = "btnEditar"
         btnEditar.Size = New Size(99, 55)
         btnEditar.TabIndex = 47
@@ -301,7 +301,7 @@ Partial Class Form10
         ' btnGuardar
         ' 
         btnGuardar.Location = New Point(391, 325)
-        btnGuardar.Margin = New Padding(4, 4, 4, 4)
+        btnGuardar.Margin = New Padding(4)
         btnGuardar.Name = "btnGuardar"
         btnGuardar.Size = New Size(99, 55)
         btnGuardar.TabIndex = 46
@@ -311,7 +311,7 @@ Partial Class Form10
         ' btnRegresar
         ' 
         btnRegresar.Location = New Point(391, 388)
-        btnRegresar.Margin = New Padding(4, 4, 4, 4)
+        btnRegresar.Margin = New Padding(4)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(206, 55)
         btnRegresar.TabIndex = 45
@@ -323,24 +323,24 @@ Partial Class Form10
         txtBuscarMedicamento.Location = New Point(194, 384)
         txtBuscarMedicamento.Margin = New Padding(4, 2, 4, 2)
         txtBuscarMedicamento.Name = "txtBuscarMedicamento"
-        txtBuscarMedicamento.Size = New Size(189, 27)
+        txtBuscarMedicamento.Size = New Size(189, 32)
         txtBuscarMedicamento.TabIndex = 55
         txtBuscarMedicamento.TextAlign = HorizontalAlignment.Center
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(13, 393)
+        Label9.Location = New Point(-2, 388)
         Label9.Margin = New Padding(4, 0, 4, 0)
         Label9.Name = "Label9"
-        Label9.Size = New Size(141, 16)
+        Label9.Size = New Size(188, 21)
         Label9.TabIndex = 56
         Label9.Text = "Buscar medicamento:"
         Label9.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form10
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1187, 573)
         Controls.Add(Label9)

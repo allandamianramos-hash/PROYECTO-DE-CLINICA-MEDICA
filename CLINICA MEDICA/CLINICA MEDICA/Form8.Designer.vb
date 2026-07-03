@@ -44,16 +44,16 @@ Partial Class Form8
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Lucida Sans Unicode", 9.75F, FontStyle.Bold)
-        Label1.Location = New Point(12, 9)
+        Label1.Location = New Point(12, 4)
         Label1.Name = "Label1"
-        Label1.Size = New Size(252, 16)
+        Label1.Size = New Size(322, 21)
         Label1.TabIndex = 3
         Label1.Text = "Módulo de reportes y estadísticas"
         Label1.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' btnRegresar
         ' 
-        btnRegresar.Location = New Point(272, 295)
+        btnRegresar.Location = New Point(336, 299)
         btnRegresar.Name = "btnRegresar"
         btnRegresar.Size = New Size(124, 47)
         btnRegresar.TabIndex = 16
@@ -66,7 +66,7 @@ Partial Class Form8
         rdbCitasDia.Location = New Point(12, 246)
         rdbCitasDia.Margin = New Padding(3, 2, 3, 2)
         rdbCitasDia.Name = "rdbCitasDia"
-        rdbCitasDia.Size = New Size(227, 20)
+        rdbCitasDia.Size = New Size(302, 25)
         rdbCitasDia.TabIndex = 17
         rdbCitasDia.TabStop = True
         rdbCitasDia.Text = "Citas programadas para este día"
@@ -79,7 +79,7 @@ Partial Class Form8
         rdbHistorial.Location = New Point(12, 270)
         rdbHistorial.Margin = New Padding(3, 2, 3, 2)
         rdbHistorial.Name = "rdbHistorial"
-        rdbHistorial.Size = New Size(207, 20)
+        rdbHistorial.Size = New Size(270, 25)
         rdbHistorial.TabIndex = 18
         rdbHistorial.TabStop = True
         rdbHistorial.Text = "Historial clínico por paciente"
@@ -92,7 +92,7 @@ Partial Class Form8
         rdbMedicos.Location = New Point(12, 294)
         rdbMedicos.Margin = New Padding(3, 2, 3, 2)
         rdbMedicos.Name = "rdbMedicos"
-        rdbMedicos.Size = New Size(187, 20)
+        rdbMedicos.Size = New Size(246, 25)
         rdbMedicos.TabIndex = 19
         rdbMedicos.TabStop = True
         rdbMedicos.Text = "Productividad de médicos"
@@ -102,10 +102,10 @@ Partial Class Form8
         ' cmbFiltroSeleccion
         ' 
         cmbFiltroSeleccion.FormattingEnabled = True
-        cmbFiltroSeleccion.Location = New Point(142, 318)
+        cmbFiltroSeleccion.Location = New Point(182, 321)
         cmbFiltroSeleccion.Margin = New Padding(3, 2, 3, 2)
         cmbFiltroSeleccion.Name = "cmbFiltroSeleccion"
-        cmbFiltroSeleccion.Size = New Size(122, 24)
+        cmbFiltroSeleccion.Size = New Size(122, 28)
         cmbFiltroSeleccion.TabIndex = 20
         ' 
         ' dgvResultados
@@ -120,7 +120,7 @@ Partial Class Form8
         ' 
         ' btnGenerar
         ' 
-        btnGenerar.Location = New Point(272, 246)
+        btnGenerar.Location = New Point(336, 246)
         btnGenerar.Margin = New Padding(3, 2, 3, 2)
         btnGenerar.Name = "btnGenerar"
         btnGenerar.Size = New Size(124, 44)
@@ -130,7 +130,7 @@ Partial Class Form8
         ' 
         ' btnLimpiar
         ' 
-        btnLimpiar.Location = New Point(402, 246)
+        btnLimpiar.Location = New Point(466, 246)
         btnLimpiar.Margin = New Padding(3, 2, 3, 2)
         btnLimpiar.Name = "btnLimpiar"
         btnLimpiar.Size = New Size(124, 44)
@@ -180,7 +180,7 @@ Partial Class Form8
         ' 
         ' btnSalir
         ' 
-        btnSalir.Location = New Point(402, 294)
+        btnSalir.Location = New Point(466, 298)
         btnSalir.Margin = New Padding(3, 2, 3, 2)
         btnSalir.Name = "btnSalir"
         btnSalir.Size = New Size(124, 48)
@@ -193,14 +193,14 @@ Partial Class Form8
         lblFiltro.AutoSize = True
         lblFiltro.Location = New Point(12, 321)
         lblFiltro.Name = "lblFiltro"
-        lblFiltro.Size = New Size(124, 16)
+        lblFiltro.Size = New Size(164, 21)
         lblFiltro.TabIndex = 29
         lblFiltro.Text = "Selección de filtro:"
         lblFiltro.TextAlign = ContentAlignment.MiddleCenter
         ' 
         ' Form8
         ' 
-        AutoScaleDimensions = New SizeF(8F, 16F)
+        AutoScaleDimensions = New SizeF(10F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(960, 353)
         Controls.Add(lblFiltro)
